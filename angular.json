@@ -1,0 +1,126 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "res_manager_front": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/res_manager_front",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/assets/app-assets/vendors/css/vendors.min.css",
+              "src/assets/app-assets/vendors/css/tables/datatable/datatables.min.css",
+              "src/assets/app-assets/css/bootstrap.css",
+              "src/assets/app-assets/css/bootstrap-extended.css",
+              "src/assets/app-assets/css/colors.css",
+              "src/assets/app-assets/css/components.css",
+              "src/assets/app-assets/css/themes/dark-layout.css",
+              "src/assets/app-assets/css/themes/semi-dark-layout.css",
+              "src/assets/app-assets/css/core/menu/menu-types/vertical-menu.css",
+              "src/assets/app-assets/css/core/colors/palette-gradient.css",
+              "src/assets/assets/css/style.css"
+            ],
+            "scripts": [
+              "src/assets/app-assets/vendors/js/vendors.min.js",
+              "src/assets/app-assets/vendors/js/tables/datatable/pdfmake.min.js",
+              "src/assets/app-assets/vendors/js/tables/datatable/vfs_fonts.js",
+              "src/assets/app-assets/vendors/js/tables/datatable/datatables.min.js",
+              "src/assets/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js",
+              "src/assets/app-assets/vendors/js/tables/datatable/buttons.html5.min.js",
+              "src/assets/app-assets/vendors/js/tables/datatable/buttons.print.min.js",
+              "src/assets/app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js",
+              "src/assets/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js",
+              "src/assets/app-assets/js/core/app-menu.js",
+              "src/assets/app-assets/js/core/app.js",
+              "src/assets/app-assets/js/scripts/components.js",
+              "src/assets/app-assets/js/scripts/datatables/datatable.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "res_manager_front:build:production"
+            },
+            "development": {
+              "browserTarget": "res_manager_front:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "res_manager_front:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}
