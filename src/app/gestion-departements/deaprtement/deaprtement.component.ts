@@ -33,6 +33,7 @@ export class DeaprtementComponent {
     this.gestDepartementService.getAllDepartements().subscribe({
       next: (data: Departement[]) => {
         this.departements = data;
+        this.ngAfterViewInit();
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);
@@ -45,6 +46,7 @@ export class DeaprtementComponent {
     this.gestDepartementService.addDepartement(addDepartementForm.value).subscribe({
       next: (data) => {
         this.departements.unshift(data);
+        this.ngAfterViewInit();
       },
       error: (error) => {
         console.log(error);
@@ -59,6 +61,7 @@ export class DeaprtementComponent {
     this.gestDepartementService.editDepartement(departement).subscribe({
       next: (data) => {
         this.getDepartements();
+        this.ngAfterViewInit();
       },
       error: (error) => {
         console.log(error);
@@ -73,6 +76,7 @@ export class DeaprtementComponent {
         next: () => {
           let index = this.departements.indexOf(this.deleteDepartement!);
           this.departements.splice(index, 1);
+          this.ngAfterViewInit();
         },
         error: (error) => console.log(error)
       });
