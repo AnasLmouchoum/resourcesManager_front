@@ -10,6 +10,7 @@ import { HeadMenuComponent } from './components/head-menu/head-menu.component';
 import { DeaprtementComponent } from './gestion-departements/deaprtement/deaprtement.component';
 import { MembreComponent } from './gestion-departements/membre/membre.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { BesoinComponent } from './gestionBesoin/besoin/besoin.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FooterComponent } from './components/footer/footer.component';
     HeadMenuComponent,
     DeaprtementComponent,
     MembreComponent,
-    FooterComponent
+    FooterComponent,
+    BesoinComponent
   ],
   imports: [
     BrowserModule,

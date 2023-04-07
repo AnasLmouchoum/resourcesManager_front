@@ -45,7 +45,7 @@ export class DeaprtementComponent {
     console.log(addDepartementForm.value)
     this.gestDepartementService.addDepartement(addDepartementForm.value).subscribe({
       next: (data) => {
-        this.departements.unshift(data);
+        this.departements.push(data);
         this.ngAfterViewInit();
       },
       error: (error) => {
@@ -93,9 +93,6 @@ export class DeaprtementComponent {
 
 
   ngAfterViewInit(): void {
-    // $(document).ready(function() {
-    //   $('#departementsTable').DataTable();
-    // });
     setTimeout(() => {
       $(document).ready(function() {
         $('#departementsTable').DataTable();

@@ -106,11 +106,11 @@
               </button>
           </div>
           <div class="modal-body">
-            <form #addDepartementForm="ngForm">
+            <form #addDepartementForm="ngForm" novalidate>
                 <label>Nom Departement: </label>
-                <div class="form-group">
-                  <input type="text" ngModel name="nomDepartement" placeholder="Email Address" class="form-control" placeholder="Nom Departement ex:(Génie Informatique)">
-                </div>
+                <div class="form-group controls">
+                  <input type="text" ngModel name="nomDepartement" class="form-control" placeholder="Nom Departement ex:(Génie Informatique)" required data-validation-required-message="ktb lmk">
+                  <div class="help-block"></div></div>
                 <button type="submit" (click)="handleAjouterDepartement(addDepartementForm)" class="btn btn-primary waves-effect waves-light mr-1" data-dismiss="modal">Ajouter</button>
                 <button type="button" class="btn btn-danger waves-effect waves-light mr-1" data-dismiss="modal">Annuler</button>
             </form>
@@ -157,8 +157,8 @@
               Etes vous vraimant voulez supprimer le departement {{ deleteDepartement?.nomDepartement }}
           </div>
           <div class="modal-footer">
-              <button type="button" (click)="handleDeleteDepartement()" class="btn btn-primary waves-effect waves-light mr-1" data-dismiss="modal">Confirmer</button>
-              <button type="button" class="btn btn-danger waves-effect waves-light mr-1" data-dismiss="modal">Annuler</button>
+              <button type="button" (click)="handleDeleteDepartement()" class="btn btn-danger waves-effect waves-light mr-1" data-dismiss="modal">Confirmer</button>
+              <button type="button" class="btn btn-light waves-effect waves-light mr-1" data-dismiss="modal">Annuler</button>
           </div>
       </div>
   </div>
