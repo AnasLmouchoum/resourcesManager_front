@@ -36,7 +36,7 @@
 
           <div class="dt-buttons btn-group mb-2 row justify-content-between" style="width: 100%;">
             <div class="col-3"><button class="btn btn-outline-primary" (click)="openAddBesoin = true"><span><i class="feather icon-plus"></i> Ajouter besoin</span></button></div>
-            <div class="col-2"><button type="button" class="btn btn-primary waves-effect waves-light" (click)="handleSaveBesoins()"><i class="feather icon-save"></i> Sauvgarder</button></div>
+            <div class="col-2"><button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#confirmBesoins"><i class="feather icon-save"></i> Sauvgarder</button></div>
           </div>
 
           <div class="row" *ngIf="openAddBesoin">
@@ -180,3 +180,22 @@
   </div>
 </div>
 
+<div class="modal fade text-left" id="confirmBesoins" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+          <div class="modal-header bg-success white">
+              <h5 class="modal-title" id="myModalLabel120">Confirmation de suppression</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              Vous voullez confirmer les besoins exprimé ?
+          </div>
+          <div class="modal-footer">
+              <button type="button" (click)="handleSaveBesoins()" class="btn btn-success waves-effect waves-light mr-1" data-dismiss="modal">Confirmer</button>
+              <button type="button" class="btn btn-light waves-effect waves-light mr-1" data-dismiss="modal">Annuler</button>
+          </div>
+      </div>
+  </div>
+</div>
