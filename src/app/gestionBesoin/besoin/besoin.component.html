@@ -1,0 +1,182 @@
+<div class="app-content content">
+  <div class="content-overlay"></div>
+  <div class="header-navbar-shadow"></div>
+  <div class="content-wrapper">
+      <div class="content-header row">
+          <div class="content-header-left col-md-9 col-12 mb-2">
+              <div class="row breadcrumbs-top">
+                  <div class="col-12">
+                      <h2 class="content-header-title float-left mb-0">Gestion Besoins</h2>
+                      <div class="breadcrumb-wrapper col-12">
+                          <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a>Besoins</a>
+                              </li>
+                              <li class="breadcrumb-item active">Exprimé besoins
+                              </li>
+                          </ol>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+              <div class="form-group breadcrum-right">
+                  <div class="dropdown">
+                      <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
+                      <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Chat</a><a class="dropdown-item" href="#">Email</a><a class="dropdown-item" href="#">Calendar</a></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="content-body">
+          <div class="row">
+              <div class="col-12">
+                  <p>Vous pouvez gérer les departements de votre etablissement via cette page</p>
+              </div>
+          </div>
+
+          <div class="dt-buttons btn-group mb-2 row justify-content-between" style="width: 100%;">
+            <div class="col-3"><button class="btn btn-outline-primary" (click)="openAddBesoin = true"><span><i class="feather icon-plus"></i> Ajouter besoin</span></button></div>
+            <div class="col-2"><button type="button" class="btn btn-primary waves-effect waves-light" (click)="handleSaveBesoins()"><i class="feather icon-save"></i> Sauvgarder</button></div>
+          </div>
+
+          <div class="row" *ngIf="openAddBesoin">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Ajouter un besoin</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form-horizontal" #ressourceToAdd="ngForm">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                              Type de ressource
+                                              <select [value]="typeBesoinToAdd" (change)="chooseRessource($event)" class="form-control" id="typeDeRess">
+                                                <option value="" selected>Choose...</option>
+                                                <option value="Ordinateur">Ordinateur</option>
+                                                <option value="Imprimante">Imprimante</option>
+                                              </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="forTypeOrdinateur" *ngIf="typeBesoinToAdd == 'Ordinateur'">
+                                  <div class="col-sm-6" >
+                                      <div class="form-group">
+                                          CPU
+                                          <input type="text" ngModel name="cpu" class="form-control" placeholder="CPU" required="">
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <div class="form-group">
+                                          RAM
+                                          <input type="text" ngModel name="ram" class="form-control" placeholder="RAM" required="">
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <div class="form-group">
+                                          Ecran
+                                          <input type="text" ngModel name="ecran" class="form-control" placeholder="Ecran" required="" data-validation-match-match="password">
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                    <div class="form-group">
+                                      Disque Dur
+                                        <input type="text" ngModel name="disquedur" class="form-control" placeholder="Ecran" required="" data-validation-match-match="password">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row" id="forTypeImprimante" *ngIf="typeBesoinToAdd == 'Imprimante'">
+                                  <div class="col-sm-6" >
+                                      <div class="form-group">
+                                          Resolution
+                                          <input type="text" ngModel name="resolution" class="form-control" placeholder="Resolution" required="">
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <div class="form-group">
+                                          Vitesse Impression
+                                          <input type="text" ngModel name="vitesseimpression" class="form-control" placeholder="Vitesse Impression" required="">
+                                      </div>
+                                  </div>
+                                </div>
+                                <button type="submit" (click)="handleAddRessourceToBesoin(ressourceToAdd)" class="btn btn-primary waves-effect waves-light mr-1">Ajouter</button>
+                                <button class="btn btn-light waves-effect waves-light mr-1" (click)="handleCloseAddBesoin()">Fermer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <!-- Column selectors with Export Options and print table -->
+          <section id="statistics-card">
+            <div class="row">
+              <section id="anchors-n-buttons container" style="width: 100%;">
+                <div class="row match-height">
+                  <div class="col-lg-6 col-md-12">
+                    <div class="card h-auto">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="list-group">
+                                    <button type="button" class="list-group-item list-group-item-action active">
+                                        Ordinateurs
+                                    </button>
+                                    <div class="card border-bottom" *ngFor="let ord of ordinateursBesoin">
+                                      <div class="card-header d-flex align-items-start pb-0">
+                                        <div class="row" style="width: 100%;">
+                                            <div class="avatar-content col-1">
+                                                <i class="feather icon-monitor text-primary font-medium-5"></i>
+                                            </div>
+                                          <div class="col-10">
+                                            <p><strong>RAM</strong>({{ ord.ram }}) <strong>CPU</strong>({{ ord.cpu }}) <strong>Ecran</strong>({{ ord.ecran }}) <strong>Disque dur</strong>({{ ord.disqueDur }})</p>
+                                          </div>
+                                          <a class="text-danger col-1" (click)="handleRemoveBesoin('Ordinateur', ord)"><i class="feather icon-trash"></i></a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card h-auto">
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <div class="list-group">
+                                        <button type="button" class="list-group-item list-group-item-action active">
+                                            Imprimantes
+                                        </button>
+                                        <div class="card border-bottom" *ngFor="let imp of imprimantesBesoin">
+                                          <div class="card-header d-flex align-items-start pb-0">
+                                            <div class="row" style="width: 100%;">
+                                              <div class="avatar-content col-1">
+                                                <i class="feather icon-printer text-primary font-medium-5"></i>
+                                              </div>
+                                              <div class="col-10">
+                                                  <p><strong>Resolution</strong>({{ imp.resolution }}) <strong>Vitesse d'impression</strong>({{ imp.vitesseImpression }})</p>
+                                              </div>
+                                              <a class="text-danger col-1"  (click)="handleRemoveBesoin('Imprimante', imp)"><i class="feather icon-trash"></i></a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                <div class="col-lg-12 col-sm-8 col-6">
+
+                </div>
+            </div>
+          </section>
+
+          <!-- Column selectors with Export Options and print table -->
+      </div>
+  </div>
+</div>
+

@@ -38,6 +38,7 @@ export interface Ressource {
 }
 
 export interface Ordinateur extends Ressource {
+disquedur: any;
     cpu: string;
     ram: number;
     disqueDur: string;
@@ -47,4 +48,16 @@ export interface Ordinateur extends Ressource {
 export interface Imprimante extends Ressource {
     resolution: string;
     vitesseImpression: string;
+}
+
+export interface Besoin {
+    id: number | null;
+    dateDemande: string;
+    dateAffectation: string | null;
+    isAffected: boolean;
+    idMembreDepartement: string;
+    idDepartement: number;
+    isBesoinInAppelOffre: boolean;
+    ordinateurs: Ordinateur[];
+    imprimantes: Imprimante[];
 }

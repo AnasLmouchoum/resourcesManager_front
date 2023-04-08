@@ -42,7 +42,6 @@ export class DeaprtementComponent {
   }
 
   public handleAjouterDepartement(addDepartementForm: NgForm): void {
-    console.log(addDepartementForm.value)
     this.gestDepartementService.addDepartement(addDepartementForm.value).subscribe({
       next: (data) => {
         this.departements.push(data);
