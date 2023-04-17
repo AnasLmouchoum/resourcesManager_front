@@ -11,6 +11,9 @@ import { DeaprtementComponent } from './gestion-departements/deaprtement/deaprte
 import { MembreComponent } from './gestion-departements/membre/membre.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BesoinComponent } from './gestionBesoin/besoin/besoin.component';
+import { ListeBesoinComponent } from './gestionBesoin/liste-besoin/liste-besoin.component';
+import { AppelOffreComponent } from './appel-offre/appel-offre.component';
+import { OffreComponent } from './offre/offre.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { BesoinComponent } from './gestionBesoin/besoin/besoin.component';
     DeaprtementComponent,
     MembreComponent,
     FooterComponent,
-    BesoinComponent
+    BesoinComponent,
+    ListeBesoinComponent,
+    AppelOffreComponent,
+    OffreComponent
   ],
   imports: [
     BrowserModule,

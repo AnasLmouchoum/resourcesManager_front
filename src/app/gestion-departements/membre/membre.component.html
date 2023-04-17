@@ -214,7 +214,7 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h4 class="modal-title" id="myModalLabel33">Modifier le membre {{ editMembre?.nom }} {{ editMembre?.prenom }}</h4>
+              <h4 class="modal-title" id="myModalLabel733">Modifier le membre {{ editMembre?.nom }} {{ editMembre?.prenom }}</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
               </button>
@@ -225,31 +225,31 @@
                   <div class="row">
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.nom }}" type="text" id="nom-column" class="form-control" placeholder="Nom" name="nom">
+                              <input ngModel="{{ editMembre?.nom }}" type="text" id="nom-columnE" class="form-control" placeholder="Nom" name="nom">
                               <label for="nom-column">Nom</label>
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.prenom }}" type="text" id="prenom-column" class="form-control" placeholder="Prenom" name="prenom">
+                              <input ngModel="{{ editMembre?.prenom }}" type="text" id="prenom-columnE" class="form-control" placeholder="Prenom" name="prenom">
                               <label for="prenom-column">Prenom</label>
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.username }}" type="text" id="username-column" class="form-control" placeholder="Username" name="username">
+                              <input ngModel="{{ editMembre?.username }}" type="text" id="username-columnE" class="form-control" placeholder="Username" name="username">
                               <label for="username-column">Username</label>
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.email }}" type="email" id="email-column" class="form-control" name="email" placeholder="Email">
+                              <input ngModel="{{ editMembre?.email }}" type="email" id="email-columnE" class="form-control" name="email" placeholder="Email">
                               <label for="email-column">Email</label>
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.cin }}" type="text" id="cin-column" class="form-control" name="cin" placeholder="CIN">
+                              <input ngModel="{{ editMembre?.cin }}" type="text" id="cin-columnE" class="form-control" name="cin" placeholder="CIN">
                               <label for="cin-column">CIN</label>
                           </div>
                       </div>
@@ -258,19 +258,19 @@
                   <div class="row">
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.domaineExpertise }}" type="text" id="domaine-column" class="form-control" placeholder="Domaine" name="domaineExpertise">
+                              <input ngModel="{{ editMembre?.domaineExpertise }}" type="text" id="domaine-columnE" class="form-control" placeholder="Domaine" name="domaineExpertise">
                               <label for="domaine-column">Domaine</label>
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.laboratoire }}" type="text" id="laboratoire-column" class="form-control" placeholder="Laboratoire" name="laboratoire">
+                              <input ngModel="{{ editMembre?.laboratoire }}" type="text" id="laboratoire-columnE" class="form-control" placeholder="Laboratoire" name="laboratoire">
                               <label for="laboratoire-column">Laboratoire</label>
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                            <select ngModel="{{ editMembre?.idDepartement }}" name="idDepartement" class="form-control" id="">
+                            Departement<select ngModel="{{ editMembre?.idDepartement }}" name="idDepartement" class="form-control" id="">
                               <option selected value="choose">Choose...</option>
                               <option *ngFor="let departement of departements" value="{{ departement.id }}">{{ departement.nomDepartement }}</option>
                             </select>

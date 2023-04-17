@@ -14,6 +14,7 @@ export class BesoinComponent {
   imprimantesBesoin: Imprimante[] = [];
   typeBesoinToAdd: string = "";
   openAddBesoin: boolean = false;
+  isForDepartement: boolean = false;
 
   public constructor(private gestionBesoinService: GestionBesoinsService) {}
 
@@ -29,16 +30,23 @@ export class BesoinComponent {
       dateDemande: formattedDate,
       dateAffectation: null,
       isAffected: false,
-      idMembreDepartement: '59914b57-a73f-495e-9588-1455608a3fe0', // extract idMembreDepartement from current user
+      idMembreDepartement: null, // extract idMembreDepartement from current user
       idDepartement: 3, // extract idDepartement from current user
       isBesoinInAppelOffre: false,
       ordinateurs: this.ordinateursBesoin,
       imprimantes: this.imprimantesBesoin
     };
+    if (this.isForDepartement == false) {
+      besoin.idMembreDepartement = 'ac068373-69ce-4d7d-84dd-ca89419588e9'; // extract idMembreDepartement from current user
+    }
     this.gestionBesoinService.addBesoins(besoin).subscribe({
       next: (data) => {this.reset()},
       error: (error) => console.log(error)
     })
+  }
+
+  public onCheckboxChange() {
+    this.isForDepartement = true;
   }
 
   public handleCloseAddBesoin() {
@@ -56,26 +64,48 @@ export class BesoinComponent {
   }
 
   public handleAddRessourceToBesoin(ressourceToAdd: NgForm) {
-    if (this.typeBesoinToAdd == 'Ordinateur') {
-      var ordinateur = {} as Ordinateur;
-      ordinateur.type = this.typeBesoinToAdd;
-      ordinateur.cpu = ressourceToAdd.value.cpu;
-      ordinateur.ram = ressourceToAdd.value.ram;
-      ordinateur.disqueDur = ressourceToAdd.value.disquedur;
-      ordinateur.ecran = ressourceToAdd.value.ecran;
-      ordinateur.idDepartement = 3; // extract idDepartement from current user
-      ordinateur.idMembreDepartement = '59914b57-a73f-495e-9588-1455608a3fe0'; // extract idMembreDepartement from current user
-      this.ordinateursBesoin.push(ordinateur);
-      this.addOrdinateurToLocalStorage();
-    } else if (this.typeBesoinToAdd == 'Imprimante') {
-      var imprimante = {} as Imprimante;
-      imprimante.type = this.typeBesoinToAdd;
-      imprimante.resolution = ressourceToAdd.value.resolution;
-      imprimante.vitesseImpression = ressourceToAdd.value.vitesseimpression;
-      imprimante.idDepartement = 3; // extract idDepartement from current user
-      imprimante.idMembreDepartement = '59914b57-a73f-495e-9588-1455608a3fe0'; // extract idMembreDepartement from current user
-      this.imprimantesBesoin.push(imprimante);
-      this.addImprimanteToLocalStorage();
+    if (this.isForDepartement == true) {
+      if (this.typeBesoinToAdd == 'Ordinateur') {
+        var ordinateur = {} as Ordinateur;
+        ordinateur.type = this.typeBesoinToAdd;
+        ordinateur.cpu = ressourceToAdd.value.cpu;
+        ordinateur.ram = ressourceToAdd.value.ram;
+        ordinateur.disqueDur = ressourceToAdd.value.disquedur;
+        ordinateur.ecran = ressourceToAdd.value.ecran;
+        ordinateur.idDepartement = 3; // extract idDepartement from current user
+        this.ordinateursBesoin.push(ordinateur);
+        this.addOrdinateurToLocalStorage();
+      } else if (this.typeBesoinToAdd == 'Imprimante') {
+        var imprimante = {} as Imprimante;
+        imprimante.type = this.typeBesoinToAdd;
+        imprimante.resolution = ressourceToAdd.value.resolution;
+        imprimante.vitesseImpression = ressourceToAdd.value.vitesseimpression;
+        imprimante.idDepartement = 3; // extract idDepartement from current user
+        this.imprimantesBesoin.push(imprimante);
+        this.addImprimanteToLocalStorage();
+      }
+    }else {
+      if (this.typeBesoinToAdd == 'Ordinateur') {
+        var ordinateur = {} as Ordinateur;
+        ordinateur.type = this.typeBesoinToAdd;
+        ordinateur.cpu = ressourceToAdd.value.cpu;
+        ordinateur.ram = ressourceToAdd.value.ram;
+        ordinateur.disqueDur = ressourceToAdd.value.disquedur;
+        ordinateur.ecran = ressourceToAdd.value.ecran;
+        ordinateur.idDepartement = 3; // extract idDepartement from current user
+        ordinateur.idMembreDepartement = 'ac068373-69ce-4d7d-84dd-ca89419588e9'; // extract idMembreDepartement from current user
+        this.ordinateursBesoin.push(ordinateur);
+        this.addOrdinateurToLocalStorage();
+      } else if (this.typeBesoinToAdd == 'Imprimante') {
+        var imprimante = {} as Imprimante;
+        imprimante.type = this.typeBesoinToAdd;
+        imprimante.resolution = ressourceToAdd.value.resolution;
+        imprimante.vitesseImpression = ressourceToAdd.value.vitesseimpression;
+        imprimante.idDepartement = 3; // extract idDepartement from current user
+        imprimante.idMembreDepartement = 'ac068373-69ce-4d7d-84dd-ca89419588e9'; // extract idMembreDepartement from current user
+        this.imprimantesBesoin.push(imprimante);
+        this.addImprimanteToLocalStorage();
+      }
     }
     this.resetTypeToAdd();
     this.openAddBesoin = false;

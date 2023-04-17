@@ -50,7 +50,10 @@ export class MembreComponent {
     }
     addMembreForm.value.roles = [role]
     this.gestionDepartementsService.addMembre(addMembreForm.value).subscribe({
-      next: (data) => this.membresDepartement.push(data),
+      next: (data) => {
+        this.membresDepartement.push(data);
+        addMembreForm.resetForm()
+      },
       error: (error) => console.log(error)
     })
   }
@@ -92,7 +95,7 @@ export class MembreComponent {
 
 
   public getDepartement(idDepartement: number): string {
-    return this.departements.filter((dep) => dep.id == idDepartement)[0].nomDepartement
+    return this.departements.filter((dep) => dep.id == idDepartement)[0]?.nomDepartement
   }
 
   public getRoles(roles: Role[]): string {

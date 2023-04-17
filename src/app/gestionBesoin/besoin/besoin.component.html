@@ -38,7 +38,10 @@
             <div class="col-3"><button class="btn btn-outline-primary" (click)="openAddBesoin = true"><span><i class="feather icon-plus"></i> Ajouter besoin</span></button></div>
             <div class="col-2"><button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#confirmBesoins"><i class="feather icon-save"></i> Sauvgarder</button></div>
           </div>
-
+          <div class="custom-control custom-checkbox mb-1">
+            <input type="checkbox" class="custom-control-input" (click)="onCheckboxChange()" name="isForDepartement" id="forDepartement">
+            <label class="custom-control-label" for="forDepartement">Pour tout le departement</label>
+          </div>
           <div class="row" *ngIf="openAddBesoin">
             <div class="col-md-12">
                 <div class="card">
@@ -184,7 +187,7 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
           <div class="modal-header bg-success white">
-              <h5 class="modal-title" id="myModalLabel120">Confirmation de suppression</h5>
+              <h5 class="modal-title" id="myModalLabel120">Confirmer les besoins</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
               </button>

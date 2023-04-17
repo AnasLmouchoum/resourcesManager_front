@@ -38,7 +38,7 @@ export interface Ressource {
 }
 
 export interface Ordinateur extends Ressource {
-disquedur: any;
+    disquedur: any;
     cpu: string;
     ram: number;
     disqueDur: string;
@@ -55,9 +55,44 @@ export interface Besoin {
     dateDemande: string;
     dateAffectation: string | null;
     isAffected: boolean;
-    idMembreDepartement: string;
+    idMembreDepartement: string | null;
     idDepartement: number;
     isBesoinInAppelOffre: boolean;
     ordinateurs: Ordinateur[];
     imprimantes: Imprimante[];
+}
+
+export interface Demande {
+  id: number;
+  message: string;
+  isSeen: boolean;
+  dateDemande: Date;
+  idMembreDepartement: string;
+  idDepartement: number;
+}
+
+export interface AppelOffre {
+  id:number|null;
+  datePub:string|null|Date;
+  isAffected:boolean;
+  besoins:Besoin[];
+}
+
+export interface Offre {
+  id:number|null;
+  dateDebut:string|null;
+  dateFin:string|null;
+  isAffected:boolean;
+  isRejected:boolean;
+  isWaiting:boolean;
+  idFournisseur:string|null;
+  ressources :RessourceFournisseur[];
+  idAppelOffre:number;
+}
+
+export interface RessourceFournisseur{
+  id:number|null;
+  marque:string|null;
+  prix:number|null;
+  idRessource:number|null;
 }

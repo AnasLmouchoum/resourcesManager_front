@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Besoin, Imprimante, Ordinateur } from '../classes/Classes';
+import { Besoin, Demande, Imprimante, Ordinateur } from '../classes/Classes';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environment/environment';
@@ -15,6 +15,26 @@ export class GestionBesoinsService {
 
   public addBesoins(besoin: Besoin): Observable<Besoin> {
     return this.http.post<Besoin>(`${this.apiServerUrl}/besoins`, besoin);
+  }
+
+  public getBesoinsByIdDepartement(idDepartement: number): Observable<Besoin[]> {
+    return this.http.get<Besoin[]>(`${this.apiServerUrl}/besoins/departement/${idDepartement}`);
+  }
+
+  public getBesoinsNotInAppelOffre(): Observable<Besoin[]> {
+    return this.http.get<Besoin[]>(`${this.apiServerUrl}/besoins/NotInAppelOffre`);
+  }
+
+  public sendBesoinsRequest(idDepartement: number): Observable<void> {
+    return this.http.post<void>(`${this.apiServerUrl}/demandes/departements/${idDepartement}`, null);
+  }
+
+  public getDemandesByIdMembre(idMembre: string): Observable<Demande[]> {
+    return this.http.get<Demande[]>(`${this.apiServerUrl}/demandes/membres/${idMembre}`);
+  }
+
+  public demandeSeen(id: number): Observable<Demande> {
+    return this.http.put<Demande>(`${this.apiServerUrl}/demandes/seen/${id}`, null);
   }
 
 }
