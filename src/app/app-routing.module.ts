@@ -6,6 +6,10 @@ import { BesoinComponent } from './gestionBesoin/besoin/besoin.component';
 import { ListeBesoinComponent } from './gestionBesoin/liste-besoin/liste-besoin.component';
 import { AppelOffreComponent } from './appel-offre/appel-offre.component';
 import { OffreComponent } from './offre/offre.component';
+import { OrdinateurComponent } from './gestionRessource/ordinateur/ordinateur.component';
+import { OrdinateurDisponibleComponent } from './gestionRessource/ordinateur-disponible/ordinateur-disponible.component';
+import { ImprimanteComponent } from './gestionRessource/imprimante/imprimante.component';
+import { ImprimanteDisponibleComponent } from './gestionRessource/imprimante-disponible/imprimante-disponible.component';
 
 const routes: Routes = [
   {path: 'departements', component: DeaprtementComponent},
@@ -13,7 +17,11 @@ const routes: Routes = [
   {path: 'addBesoins', component: BesoinComponent},
   {path: 'listeBesoin', component: ListeBesoinComponent},
   {path:'appelOffre',component: AppelOffreComponent},
-  {path:'offre',component: OffreComponent}
+  {path:'offre',component: OffreComponent},
+  {path :"ressource/ordinateur",component :OrdinateurComponent},
+  {path :"ressource/ordinateurDisponible",component :OrdinateurDisponibleComponent},
+  {path :"ressource/imprimanteDisponible",component :ImprimanteDisponibleComponent},
+  {path :"ressource/imprimante",component :ImprimanteComponent}
 ];
 
 @NgModule({

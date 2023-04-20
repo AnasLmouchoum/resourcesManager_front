@@ -56,7 +56,8 @@
               "src/assets/app-assets/js/scripts/popover/popover.js",
               "src/assets/app-assets/js/scripts/tooltip/tooltip.js",
               "src/assets/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js",
-              "src/assets/app-assets/js/scripts/forms/validation/form-validation.js"
+              "src/assets/app-assets/js/scripts/forms/validation/form-validation.js",
+              "src/assets/app-assets/js/scripts/modal/components-modal.js"
             ]
           },
           "configurations": {

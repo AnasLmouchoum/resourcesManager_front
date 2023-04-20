@@ -46,7 +46,7 @@ export class BesoinComponent {
   }
 
   public onCheckboxChange() {
-    this.isForDepartement = true;
+    this.isForDepartement = !this.isForDepartement;
   }
 
   public handleCloseAddBesoin() {

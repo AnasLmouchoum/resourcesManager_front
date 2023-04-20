@@ -22,6 +22,7 @@ export class AppelOffreComponent {
   public selecedtOffre: Offre|undefined;
   public departements:Departement[]=[];
   public membresDep:MembreDepartement[]=[];
+  public blackListOpened: boolean = false;
 
 
   constructor(private appelOffreService: GestionAppelOffreService, private besoinService: GestionBesoinsService,private offreService:OffreService,private gestionDepartementsService:GestionDepartementsService) { }
@@ -66,6 +67,15 @@ export class AppelOffreComponent {
 
   public getMembreDepartement(idMembre: string|null|undefined): MembreDepartement|undefined {
     return this.membresDep.filter((mem) => mem.id == idMembre)[0]
+  }
+
+  public blackListFournisseur(motif: string) {
+    this.blackListOpened = false;
+    let idFournisseur= this.selecedtOffre?.idFournisseur
+    this.appelOffreService.blackListFournisseur(idFournisseur, motif).subscribe({
+      next: () => {console.log("Banned")},
+      error: (error) => console.log(error)
+    })
   }
 
   loadBesoinsNotInAppelOffre(): void {

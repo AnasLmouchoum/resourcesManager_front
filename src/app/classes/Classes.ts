@@ -96,3 +96,19 @@ export interface RessourceFournisseur{
   prix:number|null;
   idRessource:number|null;
 }
+
+export interface fournisseur{
+  id: string;
+  username: string;
+  password: string;
+  nom: string;
+  prenom: string;
+  cin: string;
+  email: string;
+  addresse:string;
+  gerant: string;
+  nomSociete: string;
+  isBlackList:string;
+  motifDeBlockage:string ;
+
+}

@@ -14,6 +14,10 @@ import { BesoinComponent } from './gestionBesoin/besoin/besoin.component';
 import { ListeBesoinComponent } from './gestionBesoin/liste-besoin/liste-besoin.component';
 import { AppelOffreComponent } from './appel-offre/appel-offre.component';
 import { OffreComponent } from './offre/offre.component';
+import { OrdinateurComponent } from './gestionRessource/ordinateur/ordinateur.component';
+import { ImprimanteComponent } from './gestionRessource/imprimante/imprimante.component';
+import { OrdinateurDisponibleComponent } from './gestionRessource/ordinateur-disponible/ordinateur-disponible.component';
+import { ImprimanteDisponibleComponent } from './gestionRessource/imprimante-disponible/imprimante-disponible.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { OffreComponent } from './offre/offre.component';
     BesoinComponent,
     ListeBesoinComponent,
     AppelOffreComponent,
-    OffreComponent
+    OffreComponent,
+    OrdinateurComponent,
+    ImprimanteComponent,
+    OrdinateurDisponibleComponent,
+    ImprimanteDisponibleComponent
   ],
   imports: [
     BrowserModule,
