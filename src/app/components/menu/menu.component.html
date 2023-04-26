@@ -56,7 +56,75 @@
             </li>
           </ul>
         </li>
-
+        <li class="nav-item">
+          <a
+            ><i class="feather icon-zap"></i
+            ><span class="menu-title" data-i18n="Ecommerce"
+              >Pannes <i class="feather icon-chevron-down"></i></span
+          ></a>
+          <ul class="menu-content">
+            <li>
+              <a routerLink="/signalerPanne"
+                ><i class="feather icon-circle"></i
+                ><span class="menu-item" data-i18n="Shop">Signaler panne</span></a
+              >
+            </li>
+            <li>
+              <a routerLink="/membresDepartement/pannes"
+                ><i class="feather icon-circle"></i
+                ><span class="menu-item" data-i18n="Details"
+                  >Pannes signalés</span
+                ></a
+              >
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a routerLink="/technicien/pannes"
+            ><i class="feather icon-alert-circle"></i
+            ><span class="menu-item" data-i18n="Shop">Traitement pannes</span></a
+          >
+        </li>
+        <li>
+          <a routerLink="/responsable/constats"
+            ><i class="feather icon-file"></i
+            ><span class="menu-item" data-i18n="Shop">Constats</span></a
+          >
+        </li>
+        <li>
+          <a routerLink="/techniciens"
+            ><i class="feather icon-users"></i
+            ><span class="menu-item" data-i18n="Shop">Techniciens</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            ><i class="feather icon-file"></i
+            ><span class="menu-title" data-i18n="Ecommerce"
+              >fournisseur demandes
+              <i class="feather icon-chevron-down"></i></span
+          ></a>
+          <ul class="menu-content">
+            <li>
+              <a routerLink="#"
+                ><i class="feather icon-circle"></i
+                ><span class="menu-item" data-i18n="Shop">changement</span
+                ><span class="badge badge-pill badge-primary ml-1">{{
+                  changerCount
+                }}</span></a
+              >
+            </li>
+            <li>
+              <a routerLink="#"
+                ><i class="feather icon-circle"></i
+                ><span class="menu-item" data-i18n="Details">reparation</span
+                ><span class="badge badge-pill badge-primary ml-1">{{
+                  reparerCount
+                }}</span></a
+              >
+            </li>
+          </ul>
+        </li>
       </ul>
   </div>
 </div>

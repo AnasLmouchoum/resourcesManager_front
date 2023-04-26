@@ -18,6 +18,11 @@ import { OrdinateurComponent } from './gestionRessource/ordinateur/ordinateur.co
 import { ImprimanteComponent } from './gestionRessource/imprimante/imprimante.component';
 import { OrdinateurDisponibleComponent } from './gestionRessource/ordinateur-disponible/ordinateur-disponible.component';
 import { ImprimanteDisponibleComponent } from './gestionRessource/imprimante-disponible/imprimante-disponible.component';
+import { SignalerPanneComponent } from './gestionPannes/signaler-panne/signaler-panne.component';
+import { PannesMemberDepartementComponent } from './gestionPannes/pannes-member-departement/pannes-member-departement.component';
+import { PannesTechnicienComponent } from './gestionPannes/pannes-technicien/pannes-technicien.component';
+import { ConstatesResponsableComponent } from './gestionPannes/constates-responsable/constates-responsable.component';
+import { TechnicienComponent } from './gestionPannes/technicien/technicien/technicien.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,12 @@ import { ImprimanteDisponibleComponent } from './gestionRessource/imprimante-dis
     OrdinateurComponent,
     ImprimanteComponent,
     OrdinateurDisponibleComponent,
-    ImprimanteDisponibleComponent
+    ImprimanteDisponibleComponent,
+    SignalerPanneComponent,
+    PannesMemberDepartementComponent,
+    PannesTechnicienComponent,
+    ConstatesResponsableComponent,
+    TechnicienComponent
   ],
   imports: [
     BrowserModule,

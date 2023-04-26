@@ -112,3 +112,46 @@ export interface fournisseur{
   motifDeBlockage:string ;
 
 }
+
+export enum PanneFrequence {
+  RARE,
+  FREQUENTE,
+  PERMANENTE,
+}
+
+export enum OrdrePanne {
+  DEFAULT_SYSTEME,
+  DEFAULT_LOGICIEL_UTILITAIRE,
+  DEFAULT_MATERIEL,
+}
+
+export enum PanneAction {
+  REPARER,
+  CHANGER,
+}
+
+export interface Panne {
+  id: number | null;
+  explication: String | null;
+  dateApparition: Date | null;
+  constat: string | null;
+  dateConstat: Date | null;
+  ordre: OrdrePanne | null;
+  frequence: PanneFrequence | null;
+  isTreated: Boolean | null;
+  idMembreDepartement: string | null;
+  idTechnicien: string | null;
+  idRessource: number | null;
+  demande: PanneAction | null;
+}
+
+export interface Technicien {
+  id: string | null;
+  cin: string | null;
+  email: string | null;
+  nom: string | null;
+  prenom: string | null;
+  username: string | null;
+  password: string | null;
+  specialite: string | null;
+}
