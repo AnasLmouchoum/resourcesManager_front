@@ -38,7 +38,7 @@
             <div class="col-3"><button class="btn btn-outline-primary" (click)="openAddBesoin = true"><span><i class="feather icon-plus"></i> Ajouter besoin</span></button></div>
             <div class="col-2"><button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#confirmBesoins"><i class="feather icon-save"></i> Sauvgarder</button></div>
           </div>
-          <div class="custom-control custom-checkbox mb-1">
+          <div class="custom-control custom-checkbox mb-1" *ngIf="hasRole(['CHEF_DEP'])">
             <input type="checkbox" class="custom-control-input" (click)="onCheckboxChange()" name="isForDepartement" id="forDepartement">
             <label class="custom-control-label" for="forDepartement">Pour tout le departement</label>
           </div>

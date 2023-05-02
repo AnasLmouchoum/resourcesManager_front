@@ -25,39 +25,144 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "src/assets/app-assets/vendors/css/vendors.min.css",
-              "src/assets/app-assets/vendors/css/tables/datatable/datatables.min.css",
-              "src/assets/app-assets/css/bootstrap.css",
-              "src/assets/app-assets/css/bootstrap-extended.css",
-              "src/assets/app-assets/css/colors.css",
-              "src/assets/app-assets/css/components.css",
-              "src/assets/app-assets/css/themes/dark-layout.css",
-              "src/assets/app-assets/css/themes/semi-dark-layout.css",
-              "src/assets/app-assets/css/core/menu/menu-types/vertical-menu.css",
-              "src/assets/app-assets/css/core/colors/palette-gradient.css",
-              "src/assets/app-assets/css/plugins/forms/validation/form-validation.css",
-              "src/assets/assets/css/style.css"
+              {
+                "input": "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                "inject": true
+              },
+              {
+                "input": "src/styles.css",
+                "inject": false
+              },
+              {
+                "input": "src/assets/app-assets/vendors/css/vendors.min.css",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/vendors/css/tables/datatable/datatables.min.css",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/css/bootstrap.css",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/css/bootstrap-extended.css",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/css/colors.css",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/css/components.css",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/css/themes/dark-layout.css",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/css/themes/semi-dark-layout.css",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/css/core/menu/menu-types/vertical-menu.css",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/css/core/colors/palette-gradient.css",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/css/plugins/forms/validation/form-validation.css",
+                "inject": true
+              },
+              {
+                "input": "src/assets/assets/css/style.css",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/css/pages/authentication.css",
+                "inject": true
+              }
             ],
             "scripts": [
-              "src/assets/app-assets/vendors/js/vendors.min.js",
-              "src/assets/app-assets/vendors/js/tables/datatable/pdfmake.min.js",
-              "src/assets/app-assets/vendors/js/tables/datatable/vfs_fonts.js",
-              "src/assets/app-assets/vendors/js/tables/datatable/datatables.min.js",
-              "src/assets/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js",
-              "src/assets/app-assets/vendors/js/tables/datatable/buttons.html5.min.js",
-              "src/assets/app-assets/vendors/js/tables/datatable/buttons.print.min.js",
-              "src/assets/app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js",
-              "src/assets/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js",
-              "src/assets/app-assets/js/core/app-menu.js",
-              "src/assets/app-assets/js/core/app.js",
-              "src/assets/app-assets/js/scripts/components.js",
-              "src/assets/app-assets/js/scripts/datatables/datatable.js",
-              "src/assets/app-assets/js/scripts/popover/popover.js",
-              "src/assets/app-assets/js/scripts/tooltip/tooltip.js",
-              "src/assets/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js",
-              "src/assets/app-assets/js/scripts/forms/validation/form-validation.js",
-              "src/assets/app-assets/js/scripts/modal/components-modal.js"
+              {
+                "input": "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/vendors/js/vendors.min.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/vendors/js/tables/datatable/pdfmake.min.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/vendors/js/tables/datatable/vfs_fonts.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/vendors/js/tables/datatable/datatables.min.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/vendors/js/tables/datatable/buttons.html5.min.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/vendors/js/tables/datatable/buttons.print.min.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/js/core/app-menu.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/js/core/app.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/js/scripts/components.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/js/scripts/datatables/datatable.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/js/scripts/popover/popover.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/js/scripts/tooltip/tooltip.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/js/scripts/forms/validation/form-validation.js",
+                "inject": true
+              },
+              {
+                "input": "src/assets/app-assets/js/scripts/modal/components-modal.js",
+                "inject": true
+              }
             ]
           },
           "configurations": {

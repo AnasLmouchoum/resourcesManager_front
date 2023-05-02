@@ -55,8 +55,8 @@ export interface Besoin {
     dateDemande: string;
     dateAffectation: string | null;
     isAffected: boolean;
-    idMembreDepartement: string | null;
-    idDepartement: number;
+    idMembreDepartement?: string ;
+    idDepartement: number ;
     isBesoinInAppelOffre: boolean;
     ordinateurs: Ordinateur[];
     imprimantes: Imprimante[];

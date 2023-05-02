@@ -18,24 +18,16 @@
           </div>
         </div>
       </div>
-      <div
-        class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none"
-      >
+      <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
         <div class="form-group breadcrum-right">
           <div class="dropdown">
-            <button
-              class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle"
-              type="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
+            <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="feather icon-settings"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#">Chat</a
-              ><a class="dropdown-item" href="#">Email</a
-              ><a class="dropdown-item" href="#">Calendar</a>
+              <a class="dropdown-item" href="#">Chat</a><a class="dropdown-item" href="#">Email</a><a
+                class="dropdown-item" href="#">Calendar</a>
             </div>
           </div>
         </div>
@@ -60,19 +52,12 @@
               </div>
               <div class="card-content">
                 <div class="card-body card-dashboard">
-                  <button
-                    type="button"
-                    class="btn btn-primary mr-1 mb-1 waves-effect waves-light"
-                    data-toggle="modal"
-                    data-target="#addTechnicienModal"
-                  >
+                  <button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal"
+                    data-target="#addTechnicienModal">
                     <i class="fa fa-user-plus"></i> Nouveau technicien
                   </button>
                   <div class="table-responsive">
-                    <table
-                      class="table zero-configuration"
-                      id="techniciensTable"
-                    >
+                    <table class="table zero-configuration" id="techniciensTable">
                       <thead>
                         <tr>
                           <th>Username</th>
@@ -93,32 +78,18 @@
                           <td>{{ technicien.cin }}</td>
                           <td>{{ technicien.specialite }}</td>
                           <td>
-                            <a
-                              class="feather icon-more-vertical"
-                              data-toggle="dropdown"
-                              aria-haspopup="true"
-                              aria-expanded="false"
-                            >
+                            <a class="feather icon-more-vertical" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
                             </a>
                             <div class="dropdown-menu">
-                              <a
-                                class="dropdown-item text-primary"
-                                (click)="
+                              <a class="dropdown-item text-primary" (click)="
                                   openModal(technicien, 'editTechnicien')
-                                "
-                                data-toggle="modal"
-                                data-target="#editTechnicienModal"
-                                ><i class="feather icon-edit"></i> Update</a
-                              >
-                              <a
-                                class="dropdown-item text-danger"
-                                (click)="
+                                " data-toggle="modal" data-target="#editTechnicienModal"><i
+                                  class="feather icon-edit"></i> Update</a>
+                              <a class="dropdown-item text-danger" (click)="
                                   openModal(technicien, 'deleteTechnicien')
-                                "
-                                data-toggle="modal"
-                                data-target="#deleTechnicienModal"
-                                ><i class="feather icon-trash-2"></i> Delete</a
-                              >
+                                " data-toggle="modal" data-target="#deleTechnicienModal"><i
+                                  class="feather icon-trash-2"></i> Delete</a>
                             </div>
                           </td>
                         </tr>
@@ -149,28 +120,13 @@
 <!-- END: Content-->
 
 <!-- add Technicien modal -->
-<div
-  class="modal fade text-left"
-  id="addTechnicienModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="myModalLabel33"
-  style="display: none"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-    role="document"
-  >
+<div class="modal fade text-left" id="addTechnicienModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+  style="display: none" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel33">Ajouter un technicien</h4>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
@@ -181,15 +137,7 @@
             <div class="col-md-6 col-12">
               <label for="nom-column">Nom :</label>
               <div class="form-label-group">
-                <input
-                  ngModel
-                  type="text"
-                  id="nom-column"
-                  class="form-control"
-                  placeholder="Nom"
-                  name="nom"
-                  required
-                />
+                <input ngModel type="text" id="nom-column" class="form-control" placeholder="Nom" name="nom" required />
               </div>
               <div *ngIf="nomInvalid">
                 <p class="text-danger">Ce champ est obligatoire</p>
@@ -198,15 +146,8 @@
             <div class="col-md-6 col-12">
               <label for="prenom-column">Prenom :</label>
               <div class="form-label-group">
-                <input
-                  ngModel
-                  type="text"
-                  id="prenom-column"
-                  class="form-control"
-                  placeholder="Prenom"
-                  name="prenom"
-                  required
-                />
+                <input ngModel type="text" id="prenom-column" class="form-control" placeholder="Prenom" name="prenom"
+                  required />
               </div>
               <div *ngIf="prenomInvalid">
                 <p class="text-danger">Ce champ est obligatoire</p>
@@ -215,15 +156,8 @@
             <div class="col-md-6 col-12">
               <label for="username-column">Username :</label>
               <div class="form-label-group">
-                <input
-                  ngModel
-                  type="text"
-                  id="username-column"
-                  class="form-control"
-                  placeholder="Username"
-                  name="username"
-                  required
-                />
+                <input ngModel type="text" id="username-column" class="form-control" placeholder="Username"
+                  name="username" required />
               </div>
               <div *ngIf="usernameInvalid">
                 <p class="text-danger">Ce champ est obligatoire</p>
@@ -232,15 +166,8 @@
             <div class="col-md-6 col-12">
               <label for="password-floating">Password :</label>
               <div class="form-label-group">
-                <input
-                  ngModel
-                  type="password"
-                  id="password-floating"
-                  class="form-control"
-                  name="password"
-                  placeholder="password"
-                  required
-                />
+                <input ngModel type="password" id="password-floating" class="form-control" name="password"
+                  placeholder="password" required />
               </div>
               <div *ngIf="passwordInvalid">
                 <p class="text-danger">Ce champ est obligatoire</p>
@@ -249,15 +176,8 @@
             <div class="col-md-6 col-12">
               <label for="email-column">Email :</label>
               <div class="form-label-group">
-                <input
-                  ngModel
-                  type="email"
-                  id="email-column"
-                  class="form-control"
-                  name="email"
-                  placeholder="Email"
-                  required
-                />
+                <input ngModel type="email" id="email-column" class="form-control" name="email" placeholder="Email"
+                  required />
               </div>
               <div *ngIf="emailInvalid">
                 <p class="text-danger">Ce champ est obligatoire</p>
@@ -266,15 +186,7 @@
             <div class="col-md-6 col-12">
               <label for="cin-column">CIN :</label>
               <div class="form-label-group">
-                <input
-                  ngModel
-                  type="text"
-                  id="cin-column"
-                  class="form-control"
-                  name="cin"
-                  placeholder="CIN"
-                  required
-                />
+                <input ngModel type="text" id="cin-column" class="form-control" name="cin" placeholder="CIN" required />
               </div>
               <div *ngIf="cinInvalid">
                 <p class="text-danger">Ce champ est obligatoire</p>
@@ -286,15 +198,8 @@
             <div class="col-md-6 col-12">
               <label for="specialite-column">specialite :</label>
               <div class="form-label-group">
-                <input
-                  ngModel
-                  type="text"
-                  id="specialite-column"
-                  class="form-control"
-                  placeholder="Specialite"
-                  name="specialite"
-                  required
-                />
+                <input ngModel type="text" id="specialite-column" class="form-control" placeholder="Specialite"
+                  name="specialite" required />
               </div>
               <div *ngIf="specialiteInvalid">
                 <p class="text-danger">Ce champ est obligatoire</p>
@@ -303,18 +208,11 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button
-            type="submit"
-            class="btn btn-primary mr-1 mb-1 waves-effect waves-light"
-            (click)="handleAjouterTechnicien(addTechnicienForm)"
-          >
+          <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light"
+            (click)="handleAjouterTechnicien(addTechnicienForm)" data-dismiss="modal" aria-label="Close">
             Ajouter
           </button>
-          <button
-            type="reset"
-            class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light"
-            data-dismiss="modal"
-          >
+          <button type="reset" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light" data-dismiss="modal">
             Annuler
           </button>
         </div>
@@ -324,31 +222,16 @@
 </div>
 
 <!-- edit technicien modal  -->
-<div
-  class="modal fade text-left"
-  id="editTechnicienModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="myModalLabel33"
-  style="display: none"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-    role="document"
-  >
+<div class="modal fade text-left" id="editTechnicienModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+  style="display: none" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel33">
           Modifier le technicien {{ editTechnicien?.nom }}
           {{ editTechnicien?.prenom }}
         </h4>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
@@ -358,66 +241,36 @@
           <div class="row">
             <div class="col-md-6 col-12">
               <div class="form-label-group">
-                <input
-                  ngModel="{{ editTechnicien?.nom }}"
-                  type="text"
-                  id="nom-column"
-                  class="form-control"
-                  placeholder="Nom"
-                  name="nom"
-                />
+                <input ngModel="{{ editTechnicien?.nom }}" type="text" id="nom-column" class="form-control"
+                  placeholder="Nom" name="nom" />
                 <label for="nom-column">Nom</label>
               </div>
             </div>
             <div class="col-md-6 col-12">
               <div class="form-label-group">
-                <input
-                  ngModel="{{ editTechnicien?.prenom }}"
-                  type="text"
-                  id="prenom-column"
-                  class="form-control"
-                  placeholder="Prenom"
-                  name="prenom"
-                />
+                <input ngModel="{{ editTechnicien?.prenom }}" type="text" id="prenom-column" class="form-control"
+                  placeholder="Prenom" name="prenom" />
                 <label for="prenom-column">Prenom</label>
               </div>
             </div>
             <div class="col-md-6 col-12">
               <div class="form-label-group">
-                <input
-                  ngModel="{{ editTechnicien?.username }}"
-                  type="text"
-                  id="username-column"
-                  class="form-control"
-                  placeholder="Username"
-                  name="username"
-                />
+                <input ngModel="{{ editTechnicien?.username }}" type="text" id="username-column" class="form-control"
+                  placeholder="Username" name="username" />
                 <label for="username-column">Username</label>
               </div>
             </div>
             <div class="col-md-6 col-12">
               <div class="form-label-group">
-                <input
-                  ngModel="{{ editTechnicien?.email }}"
-                  type="email"
-                  id="email-column"
-                  class="form-control"
-                  name="email"
-                  placeholder="Email"
-                />
+                <input ngModel="{{ editTechnicien?.email }}" type="email" id="email-column" class="form-control"
+                  name="email" placeholder="Email" />
                 <label for="email-column">Email</label>
               </div>
             </div>
             <div class="col-md-6 col-12">
               <div class="form-label-group">
-                <input
-                  ngModel="{{ editTechnicien?.cin }}"
-                  type="text"
-                  id="cin-column"
-                  class="form-control"
-                  name="cin"
-                  placeholder="CIN"
-                />
+                <input ngModel="{{ editTechnicien?.cin }}" type="text" id="cin-column" class="form-control" name="cin"
+                  placeholder="CIN" />
                 <label for="cin-column">CIN</label>
               </div>
             </div>
@@ -426,33 +279,19 @@
           <div class="row">
             <div class="col-md-6 col-12">
               <div class="form-label-group">
-                <input
-                  ngModel="{{ editTechnicien?.specialite }}"
-                  type="text"
-                  id="specialite-column"
-                  class="form-control"
-                  placeholder="specialite"
-                  name="specialite"
-                />
+                <input ngModel="{{ editTechnicien?.specialite }}" type="text" id="specialite-column"
+                  class="form-control" placeholder="specialite" name="specialite" />
                 <label for="specialite-column">specialite</label>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button
-            type="submit"
-            class="btn btn-primary mr-1 mb-1 waves-effect waves-light"
-            (click)="handleEditTechnicien(editTechnicienForm.value)"
-            data-dismiss="modal"
-          >
+          <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light"
+            (click)="handleEditTechnicien(editTechnicienForm.value)" data-dismiss="modal">
             Sauvgarder
           </button>
-          <button
-            type="reset"
-            class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light"
-            data-dismiss="modal"
-          >
+          <button type="reset" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light" data-dismiss="modal">
             Annuler
           </button>
         </div>
@@ -462,30 +301,15 @@
 </div>
 
 <!-- delete technicien modal -->
-<div
-  class="modal fade text-left"
-  id="deleTechnicienModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="myModalLabel120"
-  style="display: none"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-    role="document"
-  >
+<div class="modal fade text-left" id="deleTechnicienModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120"
+  style="display: none" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header bg-danger white">
         <h5 class="modal-title" id="myModalLabel120">
           Confirmation de suppression
         </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
@@ -495,19 +319,11 @@
         {{ deleteTechnicien?.prenom }}
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          (click)="handleDeleteTechnicien()"
-          class="btn btn-danger waves-effect waves-light mr-1"
-          data-dismiss="modal"
-        >
+        <button type="button" (click)="handleDeleteTechnicien()" class="btn btn-danger waves-effect waves-light mr-1"
+          data-dismiss="modal">
           Confirmer
         </button>
-        <button
-          type="button"
-          class="btn btn-light waves-effect waves-light mr-1"
-          data-dismiss="modal"
-        >
+        <button type="button" class="btn btn-light waves-effect waves-light mr-1" data-dismiss="modal">
           Annuler
         </button>
       </div>

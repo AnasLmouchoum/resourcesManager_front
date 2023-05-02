@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Ressource, Panne, MembreDepartement } from 'src/app/classes/Classes';
+import { Ressource, Panne } from 'src/app/classes/Classes';
 import { GestionPannesService } from '../../services/gestion-pannes.service';
 import { HttpErrorResponse } from '@angular/common/http';
 declare var $: any;
@@ -13,12 +13,15 @@ export class SignalerPanneComponent implements OnInit {
   public Ressources!: Ressource[];
   public pannes!: Panne[];
   public ressourcePanne: Ressource | undefined;
-
-  constructor(private gestionPannesService: GestionPannesService) {}
+  userId!: string;
+  idDepartement!: number;
+  constructor(private gestionPannesService: GestionPannesService) { }
 
   ngOnInit(): void {
     this.loadRessources();
     this.loadPannes();
+    this.userId = localStorage.getItem('userId')!;
+    this.idDepartement = Number(localStorage.getItem('departementId')!);
   }
 
   public loadRessources() {
@@ -31,7 +34,7 @@ export class SignalerPanneComponent implements OnInit {
   }
 
   public getmemberDepartementRessources(): void {
-    this.gestionPannesService.getMemberDepartementRessources('ac068373-69ce-4d7d-84dd-ca89419588e9').subscribe({// to extract from the current user
+    this.gestionPannesService.getMemberDepartementRessources(this.userId).subscribe({// to extract from the current user
       next: (data: Ressource[]) => {
         this.Ressources = data;
       },
@@ -42,7 +45,7 @@ export class SignalerPanneComponent implements OnInit {
   }
 
   public getmemberDepartementPannes(): void {
-    this.gestionPannesService.getMemberDepartementPannes('ac068373-69ce-4d7d-84dd-ca89419588e9').subscribe({// to extract from the current user
+    this.gestionPannesService.getMemberDepartementPannes(this.userId).subscribe({// to extract from the current user
       next: (data: Panne[]) => {
         this.pannes = data;
       },
@@ -59,7 +62,7 @@ export class SignalerPanneComponent implements OnInit {
     ) {
       let newPanne: Panne = {
         id: null,
-        idMembreDepartement: 'ac068373-69ce-4d7d-84dd-ca89419588e9', // to extract from the current user
+        idMembreDepartement: this.userId, // to extract from the current user
         explication: null,
         idRessource: this.ressourcePanne.id,
         dateApparition: new Date(),

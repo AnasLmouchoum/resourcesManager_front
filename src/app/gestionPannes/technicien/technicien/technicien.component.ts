@@ -21,7 +21,7 @@ export class TechnicienComponent {
   public cinInvalid = false;
   public specialiteInvalid = false;
 
-  public constructor(private gestionPannesService: GestionPannesService) {}
+  public constructor(private gestionPannesService: GestionPannesService) { }
 
   ngOnInit(): void {
     this.loadTechnicien();
@@ -56,6 +56,7 @@ export class TechnicienComponent {
     else this.cinInvalid = false;
     if (form.value.specialite == '') this.specialiteInvalid = true;
     else this.specialiteInvalid = false;
+    form.reset();
   }
 
   public handleAjouterTechnicien(addTechnicienForm: NgForm): void {

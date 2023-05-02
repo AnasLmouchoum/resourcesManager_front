@@ -1,7 +1,51 @@
-<app-head-menu></app-head-menu>
+<app-toaster></app-toaster>
 
-<app-menu></app-menu>
-
-<router-outlet></router-outlet>
-
-<app-footer></app-footer>
+<!-- Toaster -->
+<ng-container *ngIf="currentRoute === ('/login');else slashBlock">
+    <app-login></app-login>
+</ng-container>
+<ng-template #slashBlock>
+    <ng-container *ngIf="currentRoute === '/'; else registerBlock">
+        <app-login></app-login>
+    </ng-container>
+</ng-template>
+<ng-template #registerBlock>
+    <ng-container *ngIf="currentRoute === '/register'; else ServerErrorBlock">
+        <app-register></app-register>
+    </ng-container>
+</ng-template>
+<ng-template #ServerErrorBlock>
+    <ng-container *ngIf="currentRoute === '/server-error'; else forbiddenBlock">
+        <app-server-error></app-server-error>
+    </ng-container>
+</ng-template>
+<ng-template #forbiddenBlock>
+    <ng-container *ngIf="currentRoute === '/forbidden'; else notFound">
+        <app-forbidden></app-forbidden>
+    </ng-container>
+</ng-template>
+<ng-template #notFound>
+    <ng-container *ngIf="currentRoute === '/not-found'; else homeBlock">
+        <app-page-not-found></app-page-not-found>
+    </ng-container>
+</ng-template>
+<ng-template #homeBlock>
+    <ng-container *ngIf="currentRoute === '/home'; else otherBlock">
+        <app-head-menu></app-head-menu>
+        <app-menu></app-menu>
+    </ng-container>
+</ng-template>
+<ng-template #otherBlock>
+    <ng-container *ngIf="currentRoute !== '/**'; else preloaderBlock">
+        <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+            data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+            <app-head-menu></app-head-menu>
+            <app-menu></app-menu>
+            <!-- Content HERE !!!!!!  -->
+            <router-outlet></router-outlet>
+        </div>
+    </ng-container>
+</ng-template>
+<ng-template #preloaderBlock>
+    <app-page-not-found></app-page-not-found>
+</ng-template>

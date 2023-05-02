@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { GestionPannesService } from '../../services/gestion-pannes.service';
 import { Panne, PanneAction, Ressource } from 'src/app/classes/Classes';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserStoreService } from 'src/app/services/user-store.service';
 
 @Component({
   selector: 'app-menu',
@@ -14,13 +15,30 @@ export class MenuComponent {
   public changerCount: number | undefined;
   public reparerCount: number | undefined;
   public panneActions: typeof PanneAction = PanneAction;
-
-  constructor(private gestionPannesService: GestionPannesService) {}
+  public userId!: string;
+  public idDepartement!: number;
+  public userRole!: string[];
+  constructor(private gestionPannesService: GestionPannesService, private userStore: UserStoreService) { }
   @HostListener('window:beforeunload')
   ngOnInit(): void {
+    this.userStore.getRoles().subscribe(res => {
+      let roles = JSON.parse(localStorage.getItem('roles')!);
+      if (res.length != 0)
+        this.userRole = res;
+      else
+        this.userRole = roles;
+    });
+
     this.getPannes();
     this.getAllRessources();
     this.updateCounts();
+    this.userId = localStorage.getItem('userId')!;
+    this.idDepartement = Number(localStorage.getItem('departementId')!);
+  }
+
+
+  public hasRole(role: string[]): boolean {
+    return this.userRole.some(item => role.includes(item));
   }
 
   public updateCounts(): void {
@@ -28,7 +46,7 @@ export class MenuComponent {
       const changer = this.Pannes.filter(
         (panne) =>
           String(panne.demande) === 'CHANGER' &&
-          this.getRessource(panne.idRessource).idFournisseur === '61b41a96-dd44-11ed-b5ea-0242ac120002' //extract from the current user
+          this.getRessource(panne.idRessource).idFournisseur === this.userId //extract from the current user
       );
       console.log(this.Pannes);
       this.changerCount = changer.length;
@@ -36,12 +54,15 @@ export class MenuComponent {
       const reparer = this.Pannes.filter(
         (panne) =>
           String(panne.demande) === 'REPARER' &&
-          this.getRessource(panne.idRessource).idFournisseur === '61b41a96-dd44-11ed-b5ea-0242ac120002' //extract from the current user
+          this.getRessource(panne.idRessource).idFournisseur === this.userId //extract from the current user
       );
       this.reparerCount = reparer.length;
     }
   }
+  public getRoles(): boolean {
 
+    return true;
+  }
   public getPannes(): void {
     this.gestionPannesService.getPanneWithDemandeNotNull().subscribe({
       next: (data: Panne[]) => {

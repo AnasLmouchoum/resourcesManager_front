@@ -14,17 +14,20 @@ export class ListeBesoinComponent {
   public listeBesoinsByDepartement: Besoin[] = [];
   public departements: Departement[] = [];
   public selectedBesoin!: Besoin;
-
+  userId!: string;
+  idDepartement!: number;
   public constructor(private gestionBesoinsService: GestionBesoinsService,
                     private gestionDepartementsService: GestionDepartementsService) {}
 
   ngOnInit(): void {
     this.getBesoinsByDepartement();
     this.getDepartements();
+    this.userId = localStorage.getItem('userId')!;
+    this.idDepartement = Number(localStorage.getItem('departementId')!);
   }
 
   public getBesoinsByDepartement() {
-    let idDepartement = 3 // extract idDepartemnt from the current user
+    let idDepartement = this.idDepartement // extract idDepartemnt from the current user
     this.gestionBesoinsService.getBesoinsByIdDepartement(idDepartement).subscribe({
       next: (data) => {
         this.listeBesoinsByDepartement = data;
@@ -53,7 +56,7 @@ export class ListeBesoinComponent {
   }
 
   public sendBesoinsRequest() {
-    let idDepartement = 3 // extract from the current chef Departement !!
+    let idDepartement = this.idDepartement // extract from the current chef Departement !!
     this.gestionBesoinsService.sendBesoinsRequest(idDepartement).subscribe({
       next: () => {console.log("done")},
       error: (error) => console.log(error)

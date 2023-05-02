@@ -12,12 +12,15 @@ declare var $: any;
 export class PannesMemberDepartementComponent {
   public Pannes!: Panne[];
   public Ressources!: Ressource[];
-
+  public userId!: string;
+  public idDepartement!: number;
   constructor(private gestionPannesService: GestionPannesService) {}
 
   ngOnInit(): void {
     this.loadPannes();
     this.loadRessources();
+    this.userId = localStorage.getItem('userId')!;
+    this.idDepartement = Number(localStorage.getItem('departementId')!);
   }
 
   public loadPannes() {
@@ -31,7 +34,7 @@ export class PannesMemberDepartementComponent {
   }
 
   public getmemberDepartementPannes(): void {
-    this.gestionPannesService.getMemberDepartementPannes('ac068373-69ce-4d7d-84dd-ca89419588e9').subscribe({ //to extract from the current user
+    this.gestionPannesService.getMemberDepartementPannes(this.userId).subscribe({ //to extract from the current user
       next: (data: Panne[]) => {
         this.Pannes = data;
       },
@@ -43,7 +46,7 @@ export class PannesMemberDepartementComponent {
   }
 
   public getmemberDepartementRessources(): void {
-    this.gestionPannesService.getMemberDepartementRessources('ac068373-69ce-4d7d-84dd-ca89419588e9').subscribe({ //to extract from the current user
+    this.gestionPannesService.getMemberDepartementRessources(this.userId).subscribe({ //to extract from the current user
       next: (data: Ressource[]) => {
         this.Ressources = data;
       },

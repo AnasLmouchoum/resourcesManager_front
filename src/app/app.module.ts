@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,16 @@ import { PannesMemberDepartementComponent } from './gestionPannes/pannes-member-
 import { PannesTechnicienComponent } from './gestionPannes/pannes-technicien/pannes-technicien.component';
 import { ConstatesResponsableComponent } from './gestionPannes/constates-responsable/constates-responsable.component';
 import { TechnicienComponent } from './gestionPannes/technicien/technicien/technicien.component';
+import { ForbiddenComponent } from './auth/forbidden/forbidden.component';
+import { LoginComponent } from './auth/login/login.component';
+import { LogoutComponent } from './auth/logout/logout.component';
+import { PageNotFoundComponent } from './auth/page-not-found/page-not-found.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { ServerErrorComponent } from './auth/server-error/server-error.component';
+import { ToastComponent } from './toast/toast.component';
+import { ToasterComponent } from './toaster/toaster.component';
+import { AuthInterceptor } from './services/auth.interceptor';
+import { HomeComponent } from './Home/home/home.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +54,16 @@ import { TechnicienComponent } from './gestionPannes/technicien/technicien/techn
     PannesMemberDepartementComponent,
     PannesTechnicienComponent,
     ConstatesResponsableComponent,
-    TechnicienComponent
+    TechnicienComponent,
+    LoginComponent,
+    RegisterComponent,
+    ToastComponent,
+    ToasterComponent,
+    LogoutComponent,
+    ServerErrorComponent,
+    PageNotFoundComponent,
+    ForbiddenComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -52,8 +71,15 @@ import { TechnicienComponent } from './gestionPannes/technicien/technicien/techn
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule
+    
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
