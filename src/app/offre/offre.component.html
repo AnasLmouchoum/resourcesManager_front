@@ -55,18 +55,19 @@
                             <div class="card-body">
                                 <ul   class="activity-timeline timeline-left list-unstyled">
                                     <li *ngFor="let appelOffre of appelsOffresPublie">
+
                                         <a *ngIf="(getOffreOfFournisseur(appelOffre)?.isWaiting==false &&  getOffreOfFournisseur(appelOffre)?.isRejected==false &&  getOffreOfFournisseur(appelOffre)?.isAffected==false) || isFournisseurInAppelOffre(appelOffre)==false "  (click)="selectAppelOffre(appelOffre)" class="timeline-icon bg-primary">
                                             <i class="feather icon-plus font-medium-2"></i>
                                         </a>
                                         <a *ngIf="getOffreOfFournisseur(appelOffre)?.isWaiting==true" data-toggle="modal" data-target="#offresModal"   (click)="selectSentAppelOffre(appelOffre)" class="timeline-icon bg-warning">
                                           <i class="feather icon-info font-medium-2"></i>
-                                      </a>
-                                      <a *ngIf="getOffreOfFournisseur(appelOffre)?.isRejected==true" data-toggle="modal" data-target="#offresModal" (click)="selectSentAppelOffre(appelOffre)" class="timeline-icon bg-danger">
-                                        <i class="feather icon-alert-octagon font-medium-2"></i>
-                                    </a>
-                                    <a *ngIf="getOffreOfFournisseur(appelOffre)?.isAffected==true" data-toggle="modal" data-target="#offresModal" (click)="selectSentAppelOffre(appelOffre)" class="timeline-icon badge-success">
-                                      <i class="feather icon-check font-medium-2"></i>
-                                  </a>
+                                        </a>
+                                        <a *ngIf="getOffreOfFournisseur(appelOffre)?.isRejected==true" data-toggle="modal" data-target="#offresModal" (click)="selectSentAppelOffre(appelOffre)" class="timeline-icon bg-danger">
+                                          <i class="feather icon-alert-octagon font-medium-2"></i>
+                                        </a>
+                                        <a *ngIf="getOffreOfFournisseur(appelOffre)?.isAffected==true" data-toggle="modal" data-target="#offresModal" (click)="selectSentAppelOffre(appelOffre)" class="timeline-icon badge-success">
+                                          <i class="feather icon-check font-medium-2"></i>
+                                        </a>
                                         <div class="timeline-info">
                                             <p class="font-weight-bold">Appel offre ID:{{appelOffre.id}}</p>
                                             <span>Publié le {{appelOffre.datePub|date}}</span>

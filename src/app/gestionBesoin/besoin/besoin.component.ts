@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Besoin, Imprimante, Ordinateur } from 'src/app/classes/Classes';
 import { AuthService } from 'src/app/services/auth.service';
 import { GestionBesoinsService } from 'src/app/services/gestion-besoins.service';
+import { RAM, CPU, ECRAN, DISQUE, VITESSEIMP, RESOLUTIONIMP} from 'src/app/classes/Consts'
 
 @Component({
   selector: 'app-besoin',
@@ -18,6 +19,12 @@ export class BesoinComponent {
   isForDepartement: boolean = false;
   userId!: string;
   idDepartement!: number;
+  cpu = CPU;
+  ram = RAM;
+  ecran = ECRAN;
+  disque = DISQUE;
+  vitesseimp = VITESSEIMP;
+  resolutionimp = RESOLUTIONIMP;
   public constructor(private gestionBesoinService: GestionBesoinsService, private auth: AuthService) {
 
   }
@@ -25,9 +32,9 @@ export class BesoinComponent {
   ngOnInit(): void {
     this.getAllOrdinateursBesoin();
     this.getAllImprimantesBesoin();
-    this.userId = localStorage.getItem('userId')!;
+    this.userId = localStorage.getItem('userId')!.replaceAll('"', '');
     this.idDepartement = Number(localStorage.getItem('departementId')!);
-    
+
   }
   public hasRole(role: string[]): boolean {
     return this.auth.getRolesFromToken().some(item => role.includes(item));

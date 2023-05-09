@@ -26,11 +26,9 @@ export class HeadMenuComponent {
     private auth: AuthService, private userStore: UserStoreService, private toastService: ToastService) { }
 
   ngOnInit(): void {
-
     this.userStore.getFullName().subscribe(res => {
       let fullName = this.auth.getUserNameFromToken();
       this.userName = res || fullName;
-      
     }
     );
     this.userStore.getRoles().subscribe(res => {
@@ -42,9 +40,11 @@ export class HeadMenuComponent {
     });
 
     this.isLoggedIn = this.isLoginIn();
+    this.userId = this.auth.getConnectedUserId();
+    console.log(this.userId)
+
     this.loadDemandes()
-    this.userId = localStorage.getItem('userId')!;
-    //get Current path
+
     this.getCurrentPath();
   }
   public hasRole(role: string[]): boolean {
@@ -56,9 +56,11 @@ export class HeadMenuComponent {
   }
 
   public getDemandesByIdMembre(idMembre: string) {
+    console.log(idMembre)
     this.besoinsService.getDemandesByIdMembre(idMembre).subscribe({
       next: (data) => {
         this.demandesByIdMembre = data.reverse()
+        console.log(data)
       },
       error: (error) => console.log(error)
     })

@@ -269,8 +269,9 @@
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
+                          Departement
                           <div class="form-label-group">
-                            Departement<select ngModel="{{ editMembre?.idDepartement }}" name="idDepartement" class="form-control" id="">
+                            <select ngModel="{{ editMembre?.idDepartement }}" name="idDepartement" class="form-control" id="">
                               <option selected value="choose">Choose...</option>
                               <option *ngFor="let departement of departements" value="{{ departement.id }}">{{ departement.nomDepartement }}</option>
                             </select>

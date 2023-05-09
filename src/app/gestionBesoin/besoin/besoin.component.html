@@ -69,25 +69,41 @@
                                   <div class="col-sm-6" >
                                       <div class="form-group">
                                           CPU
-                                          <input type="text" ngModel name="cpu" class="form-control" placeholder="CPU" required="">
+                                          <!-- <input type="text" ngModel name="cpu" class="form-control" placeholder="CPU" required=""> -->
+                                          <select ngModel="choose" name="cpu" class="form-control">
+                                            <option selected value="choose">Choose...</option>
+                                            <option *ngFor="let c of cpu" value="{{ c }}">{{ c }}</option>
+                                          </select>
                                       </div>
                                   </div>
                                   <div class="col-sm-6">
                                       <div class="form-group">
                                           RAM
-                                          <input type="text" ngModel name="ram" class="form-control" placeholder="RAM" required="">
+                                          <!-- <input type="text" ngModel name="ram" class="form-control" placeholder="RAM" required=""> -->
+                                          <select ngModel="choose" name="ram" class="form-control">
+                                            <option selected value="choose">Choose...</option>
+                                            <option *ngFor="let r of ram" value="{{ r }}">{{ r }}</option>
+                                          </select>
                                       </div>
                                   </div>
                                   <div class="col-sm-6">
                                       <div class="form-group">
                                           Ecran
-                                          <input type="text" ngModel name="ecran" class="form-control" placeholder="Ecran" required="" data-validation-match-match="password">
+                                          <!-- <input type="text" ngModel name="ecran" class="form-control" placeholder="Ecran" required="" data-validation-match-match="password"> -->
+                                          <select ngModel="choose" name="ecran" class="form-control">
+                                            <option selected value="choose">Choose...</option>
+                                            <option *ngFor="let e of ecran" value="{{ e }}">{{ e }}</option>
+                                          </select>
                                       </div>
                                   </div>
                                   <div class="col-sm-6">
                                     <div class="form-group">
                                       Disque Dur
-                                        <input type="text" ngModel name="disquedur" class="form-control" placeholder="Ecran" required="" data-validation-match-match="password">
+                                        <!-- <input type="text" ngModel name="disquedur" class="form-control" placeholder="Ecran" required=""> -->
+                                        <select ngModel="choose" name="disquedur" class="form-control">
+                                          <option selected value="choose">Choose...</option>
+                                          <option *ngFor="let d of disque" value="{{ d }}">{{ d }}</option>
+                                        </select>
                                     </div>
                                   </div>
                                 </div>
@@ -95,13 +111,21 @@
                                   <div class="col-sm-6" >
                                       <div class="form-group">
                                           Resolution
-                                          <input type="text" ngModel name="resolution" class="form-control" placeholder="Resolution" required="">
+                                          <!-- <input type="text" ngModel name="resolution" class="form-control" placeholder="Resolution" required=""> -->
+                                          <select ngModel="choose" name="resolution" class="form-control">
+                                            <option selected value="choose">Choose...</option>
+                                            <option *ngFor="let r of resolutionimp" value="{{ r }}">{{ r }}</option>
+                                          </select>
                                       </div>
                                   </div>
                                   <div class="col-sm-6">
                                       <div class="form-group">
                                           Vitesse Impression
-                                          <input type="text" ngModel name="vitesseimpression" class="form-control" placeholder="Vitesse Impression" required="">
+                                          <!-- <input type="text" ngModel name="vitesseimpression" class="form-control" placeholder="Vitesse Impression" required=""> -->
+                                          <select ngModel="choose" name="vitesseimpression" class="form-control">
+                                            <option selected value="choose">Choose...</option>
+                                            <option *ngFor="let v of vitesseimp" value="{{ v }}">{{ v }}</option>
+                                          </select>
                                       </div>
                                   </div>
                                 </div>

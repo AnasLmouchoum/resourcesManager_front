@@ -7,6 +7,7 @@ import { AppelOffre, Imprimante, Offre, Ordinateur, Ressource, RessourceFourniss
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule, NgForOfContext } from '@angular/common';
 import { FormGroup, NgForm } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 declare var $: any;
 
 @Component({
@@ -22,8 +23,10 @@ export class OffreComponent {
   public ressourcesFournisseur:RessourceFournisseur[] = [];
   public offresFournisseur:Offre[]=[];
   public selectedSentAppelOffre:AppelOffre|null=null;
+  public userId!: string;
 
-  constructor(private appelOffreService: GestionAppelOffreService, private besoinService: GestionBesoinsService,private offreService:OffreService,private gestionDepartementsService:GestionDepartementsService) { }
+  constructor(private appelOffreService: GestionAppelOffreService, private besoinService: GestionBesoinsService,
+    private offreService:OffreService,private gestionDepartementsService:GestionDepartementsService, private auth: AuthService) { }
 
   ngOnInit(): void {
 
@@ -31,7 +34,7 @@ export class OffreComponent {
     this.loadAppelsOffre();
     this.loadRessourceFournisseurFromStorage();
     this.loadOffresFournisseur();
-
+    this.userId = this.auth.getConnectedUserId();
 
   }
 
@@ -42,17 +45,17 @@ export class OffreComponent {
 
   }
 
-loadOffresFournisseur(){
-this.offreService.getOffresFournisseur("61b41a96-dd44-11ed-b5ea-0242ac120002").subscribe({
+  loadOffresFournisseur(){
+  this.offreService.getOffresFournisseur(this.userId).subscribe({
 
-  next: (data) => {this.offresFournisseur=data;
-
+    next: (data) => {
+      this.offresFournisseur=data;
     },
-  error: (error) => console.log(error)
+    error: (error) => console.log(error)
 
-})
+  })
 
- }
+  }
   getAppelsOffre(): void {
     this.appelOffreService.getAllAppelOffre().subscribe({
       next: (data: AppelOffre[]) => {
@@ -64,9 +67,10 @@ this.offreService.getOffresFournisseur("61b41a96-dd44-11ed-b5ea-0242ac120002").s
          offreIds.push(offre.idAppelOffre)
         })
 
+        console.log(data)
 
-        this.appelsOffresPublie = data.filter(appelOffre => appelOffre.datePub !== null && appelOffre.isAffected == false  || appelOffre.datePub!=null && offreIds.includes(appelOffre.id??-1)  );
-
+        this.appelsOffresPublie = data.filter(appelOffre => appelOffre.datePub != null   || (appelOffre.datePub != null && offreIds.includes(appelOffre.id??-1)));
+        console.log(this.appelsOffresPublie)
         this.ngAfterViewInit();
       },
       error: (error: HttpErrorResponse) => {
@@ -151,7 +155,7 @@ this.offreService.getOffresFournisseur("61b41a96-dd44-11ed-b5ea-0242ac120002").s
     offre.isAffected=false;
     offre.isRejected=false;
     offre.isWaiting=true;
-    offre.idFournisseur="61b41a96-dd44-11ed-b5ea-0242ac120002";
+    offre.idFournisseur=this.userId;
     offre.ressources=this.ressourcesFournisseur;
 
     this.offreService.saveOffre(offre).subscribe({
@@ -165,6 +169,7 @@ this.offreService.getOffresFournisseur("61b41a96-dd44-11ed-b5ea-0242ac120002").s
 
   public getOffreOfFournisseur(appelOffre:AppelOffre|null):Offre|null{
     var offre = {} as Offre;
+
     this.appelsOffresPublie.forEach(a=>{
         if(a.id==appelOffre?.id){
           this.offresFournisseur.forEach(o=>{
@@ -172,6 +177,7 @@ this.offreService.getOffresFournisseur("61b41a96-dd44-11ed-b5ea-0242ac120002").s
           })
         }
     })
+    // console.log(offre)
       return offre;
 
   }

@@ -63,13 +63,13 @@ export class AuthService {
     return this.userPayload.ROLES.map((role: { authority: string }) => role.authority);
   }
   getConnectedUserId(): string {
-    return localStorage.getItem('userId')!;
+    return `${localStorage.getItem('userId')!}`;
   }
   setRolesFromToken(roles: string[]) {
     localStorage.setItem('roles', JSON.stringify(roles));
   }
   setConnectedUserId(userId: string) {
-    localStorage.setItem('userId', JSON.stringify(userId));
+    localStorage.setItem('userId', userId);
   }
   getDepartementIdByUserId(userId: any): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${userId}`).pipe(
