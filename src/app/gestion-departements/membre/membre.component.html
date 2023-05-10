@@ -132,37 +132,111 @@
                   <div class="row">
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel type="text" id="nom-column" class="form-control" placeholder="Nom" name="nom">
+                              <input ngModel type="text" id="nom-column" class="form-control" placeholder="Nom" name="nom" required pattern="^[\sa-zA-Z'-]+$">
+                              <small
+   class="text-danger"
+   *ngIf="addMembreForm.form.controls['nom'].hasError('required') && addMembreForm.form.controls['nom'].touched"
+>
+   Le nom est requis.
+</small>
+
+<small
+   class="text-danger"
+   *ngIf="addMembreForm.form.controls['nom'].hasError('pattern') && addMembreForm.form.controls['nom'].touched"
+>
+   Le nom ne peut contenir que des lettres et des espaces.
+</small>
                               <label for="nom-column">Nom</label>
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel type="text" id="prenom-column" class="form-control" placeholder="Prenom" name="prenom">
+                              <input ngModel type="text" id="prenom-column" class="form-control" placeholder="Prenom" required name="prenom" pattern="^[\sa-zA-Z'-]+$">
+                              <small
+   class="text-danger"
+   *ngIf="addMembreForm.form.controls['prenom'].hasError('required') && addMembreForm.form.controls['prenom'].touched"
+>
+   Le prénom est requis.
+</small>
+
+<small
+   class="text-danger"
+   *ngIf="addMembreForm.form.controls['prenom'].hasError('pattern') && addMembreForm.form.controls['prenom'].touched"
+>
+   Le prénom ne peut contenir que des lettres et des espaces.
+</small>
                               <label for="prenom-column">Prenom</label>
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel type="text" id="username-column" class="form-control" placeholder="Username" name="username">
+                              <input ngModel type="text" id="username-column" class="form-control" placeholder="Username"  name="username" required patter="/^[\w\d]+$/">
+                              <small class="text-danger"
+                              *ngIf="addMembreForm.form.controls['username'].hasError('required') && addMembreForm.form.controls['username'].touched">
+                         Le username est requis.
+                       </small>
+
+                       <small class="text-danger"
+                              *ngIf="addMembreForm.form.controls['username'].hasError('pattern') && addMembreForm.form.controls['username'].touched">
+                         Username invalide.
+                       </small>
                               <label for="username-column">Username</label>
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel type="password" id="password-floating" class="form-control" name="password" placeholder="password">
+                              <input ngModel type="password" id="password-floating" class="form-control" required name="password" placeholder="password" pattern="^(?=.*\d)(?=.*[a-zA-Z]).{8,}$">
+                              <small
+   class="text-danger"
+   *ngIf="addMembreForm.form.controls['password'].hasError('required') && addMembreForm.form.controls['password'].touched"
+>
+    Le mot de passe est requis.
+</small>
+
+<small
+   class="text-danger"
+   *ngIf="addMembreForm.form.controls['password'].hasError('pattern') && addMembreForm.form.controls['password'].touched"
+>
+    Le mot de passe doit contenir au moins 8 caractères,chiffres et lettres.
+</small>
                               <label for="password-floating">Password</label>
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel type="email" id="email-column" class="form-control" name="email" placeholder="Email">
+                              <input ngModel type="email" id="email-column" class="form-control" required name="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                              <small
+   class="text-danger"
+   *ngIf="addMembreForm.form.controls['email'].hasError('required') && addMembreForm.form.controls['email'].touched"
+>
+   L'email est requis.
+</small>
+
+<small
+   class="text-danger"
+   *ngIf="addMembreForm.form.controls['email'].hasError('pattern') && addMembreForm.form.controls['email'].touched"
+>
+   Veuillez entrer un email valide.
+</small>
                               <label for="email-column">Email</label>
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                              <input ngModel type="text" id="cin-column" class="form-control" name="cin" placeholder="CIN">
+                              <input ngModel type="text" id="cin-column" class="form-control" required name="cin" placeholder="CIN" pattern="^[a-zA-Z]{2}\d{6}$">
+                              <small
+   class="text-danger"
+   *ngIf="addMembreForm.form.controls['cin'].hasError('required') && addMembreForm.form.controls['cin'].touched"
+>
+    Le CIN est requis.
+</small>
+
+<small
+   class="text-danger"
+   *ngIf="addMembreForm.form.controls['cin'].hasError('pattern') && addMembreForm.form.controls['cin'].touched"
+>
+    Le CIN doit commencer par 1 ou 2 lettres suivies de 3 ou 4 chiffres.
+</small>
                               <label for="cin-column">CIN</label>
                           </div>
                       </div>
@@ -183,25 +257,37 @@
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                            <select ngModel="choose" name="idDepartement" class="form-control" id="">
+                            <select ngModel="choose" name="idDepartement" required class="form-control" id="">
                               <option selected value="choose">Choose...</option>
                               <option *ngFor="let departement of departements" value="{{ departement.id }}">{{ departement.nomDepartement }}</option>
                             </select>
+                            <small
+   class="text-danger"
+   *ngIf="addMembreForm.form.controls['idDepartement'].value == 'choose' && addMembreForm.form.controls['idDepartement'].touched"
+>
+     Le département est requis.
+</small>
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
                           <div class="form-label-group">
-                            <select ngModel="choose" name="roles" class="form-control" id="">
+                            <select ngModel="choose" name="roles" required class="form-control" id="">
                               <option selected value="choose">Choose...</option>
                               <option value="PROF">Enseignant</option>
                               <option value="CHEF_DEP">Chef departement</option>
                             </select>
+                            <small
+                            class="text-danger"
+                            *ngIf="addMembreForm.form.controls['roles'].value == 'choose' && addMembreForm.form.controls['roles'].touched"
+                         >
+                            Le rôle est requis.
+                         </small>
                           </div>
                       </div>
                   </div>
               </div>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" (click)="handleAjouterMembre(addMembreForm)" data-dismiss="modal">Ajouter</button>
+                <button type="submit" [disabled]="addMembreForm.invalid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" (click)="handleAjouterMembre(addMembreForm)" data-dismiss="modal">Ajouter</button>
                 <button type="reset" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light" data-dismiss="modal">Annuler</button>
               </div>
           </form>
@@ -269,9 +355,8 @@
                           </div>
                       </div>
                       <div class="col-md-6 col-12">
-                          Departement
                           <div class="form-label-group">
-                            <select ngModel="{{ editMembre?.idDepartement }}" name="idDepartement" class="form-control" id="">
+                            Departement<select ngModel="{{ editMembre?.idDepartement }}" name="idDepartement" class="form-control" id="">
                               <option selected value="choose">Choose...</option>
                               <option *ngFor="let departement of departements" value="{{ departement.id }}">{{ departement.nomDepartement }}</option>
                             </select>

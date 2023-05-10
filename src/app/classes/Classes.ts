@@ -155,3 +155,11 @@ export interface Technicien {
   password: string | null;
   specialite: string | null;
 }
+
+export interface NotifFournisseur{
+  id: number | null;
+  isSeen: boolean | null;
+  idFournisseur: string | null;
+  dateOffre: Date | null;
+  isAccepted: boolean | null;
+}

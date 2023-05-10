@@ -108,9 +108,16 @@
             <form #addDepartementForm="ngForm" novalidate>
                 <label>Nom Departement: </label>
                 <div class="form-group controls">
-                  <input type="text" ngModel name="nomDepartement" class="form-control" placeholder="Nom Departement ex:(Génie Informatique)" required data-validation-required-message="ktb lmk">
+                  <input  type="text"  ngModel name="nomDepartement" class="form-control" placeholder="Nom Departement ex:(Génie Informatique)" required pattern="[a-zA-Zéè ]*" >
+                  <small class="text-danger" *ngIf="addDepartementForm.form.controls['nomDepartement'].hasError('required') && addDepartementForm.form.controls['nomDepartement'].touched">
+                    Le nom du département est requis.
+                  </small>
+
+                 <small class="text-danger" *ngIf="addDepartementForm.form.controls['nomDepartement'].hasError('pattern') && addDepartementForm.form.controls['nomDepartement'].touched">
+                   Le nom du département ne peut contenir que des lettres et des espaces.
+                 </small>
                   <div class="help-block"></div></div>
-                <button type="submit" (click)="handleAjouterDepartement(addDepartementForm)" class="btn btn-primary waves-effect waves-light mr-1" data-dismiss="modal">Ajouter</button>
+                <button type="submit" [disabled]="addDepartementForm.invalid" (click)="handleAjouterDepartement(addDepartementForm)" class="btn btn-primary waves-effect waves-light mr-1" data-dismiss="modal">Ajouter</button>
                 <button type="button" class="btn btn-danger waves-effect waves-light mr-1" data-dismiss="modal">Annuler</button>
             </form>
           </div>
@@ -129,12 +136,19 @@
               </button>
           </div>
           <div class="modal-body">
-            <form #editDepartementForm="ngForm">
+            <form #editDepartementForm="ngForm" novalidate>
                 <label>Nom Departement: </label>
                 <div class="form-group">
-                  <input type="text" ngModel = "{{ editDepartement?.nomDepartement }}"  name="nomDepartement" placeholder="Email Address" class="form-control" placeholder="Nom Departement ex:(Génie Informatique)">
+                  <input type="text" ngModel = "{{ editDepartement?.nomDepartement }}"  name="nomDepartement" required pattern="[a-zA-Z ]*" placeholder="Email Address" class="form-control" placeholder="Nom Departement ex:(Génie Informatique)">
+                  <small class="text-danger" *ngIf="editDepartementForm.form.controls['nomDepartement'].hasError('required') && editDepartementForm.form.controls['nomDepartement'].touched">
+                    Le nom du département est requis.
+                  </small>
+
+                 <small class="text-danger" *ngIf="editDepartementForm.form.controls['nomDepartement'].hasError('pattern') && editDepartementForm.form.controls['nomDepartement'].touched">
+                   Le nom du département ne peut contenir que des lettres et des espaces.
+                 </small>
                 </div>
-                <button type="submit" (click)="handleEditDepartement(editDepartementForm.value)" class="btn btn-primary waves-effect waves-light mr-1" data-dismiss="modal">Sauvgarder</button>
+                <button type="submit" [disabled]="editDepartementForm.invalid" (click)="handleEditDepartement(editDepartementForm.value,editDepartementForm)" class="btn btn-primary waves-effect waves-light mr-1" data-dismiss="modal">Sauvgarder</button>
                 <button type="button" class="btn btn-danger waves-effect waves-light mr-1" data-dismiss="modal">Annuler</button>
             </form>
           </div>

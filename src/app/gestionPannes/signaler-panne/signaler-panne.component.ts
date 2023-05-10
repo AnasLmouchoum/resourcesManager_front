@@ -18,10 +18,13 @@ export class SignalerPanneComponent implements OnInit {
   constructor(private gestionPannesService: GestionPannesService) { }
 
   ngOnInit(): void {
+
+    this.userId = localStorage.getItem('userId')!;
+
+    this.idDepartement = Number(localStorage.getItem('departementId')!);
+
     this.loadRessources();
     this.loadPannes();
-    this.userId = localStorage.getItem('userId')!;
-    this.idDepartement = Number(localStorage.getItem('departementId')!);
   }
 
   public loadRessources() {
@@ -34,8 +37,10 @@ export class SignalerPanneComponent implements OnInit {
   }
 
   public getmemberDepartementRessources(): void {
+    console.log(this.userId)
     this.gestionPannesService.getMemberDepartementRessources(this.userId).subscribe({// to extract from the current user
       next: (data: Ressource[]) => {
+        console.log(data)
         this.Ressources = data;
       },
       error: (error: HttpErrorResponse) => {
@@ -53,6 +58,16 @@ export class SignalerPanneComponent implements OnInit {
         console.log(error);
       },
     });
+  }
+
+  public isRessourceInPanne(ressourceId: number | undefined | null): boolean {
+    let isExist = false
+    this.pannes.forEach((p) => {
+      if(p.idRessource == ressourceId)
+        if(p.isTreated == false || p.constat != null)
+          isExist = true
+    });
+    return isExist;
   }
 
   public handleSignalerPanne(): void {
@@ -77,6 +92,8 @@ export class SignalerPanneComponent implements OnInit {
       this.gestionPannesService.addPanne(newPanne).subscribe({
         next: (data) => {
           // this.pannes.unshift(data);
+          this.loadRessources();
+          this.loadPannes();
         },
         error: (error) => {
           console.log(error);

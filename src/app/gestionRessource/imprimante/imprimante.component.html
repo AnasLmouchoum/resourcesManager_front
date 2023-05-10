@@ -187,38 +187,37 @@
         </button>
       </div>
 
-      <form #ajouterRessourceForm="ngForm">
-        <div class="modal-body">
+      <form class="modal-body" style="overflow-y: scroll; height: 650px;" #ajouterRessourceForm="ngForm">
           <h4>Informations Ressource</h4>
           <div class="row">
             <div class="col-md-6 col-12">
               <div class="form-group">
                 <label for="codeBarre">Code barre : </label>
-                <input id="codeBarre"type="text" ngModel = "{{ editImprimante?.codeBarre }}"  name="codebarre" placeholder="codeBarre" class="form-control" placeholder="Code Barre ">
+                <input id="codeBarre"type="text" disabled ngModel = "{{ editImprimante?.codeBarre }}"  name="codebarre" placeholder="codeBarre" class="form-control" placeholder="Code Barre ">
               </div>
             </div>
             <div class="col-md-6 col-12">
               <div class="form-group">
                 <label for="marque">Marque : </label>
-                <input id="marque"type="text" ngModel = "{{ editImprimante?.marque }}"   name="marque" placeholder="Marque" class="form-control" placeholder="Marque d'ordinateur ">
+                <input id="marque"type="text" disabled ngModel = "{{ editImprimante?.marque }}"   name="marque" placeholder="Marque" class="form-control" placeholder="Marque d'ordinateur ">
               </div>
             </div>
             <div class="col-md-6 col-12">
               <div class="form-group">
                 <label for="prix">Prix  </label>
-                <input id="prix"type="text" ngModel = "{{ editImprimante?.prix }}"   name="prix" placeholder="Prix" class="form-control" placeholder="Prix Ordinateur ">
+                <input id="prix"type="text" disabled ngModel = "{{ editImprimante?.prix }}"   name="prix" placeholder="Prix" class="form-control" placeholder="Prix Ordinateur ">
               </div>
             </div>
             <div class="col-md-6 col-12">
               <div class="form-group">
                 <label for="cpu">Résolution  </label>
-                <input id="cpu" type="text" ngModel = "{{ editImprimante?.resolution }}"   name="resolution" placeholder="La résolution d'imprimante" class="form-control" placeholder="La résolution de l'imprimante">
+                <input id="cpu" type="text" disabled ngModel = "{{ editImprimante?.resolution }}"   name="resolution" placeholder="La résolution d'imprimante" class="form-control" placeholder="La résolution de l'imprimante">
               </div>
             </div>
             <div class="col-md-6 col-12">
               <div class="form-group">
                 <label for="ram">Vitesse d'impression : </label>
-                <input id="ram" type="text" ngModel = "{{ editImprimante?.vitesseImpression }}"   name="vitesseimpression" placeholder="La vitesse d'impression" class="form-control" placeholder="La vitesse d'impression">
+                <input id="ram" type="text" disabled ngModel = "{{ editImprimante?.vitesseImpression }}"   name="vitesseimpression" placeholder="La vitesse d'impression" class="form-control" placeholder="La vitesse d'impression">
               </div>
             </div>
 
@@ -236,10 +235,9 @@
             </div>
             <div class="col-md-6 col-12">
               <div class="form-group">
-                <label for="e">Enseignant : </label>
+                <label for="e">Enseignant : <span *ngIf="editImprimante?.idMembreDepartement == null" class="text-success">Pour le departement {{ editImprimante?.idDepartement }}</span></label>
                 <select ngModel="{{editImprimante?.idMembreDepartement}}" id="e"class="form-control" name="enseignantid">
                   <option *ngFor="let enseignant of listeEnseignant" value="{{enseignant.id}}"  >{{enseignant.prenom}} {{enseignant.nom}}</option>
-
                 </select>
               </div>
             </div>
@@ -250,7 +248,6 @@
               <div class="form-group">
                 <label for="nomSociete">Nom de la société : </label>
                 <input id="nomSociete"type="text" ngModel = "{{ editFournisseur?.nomSociete }}"  name="NomSociete" placeholder="Nom de la socièté" class="form-control" placeholder="Nom de la socièté">
-
               </div>
             </div>
             <div class="col-md-6 col-12">
@@ -293,13 +290,10 @@
             </div>
           </div>
 
+        <div class="modal-footer">
+          <button type="submit" (click)="handleAjouterOrdinateur(ajouterRessourceForm)" class="btn btn-primary waves-effect waves-light mr-1" data-dismiss="modal">Sauvgarder</button>
+          <button type="button" class="btn btn-danger waves-effect waves-light mr-1" data-dismiss="modal">Annuler</button>
         </div>
-
-
-
-
-        <button type="submit" (click)="handleAjouterOrdinateur(ajouterRessourceForm)" class="btn btn-primary waves-effect waves-light mr-1" data-dismiss="modal">Sauvgarder</button>
-        <button type="button" class="btn btn-danger waves-effect waves-light mr-1" data-dismiss="modal">Annuler</button>
       </form>
 
     </div>

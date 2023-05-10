@@ -56,7 +56,7 @@
                                 <ul   class="activity-timeline timeline-left list-unstyled">
                                     <li *ngFor="let appelOffre of appelsOffresPublie">
 
-                                        <a *ngIf="(getOffreOfFournisseur(appelOffre)?.isWaiting==false &&  getOffreOfFournisseur(appelOffre)?.isRejected==false &&  getOffreOfFournisseur(appelOffre)?.isAffected==false) || isFournisseurInAppelOffre(appelOffre)==false "  (click)="selectAppelOffre(appelOffre)" class="timeline-icon bg-primary">
+                                        <a *ngIf="appelOffre.isAffected==false && ((getOffreOfFournisseur(appelOffre)?.isWaiting==false &&  getOffreOfFournisseur(appelOffre)?.isRejected==false &&  getOffreOfFournisseur(appelOffre)?.isAffected==false) || isFournisseurInAppelOffre(appelOffre)==false)" (click)="selectAppelOffre(appelOffre)" class="timeline-icon bg-primary">
                                             <i class="feather icon-plus font-medium-2"></i>
                                         </a>
                                         <a *ngIf="getOffreOfFournisseur(appelOffre)?.isWaiting==true" data-toggle="modal" data-target="#offresModal"   (click)="selectSentAppelOffre(appelOffre)" class="timeline-icon bg-warning">
@@ -74,7 +74,6 @@
                                         </div>
 
                                     </li>
-
 
                                 </ul>
                             </div>

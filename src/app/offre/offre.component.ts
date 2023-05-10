@@ -69,7 +69,7 @@ export class OffreComponent {
 
         console.log(data)
 
-        this.appelsOffresPublie = data.filter(appelOffre => appelOffre.datePub != null   || (appelOffre.datePub != null && offreIds.includes(appelOffre.id??-1)));
+        this.appelsOffresPublie = data.filter(appelOffre => appelOffre.datePub != null   || (appelOffre.datePub != null && offreIds.includes(appelOffre.id??-1))).reverse();
         console.log(this.appelsOffresPublie)
         this.ngAfterViewInit();
       },

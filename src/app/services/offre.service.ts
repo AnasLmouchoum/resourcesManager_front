@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environment/environment';
 import { HttpClient } from '@angular/common/http';
-import { AppelOffre, Offre } from '../classes/Classes';
+import { AppelOffre, NotifFournisseur, Offre } from '../classes/Classes';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -23,7 +23,6 @@ export class OffreService {
   }
 
  public getOffresFournisseur(id:string):Observable<Offre[]>{
-  console.log(id);
 
   return this.http.get<Offre[]>(`${this.apiServerUrl}/offre/Fournisseur/${id}`);
 }
@@ -36,6 +35,16 @@ export class OffreService {
  public accepterOffre(offre:Offre|undefined):Observable<void>{
 
     return this.http.put<void>(`${this.apiServerUrl}/offre/accepter/${offre?.id}`,offre);
+ }
+
+ public getNotifFournisseur(idFournisseur: string): Observable<NotifFournisseur[]> {
+
+    return this.http.get<NotifFournisseur[]>(`${this.apiServerUrl}/notifFournisseur/fournisseur/${idFournisseur}`)
+ }
+
+ public notifSeen(id: number | null):Observable<void> {
+
+    return this.http.put<void>(`${this.apiServerUrl}/notifFournisseur/${id}`, null)
  }
 
 

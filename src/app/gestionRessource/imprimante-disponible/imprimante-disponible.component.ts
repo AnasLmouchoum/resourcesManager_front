@@ -157,13 +157,13 @@ export class ImprimanteDisponibleComponent {
 
 
   private affectationImprimante(ajouterRessourceForm: NgForm) {
-    this.editImprimante!.codeBarre = ajouterRessourceForm.value.codebarre
-    this.editImprimante!.resolution = ajouterRessourceForm.value.resolution
-    this.editImprimante!.vitesseImpression = ajouterRessourceForm.value.vitesseimpression
+    // this.editImprimante!.codeBarre = ajouterRessourceForm.value.codebarre
+    // this.editImprimante!.resolution = ajouterRessourceForm.value.resolution
+    // this.editImprimante!.vitesseImpression = ajouterRessourceForm.value.vitesseimpression
     this.editImprimante!.dateLivraison = ajouterRessourceForm.value.datelivraison
     this.editImprimante!.dateFinGarantie = ajouterRessourceForm.value.datefingarantie
-    this.editImprimante!.prix = ajouterRessourceForm.value.prix
-    this.editImprimante!.marque = ajouterRessourceForm.value.marque
+    // this.editImprimante!.prix = ajouterRessourceForm.value.prix
+    // this.editImprimante!.marque = ajouterRessourceForm.value.marque
     this.editImprimante!.idMembreDepartement = ajouterRessourceForm.value.enseignantid
   }
 

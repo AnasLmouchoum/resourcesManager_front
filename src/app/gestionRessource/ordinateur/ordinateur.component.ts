@@ -100,6 +100,7 @@ export class OrdinateurComponent {
   public openModal(ordinateur: Ordinateur, mode: string): void {
   if(mode == "editOrdinateur"){
       this.editOrdinateur = ordinateur
+      this.editOrdinateur.codeBarre = '' + this.generateRandomInt()
       this.editFournisseur=this.listeFournisseur.filter(p=>p.id==this.editOrdinateur?.idFournisseur)[0]}
     else
       if(mode == "deleteOrdinateur")
@@ -140,15 +141,15 @@ export class OrdinateurComponent {
 
 
   private affectationOrdinateur(ajouterRessourceForm: NgForm) {
-    this.editOrdinateur!.codeBarre = ajouterRessourceForm.value.codebarre
-    this.editOrdinateur!.ram = ajouterRessourceForm.value.ram
-    this.editOrdinateur!.cpu = ajouterRessourceForm.value.cpu
-    this.editOrdinateur!.disqueDur = ajouterRessourceForm.value.disquedur
+    // this.editOrdinateur!.codeBarre = ajouterRessourceForm.value.codebarre
+    // this.editOrdinateur!.ram = ajouterRessourceForm.value.ram
+    // this.editOrdinateur!.cpu = ajouterRessourceForm.value.cpu
+    // this.editOrdinateur!.disqueDur = ajouterRessourceForm.value.disquedur
     this.editOrdinateur!.dateLivraison = ajouterRessourceForm.value.datelivraison
     this.editOrdinateur!.dateFinGarantie = ajouterRessourceForm.value.datefingarantie
-    this.editOrdinateur!.ecran = ajouterRessourceForm.value.ecran
-    this.editOrdinateur!.prix = ajouterRessourceForm.value.prix
-    this.editOrdinateur!.marque = ajouterRessourceForm.value.marque
+    // this.editOrdinateur!.ecran = ajouterRessourceForm.value.ecran
+    // this.editOrdinateur!.prix = ajouterRessourceForm.value.prix
+    // this.editOrdinateur!.marque = ajouterRessourceForm.value.marque
     this.editOrdinateur!.idMembreDepartement = ajouterRessourceForm.value.enseignantid
   }
 
@@ -160,6 +161,10 @@ export class OrdinateurComponent {
     }, 500);
   }
 
+
+  public generateRandomInt(): number {
+    return Math.floor((Math.random() * Math.pow(10,13)) + 1)
+  }
 
 
 }

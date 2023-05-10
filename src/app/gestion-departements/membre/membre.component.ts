@@ -16,10 +16,12 @@ export class MembreComponent {
   deleteMembre!: MembreDepartement | undefined;
   editMembre!: MembreDepartement | undefined;
   public departements!: Departement[];
+  public addMembreForm!: NgForm;
 
   public constructor(private gestionDepartementsService: GestionDepartementsService) {}
 
   ngOnInit(): void {
+    this.addMembreForm = new NgForm([], []);
     this.loadMembresDepartement();
     this.loadDepartements();
   }
@@ -44,6 +46,18 @@ export class MembreComponent {
   }
 
   public handleAjouterMembre(addMembreForm: NgForm): void {
+    const controls = ['nom', 'prenom', 'username','password','email','cin','roles','idDepartement'];
+    this.addMembreForm=addMembreForm;
+    if (this.addMembreForm.invalid) {
+      controls.forEach(control => {
+        this.addMembreForm.form.controls[control].markAsTouched();
+      })
+    }
+    if (this.addMembreForm.invalid) {
+      return;
+    };
+
+    if (this.addMembreForm.valid) {
     let role: Role = {
       nomRole: addMembreForm.value.roles,
       id: null,
@@ -56,6 +70,7 @@ export class MembreComponent {
       },
       error: (error) => console.log(error)
     })
+  }
   }
 
   public getDepartements(): void {

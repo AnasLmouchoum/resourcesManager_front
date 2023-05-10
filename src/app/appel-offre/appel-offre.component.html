@@ -361,7 +361,7 @@
         <button *ngIf="selecedtOffre?.isRejected==true" type="button" data-dismiss="modal"
           class="btn btn-danger mr-1 mb-1 waves-effect waves-light">Offre rejetée</button>
         <button type="button" (click)="blackListOpened = true"
-          class="btn btn-danger mr-1 mb-1 waves-effect waves-light">Bannir fournisseur (not yet)</button>
+          class="btn btn-danger mr-1 mb-1 waves-effect waves-light">Bannir fournisseur</button>
         <form class="row ml-1" #motifForm="ngForm" *ngIf="blackListOpened">
           <input ngModel name="motif" class="form-control col-sm-8" placeholder="motif">
           <button class="feather icon-check text-success col-sm-2 border-0" data-dismiss="modal"
@@ -373,7 +373,7 @@
         </button>
 
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="overflow-y: scroll; height: 500px;">
         <div class="list-group" id="list-tab" role="tablist">
           <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" role="tab"
             aria-controls="list-home">ID: {{ selecedtOffre?.id }}</a>

@@ -68,6 +68,7 @@
                           <th>Code barre</th>
                           <th>Type</th>
                           <th>Marque</th>
+                          <th>Etat</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -78,7 +79,20 @@
                           <td *ngIf="Ressource!.codeBarre != null">{{ Ressource!.type }}</td>
                           <td *ngIf="Ressource!.codeBarre != null">{{ Ressource!.marque }}</td>
                           <td *ngIf="Ressource!.codeBarre != null">
+                            <div *ngIf="isRessourceInPanne(Ressource?.id)" class="chip chip-danger">
+                              <div class="chip-body">
+                                  <div class="chip-text">En panne</div>
+                              </div>
+                            </div>
+                            <div *ngIf="!isRessourceInPanne(Ressource?.id)" class="chip chip-success">
+                              <div class="chip-body">
+                                  <div class="chip-text">Disponible</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td *ngIf="Ressource!.codeBarre != null">
                             <button
+                              [disabled]="isRessourceInPanne(Ressource?.id)"
                               type="button"
                               class="btn btn-warning btn-rounded"
                               data-toggle="modal"
@@ -96,6 +110,7 @@
                           <th>Code barre</th>
                           <th>Type</th>
                           <th>Marque</th>
+                          <th>Etat</th>
                           <th>Action</th>
                         </tr>
                       </tfoot>

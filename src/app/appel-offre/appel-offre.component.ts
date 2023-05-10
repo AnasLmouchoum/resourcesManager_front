@@ -100,7 +100,7 @@ export class AppelOffreComponent {
   getAppelsOffre(): void {
     this.appelOffreService.getAllAppelOffre().subscribe({
       next: (data: AppelOffre[]) => {
-        this.appelsOffre = data;
+        this.appelsOffre = data.reverse();
         this.ngAfterViewInit();
       },
       error: (error: HttpErrorResponse) => {

@@ -1,3 +1,4 @@
+import { NotifFournisseur } from './../../classes/Classes';
 import { Component } from '@angular/core';
 import { Router, RouterEvent, Event } from '@angular/router';
 import { filter } from 'rxjs';
@@ -5,6 +6,7 @@ import { Demande } from 'src/app/classes/Classes';
 import { EventTypes } from 'src/app/classes/event-type';
 import { AuthService } from 'src/app/services/auth.service';
 import { GestionBesoinsService } from 'src/app/services/gestion-besoins.service';
+import { OffreService } from 'src/app/services/offre.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 
@@ -22,10 +24,14 @@ export class HeadMenuComponent {
   public isLoggedIn!: boolean;
   public userId!: string;
   public userRole!: string[];
+  public notifsFournisseur: NotifFournisseur[] = [];
+
   public constructor(private besoinsService: GestionBesoinsService, private router: Router,
-    private auth: AuthService, private userStore: UserStoreService, private toastService: ToastService) { }
+    private auth: AuthService, private userStore: UserStoreService, private toastService: ToastService,
+    private offreService: OffreService) { }
 
   ngOnInit(): void {
+    this.userId = this.auth.getConnectedUserId();
     this.userStore.getFullName().subscribe(res => {
       let fullName = this.auth.getUserNameFromToken();
       this.userName = res || fullName;
@@ -40,12 +46,11 @@ export class HeadMenuComponent {
     });
 
     this.isLoggedIn = this.isLoginIn();
-    this.userId = this.auth.getConnectedUserId();
-    console.log(this.userId)
 
     this.loadDemandes()
 
     this.getCurrentPath();
+    this.loadNotifFournisseur()
   }
   public hasRole(role: string[]): boolean {
     return this.userRole.some(item => role.includes(item));
@@ -111,6 +116,30 @@ export class HeadMenuComponent {
     ).subscribe((e: RouterEvent) => {
       this.currentPath = e.url
     });
+  }
+
+  public loadNotifFournisseur() {
+    this.offreService.getNotifFournisseur(this.userId).subscribe({
+      next: (data) => this.notifsFournisseur = data,
+      error: (error) => console.log(error)
+    })
+  }
+
+  public getNumberOfNotificationsFour() {
+
+    let numberOfNotif = 0;
+    this.notifsFournisseur.forEach((notif) => {
+      if (!notif.isSeen)
+        numberOfNotif += 1;
+    })
+    return numberOfNotif;
+  }
+
+  public notifFourIsSeen(id: number | null) {
+    this.offreService.notifSeen(id).subscribe({
+      next: (data) => {this.loadNotifFournisseur()},
+      error: (error) => console.log(error)
+    })
   }
 
 }

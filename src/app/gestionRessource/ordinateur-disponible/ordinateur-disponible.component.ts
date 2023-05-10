@@ -140,15 +140,15 @@ export class OrdinateurDisponibleComponent {
   }
 
   private affectationOrdinateur(ajouterRessourceForm: NgForm) {
-    this.editOrdinateur!.codeBarre = ajouterRessourceForm.value.codebarre
-    this.editOrdinateur!.ram = ajouterRessourceForm.value.ram
-    this.editOrdinateur!.cpu = ajouterRessourceForm.value.cpu
-    this.editOrdinateur!.disqueDur = ajouterRessourceForm.value.disquedur
+    // this.editOrdinateur!.codeBarre = ajouterRessourceForm.value.codebarre
+    // this.editOrdinateur!.ram = ajouterRessourceForm.value.ram
+    // this.editOrdinateur!.cpu = ajouterRessourceForm.value.cpu
+    // this.editOrdinateur!.disqueDur = ajouterRessourceForm.value.disquedur
     this.editOrdinateur!.dateLivraison = ajouterRessourceForm.value.datelivraison
     this.editOrdinateur!.dateFinGarantie = ajouterRessourceForm.value.datefingarantie
-    this.editOrdinateur!.ecran = ajouterRessourceForm.value.ecran
-    this.editOrdinateur!.prix = ajouterRessourceForm.value.prix
-    this.editOrdinateur!.marque = ajouterRessourceForm.value.marque
+    // this.editOrdinateur!.ecran = ajouterRessourceForm.value.ecran
+    // this.editOrdinateur!.prix = ajouterRessourceForm.value.prix
+    // this.editOrdinateur!.marque = ajouterRessourceForm.value.marque
     this.editOrdinateur!.idMembreDepartement = ajouterRessourceForm.value.enseignantid
   }
 

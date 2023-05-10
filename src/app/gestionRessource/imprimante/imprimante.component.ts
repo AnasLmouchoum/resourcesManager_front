@@ -105,6 +105,7 @@ ordinateur: any;
   public openModal(imprimante: Imprimante, mode: string): void {
     if(mode == "editImprimante"){
       this.editImprimante = imprimante
+      this.editImprimante.codeBarre = '' + this.generateRandomInt()
       this.editFournisseur=this.listeFournisseur.filter(p=>p.id==this.editImprimante?.idFournisseur)[0]}
     else
     if(mode == "deleteImprimante")
@@ -157,20 +158,18 @@ ordinateur: any;
 
 
   private affectationImprimante(ajouterRessourceForm: NgForm) {
-    this.editImprimante!.codeBarre = ajouterRessourceForm.value.codebarre
-    this.editImprimante!.resolution = ajouterRessourceForm.value.resolution
-    this.editImprimante!.vitesseImpression = ajouterRessourceForm.value.vitesseimpression
+    // this.editImprimante!.codeBarre = ajouterRessourceForm.value.codebarre
+    // this.editImprimante!.resolution = ajouterRessourceForm.value.resolution
+    // this.editImprimante!.vitesseImpression = ajouterRessourceForm.value.vitesseimpression
     this.editImprimante!.dateLivraison = ajouterRessourceForm.value.datelivraison
     this.editImprimante!.dateFinGarantie = ajouterRessourceForm.value.datefingarantie
-    this.editImprimante!.prix = ajouterRessourceForm.value.prix
-    this.editImprimante!.marque = ajouterRessourceForm.value.marque
+    // this.editImprimante!.prix = ajouterRessourceForm.value.prix
+    // this.editImprimante!.marque = ajouterRessourceForm.value.marque
     this.editImprimante!.idMembreDepartement = ajouterRessourceForm.value.enseignantid
   }
 
   ngAfterViewInitNonLivre(): void {
-    // $(document).ready(function() {
-    //   $('#departementsTable').DataTable();
-    // });
+
     setTimeout(() => {
       $(document).ready(function() {
         $('#imprimanteNonLivre').DataTable();
@@ -178,6 +177,8 @@ ordinateur: any;
     }, 500);
   }
 
-
+  public generateRandomInt() {
+    return Math.floor((Math.random() * Math.pow(10,13)) + 1)
+  }
 
 }

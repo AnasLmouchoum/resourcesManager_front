@@ -25,10 +25,14 @@ export class PannesTechnicienComponent {
   public ordreInvalid = false;
   public frequenceInvalid = false;
   public constatInvalid = false;
+  userId!: string;
 
   constructor(private gestionPannesService: GestionPannesService) {}
 
   ngOnInit(): void {
+
+    this.userId = localStorage.getItem('userId')!;
+
     this.loadPannes();
     this.loadRessources();
     this.severe = false;
@@ -108,7 +112,7 @@ export class PannesTechnicienComponent {
         dateConstat: null,
         ordre: null,
         frequence: null,
-        idTechnicien: '1',
+        idTechnicien: this.userId,
         demande: null,
       };
       this.gestionPannesService.editPanne(panne).subscribe({
@@ -139,7 +143,7 @@ export class PannesTechnicienComponent {
         dateConstat: new Date(),
         ordre: editPanneForm.value.ordre,
         frequence: editPanneForm.value.frequence,
-        idTechnicien: '1',
+        idTechnicien: this.userId,
         demande: null,
       };
       this.gestionPannesService.editPanne(panne).subscribe({

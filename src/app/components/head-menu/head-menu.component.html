@@ -27,9 +27,29 @@
                                   </div>
                               </a>
                           </li>
-                          <!-- <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="javascript:void(0)">Read all notifications</a></li> -->
+
                       </ul>
                   </li>
+                  <li *ngIf="hasRole(['fournisseur'])" class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">{{ getNumberOfNotificationsFour() }}</span></a>
+                    <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                        <li class="dropdown-menu-header">
+                            <div class="dropdown-header m-0 p-2">
+                                <h3 class="white">{{ getNumberOfNotificationsFour() }} New</h3><span class="notification-title">App Notifications</span>
+                            </div>
+                        </li>
+                        <li class="scrollable-container media-list" *ngFor="let notif of notifsFournisseur">
+                          <a class="d-flex justify-content-between" (click)="notifFourIsSeen(notif.id)">
+                                <div class="media d-flex align-items-start">
+                                    <div class="media-left"><i class="feather icon-bell font-medium-5"></i></div>
+                                    <div class="media-body">
+                                        <h6 class="media-heading">Votre offre a été <b *ngIf="notif.isAccepted" class="text-success">accepté</b><b *ngIf="!notif.isAccepted" class="text-danger">rejeté</b></h6>
+                                    </div><small>
+                                        <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">{{ notif.dateOffre }}</time></small>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                   <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                           <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{userName}}</span></div><span><img class="round" src="../../../assets/app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
                       </a>

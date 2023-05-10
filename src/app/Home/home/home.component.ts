@@ -11,8 +11,13 @@ export class HomeComponent implements OnInit {
 
   }
   ngOnInit(): void {
-
+    const reloadAfterRedirect = sessionStorage.getItem('reloadAfterRedirect');
+    if (reloadAfterRedirect === 'true') {
+      sessionStorage.removeItem('reloadAfterRedirect');
+      window.location.replace(window.location.href);
+    }
   }
+
 
 
 }

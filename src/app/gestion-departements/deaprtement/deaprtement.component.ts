@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Departement } from 'src/app/classes/Classes';
 import { GestionDepartementsService } from '../../services/gestion-departements.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
+import { AbstractControl, NgForm } from '@angular/forms';
 declare var $: any;
 
 @Component({
@@ -14,20 +14,30 @@ export class DeaprtementComponent {
 
 
 
+
+
   public departements!: Departement[];
   public editDepartement: Departement | undefined;
   public deleteDepartement: Departement | undefined;
+  public addDepartementForm!: NgForm;
+  public editDepartementForm!: NgForm;
+
 
   constructor(private gestDepartementService: GestionDepartementsService) {}
 
   ngOnInit(): void {
+   this.addDepartementForm = new NgForm([], []);
+   this.editDepartementForm = new NgForm([], []);
    this.loadDepartements();
   }
+
+
 
   public loadDepartements() {
     this.departements = [];
     this.getDepartements();
   }
+
 
   public getDepartements(): void {
     this.gestDepartementService.getAllDepartements().subscribe({
@@ -41,20 +51,30 @@ export class DeaprtementComponent {
     })
   }
 
+
   public handleAjouterDepartement(addDepartementForm: NgForm): void {
+
+    this.addDepartementForm=addDepartementForm;
+    this.addDepartementForm.form.controls['nomDepartement'].markAsTouched();
+  if (this.addDepartementForm.invalid) return;
     this.gestDepartementService.addDepartement(addDepartementForm.value).subscribe({
       next: (data) => {
         this.departements.push(data);
+        addDepartementForm.reset();
         this.ngAfterViewInit();
       },
       error: (error) => {
         console.log(error);
-      }
-    })
-    addDepartementForm.reset();
+        addDepartementForm.reset();
+     }
+    });
+
   }
 
-  public handleEditDepartement(departement: Departement): void {
+  public handleEditDepartement(departement: Departement,editDepartementForm: NgForm): void {
+    this.editDepartementForm=editDepartementForm;
+    this.editDepartementForm.form.controls['nomDepartement'].markAsTouched();
+    if (this.editDepartementForm.invalid) return;
     departement.id = this.editDepartement!.id;
     departement.membreDepartements = this.editDepartement!.membreDepartements;
     this.gestDepartementService.editDepartement(departement).subscribe({
