@@ -1,395 +1,362 @@
-<div class="app-content content">
-  <div class="content-overlay"></div>
-  <div class="header-navbar-shadow"></div>
-  <div class="content-wrapper">
-      <div class="content-header row">
-          <div class="content-header-left col-md-9 col-12 mb-2">
-              <div class="row breadcrumbs-top">
-                  <div class="col-12">
-                      <h2 class="content-header-title float-left mb-0">Gestion Departements</h2>
-                      <div class="breadcrumb-wrapper col-12">
-                          <ol class="breadcrumb">
-                              <li class="breadcrumb-item"><a>Departements</a>
-                              </li>
-                              <li class="breadcrumb-item active">Departements
-                              </li>
-                          </ol>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-              <div class="form-group breadcrum-right">
-                  <div class="dropdown">
-                      <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
-                      <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Chat</a><a class="dropdown-item" href="#">Email</a><a class="dropdown-item" href="#">Calendar</a></div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="content-body">
-          <div class="row">
-              <div class="col-12">
-                  <p>Vous pouvez gérer les departements de votre etablissement via cette page</p>
-              </div>
-          </div>
-          <!-- Column selectors with Export Options and print table -->
-          <section id="column-selectors">
-              <div class="row">
-                  <div class="col-12">
-                      <div class="card">
-                          <div class="card-header">
-                              <h4 class="card-title">Liste des departements</h4>
-                          </div>
-                          <div class="card-content">
-                              <div class="card-body card-dashboard">
-                                <button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#addMembreModal">
-                                  <i class="fa fa-user-plus"></i> Nouveau membre
-                                </button>
-                                  <div class="table-responsive">
-                                      <table class="table zero-configuration" id="membresTable">
-                                          <thead>
-                                              <tr>
-                                                  <th>Username</th>
-                                                  <th>Email</th>
-                                                  <th>Informations</th>
-                                                  <th>Domaine</th>
-                                                  <th>Laboratoire</th>
-                                                  <th>Departement</th>
-                                                  <th>Roles</th>
-                                                  <th>Action</th>
-                                              </tr>
-                                          </thead>
-                                          <tbody>
-                                              <tr *ngFor="let membre of membresDepartement">
-                                                  <td>{{ membre.username }}</td>
-                                                  <td>{{ membre.email }}</td>
-                                                  <td>
-                                                    <div class="dropdown">
-                                                      <a class="fa fa-user" id="userInfo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                                                      <div class="dropdown-menu" aria-labelledby="userInfo" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                                                          <div class="dropdown-item">Nom: {{ membre.nom }}</div>
-                                                          <div class="dropdown-item">Prenom: {{ membre.prenom }}</div>
-                                                          <div class="dropdown-item">CIN: {{ membre.cin }}</div>
-                                                      </div>
-                                                  </div>
-                                                  </td>
-                                                  <td>{{ membre.domaineExpertise }}</td>
-                                                  <td>{{ membre.laboratoire }}</td>
-                                                  <td>{{ getDepartement(membre.idDepartement) }}</td>
-                                                  <td>{{ getRoles(membre.roles) }}</td>
-                                                  <td>
-                                                      <a class="feather icon-more-vertical" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                      </a>
-                                                      <div class="dropdown-menu">
-                                                          <a class="dropdown-item text-primary" (click)="openModal(membre, 'editMembre')" data-toggle="modal" data-target="#editMembreModal"><i class="feather icon-edit"></i> Update</a>
-                                                          <a class="dropdown-item text-danger" (click)="openModal(membre, 'deleteMembre')" data-toggle="modal" data-target="#deleMembreModal"><i class="feather icon-trash-2"></i> Delete</a>
-                                                      </div>
-                                                  </td>
-                                              </tr>
-                                          </tbody>
-                                          <tfoot>
-                                              <tr>
-                                                <th>Username</th>
-                                                  <th>Email</th>
-                                                  <th>Informations</th>
-                                                  <th>Domaine</th>
-                                                  <th>Laboratoire</th>
-                                                  <th>Departement</th>
-                                                  <th>Roles</th>
-                                                  <th>Action</th>
-                                              </tr>
-                                          </tfoot>
-                                      </table>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </section>
-          <!-- Column selectors with Export Options and print table -->
-      </div>
-  </div>
-</div>
-<!-- END: Content-->
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+    <app-head-menu></app-head-menu>
+    <app-menu></app-menu>
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h2 class="content-header-title float-left mb-0">Gestion Departements</h2>
+                            <div class="breadcrumb-wrapper col-12">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a>Departements</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Departements
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+                    <div class="form-group breadcrum-right">
+                        <div class="dropdown">
+                            <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                    class="feather icon-settings"></i></button>
+                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Chat</a><a
+                                    class="dropdown-item" href="#">Email</a><a class="dropdown-item"
+                                    href="#">Calendar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-12">
+                        <p>Vous pouvez gérer les departements de votre etablissement via cette page</p>
+                    </div>
+                </div>
+                <!-- Column selectors with Export Options and print table -->
+                <section id="column-selectors">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Liste des departements</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body card-dashboard">
+                                        <button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light"
+                                            data-toggle="modal" data-target="#addMembreModal">
+                                            <i class="fa fa-user-plus"></i> Nouveau membre
+                                        </button>
+                                        <div class="table-responsive">
+                                            <table class="table zero-configuration" id="membresTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Username</th>
+                                                        <th>Email</th>
+                                                        <th>Informations</th>
+                                                        <th>Domaine</th>
+                                                        <th>Laboratoire</th>
+                                                        <th>Departement</th>
+                                                        <th>Roles</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let membre of membresDepartement">
+                                                        <td>{{ membre.username }}</td>
+                                                        <td>{{ membre.email }}</td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <a class="fa fa-user" id="userInfo"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"></a>
+                                                                <div class="dropdown-menu" aria-labelledby="userInfo"
+                                                                    x-placement="bottom-start"
+                                                                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                                                    <div class="dropdown-item">Nom: {{ membre.nom }}
+                                                                    </div>
+                                                                    <div class="dropdown-item">Prenom: {{ membre.prenom
+                                                                        }}
+                                                                    </div>
+                                                                    <div class="dropdown-item">CIN: {{ membre.cin }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ membre.domaineExpertise }}</td>
+                                                        <td>{{ membre.laboratoire }}</td>
+                                                        <td>{{ getDepartement(membre.idDepartement) }}</td>
+                                                        <td>{{ getRoles(membre.roles) }}</td>
+                                                        <td>
+                                                            <a class="feather icon-more-vertical" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                            </a>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item text-primary"
+                                                                    (click)="openModal(membre, 'editMembre')"
+                                                                    data-toggle="modal"
+                                                                    data-target="#editMembreModal"><i
+                                                                        class="feather icon-edit"></i> Update</a>
+                                                                <a class="dropdown-item text-danger"
+                                                                    (click)="openModal(membre, 'deleteMembre')"
+                                                                    data-toggle="modal"
+                                                                    data-target="#deleMembreModal"><i
+                                                                        class="feather icon-trash-2"></i> Delete</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Username</th>
+                                                        <th>Email</th>
+                                                        <th>Informations</th>
+                                                        <th>Domaine</th>
+                                                        <th>Laboratoire</th>
+                                                        <th>Departement</th>
+                                                        <th>Roles</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Column selectors with Export Options and print table -->
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
 
 
 
-<!-- add Membre modal -->
-<div class="modal fade text-left" id="addMembreModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h4 class="modal-title" id="myModalLabel33">Ajouter un membre</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-              </button>
-          </div>
-          <form #addMembreForm="ngForm">
-              <div class="modal-body">
-                <h4>Informations Personnelles</h4>
-                  <div class="row">
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel type="text" id="nom-column" class="form-control" placeholder="Nom" name="nom" required pattern="^[\sa-zA-Z'-]+$">
-                              <small
-   class="text-danger"
-   *ngIf="addMembreForm.form.controls['nom'].hasError('required') && addMembreForm.form.controls['nom'].touched"
->
-   Le nom est requis.
-</small>
+    <!-- add Membre modal -->
+    <div class="modal fade text-left" id="addMembreModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+        style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel33">Ajouter un membre</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form [formGroup]="addMembreForm">
+                    <div class="modal-body">
+                        <h4>Informations Personnelles</h4>
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="form-label-group">
+                                    <input type="text" id="username-column" class="form-control" placeholder="Username"
+                                        name="username" formControlName="username"
+                                        [ngClass]="addMembreForm.controls['username'].dirty && addMembreForm.hasError('required','username')?'is-invalid':''">
+                                    <small
+                                        *ngIf="addMembreForm.controls['username'].dirty && addMembreForm.hasError('required','username')"
+                                        class="text-danger">username is required</small>
+                                    <label for="username-column">Username</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-label-group">
+                                    <input type="password" id="password-floating" class="form-control" name="password"
+                                        placeholder="password" formControlName="password"
+                                        [ngClass]="addMembreForm.controls['password'].dirty && addMembreForm.hasError('required','password')?'is-invalid':''">
+                                    <small
+                                        *ngIf="addMembreForm.controls['password'].dirty && addMembreForm.hasError('required','password')"
+                                        class="text-danger">password is required</small>
+                                    <label for="password-floating">Password</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-label-group">
+                                    <input type="text" id="nom-columnE" class="form-control" formControlName="nom"
+                                        placeholder="Nom" name="nom"
+                                        [ngClass]="addMembreForm.controls['nom'].dirty && addMembreForm.hasError('required','nom')?'is-invalid':''">
+                                    <small
+                                        *ngIf="addMembreForm.controls['nom'].dirty && addMembreForm.hasError('required','nom')"
+                                        class="text-danger">nom is required</small>
+                                    <label for="nom-column">Nom</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-label-group">
+                                    <input type="text" id="prenom-columnE" class="form-control" placeholder="Prenom"
+                                        name="prenom" formControlName="prenom"
+                                        [ngClass]="addMembreForm.controls['prenom'].dirty && addMembreForm.hasError('required','prenom')?'is-invalid':''">
+                                    <small
+                                        *ngIf="addMembreForm.controls['prenom'].dirty && addMembreForm.hasError('required','prenom')"
+                                        class="text-danger">prenom is required</small>
+                                    <label for="prenom-column">Prenom</label>
+                                </div>
+                            </div>
+                        </div>
+                        <h4>Informations Professionels</h4>
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <label for="departement-name">Departement</label>
+                                <div class="form-label-group">
+                                    <select name="idDepartement" class="form-control" id="departement-name"
+                                        formControlName="idDepartement"
+                                        [ngClass]="addMembreForm.controls['idDepartement'].dirty && addMembreForm.hasError('required','idDepartement')?'is-invalid':''">
+                                        <option *ngFor="let departement of departements" value="{{ departement.id }}">{{
+                                            departement.nomDepartement }}</option>
+                                    </select>
+                                    <small
+                                        *ngIf="addMembreForm.controls['idDepartement'].dirty && addMembreForm.hasError('required','idDepartement')"
+                                        class="text-danger">please choose a departement</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label for="departement-name">Role</label>
+                                <div class="form-label-group">
+                                    <select name="roles" class="form-control" id="role-name" formControlName="roles"
+                                        [ngClass]="addMembreForm.controls['roles'].dirty && addMembreForm.hasError('required','roles')?'is-invalid':''">
+                                        <option value="PROF">Enseignant</option>
+                                        <option value="CHEF_DEP">Chef departement</option>
+                                    </select>
+                                    <small
+                                        *ngIf="addMembreForm.controls['roles'].dirty && addMembreForm.hasError('required','roles')"
+                                        class="text-danger">please choose a role</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light"
+                            (click)="handleAjouterMembre()"
+                            [attr.data-dismiss]="addMembreForm.valid ? 'modal' : null">Ajouter</button>
+                        <button type="reset" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light"
+                            data-dismiss="modal">Annuler</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-<small
-   class="text-danger"
-   *ngIf="addMembreForm.form.controls['nom'].hasError('pattern') && addMembreForm.form.controls['nom'].touched"
->
-   Le nom ne peut contenir que des lettres et des espaces.
-</small>
-                              <label for="nom-column">Nom</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel type="text" id="prenom-column" class="form-control" placeholder="Prenom" required name="prenom" pattern="^[\sa-zA-Z'-]+$">
-                              <small
-   class="text-danger"
-   *ngIf="addMembreForm.form.controls['prenom'].hasError('required') && addMembreForm.form.controls['prenom'].touched"
->
-   Le prénom est requis.
-</small>
+    <!-- edit membre modal  -->
+    <div class="modal fade text-left" id="editMembreModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+        style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel733">Modifier le membre {{ editMembre?.nom }} {{
+                        editMembre?.prenom }}</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form #editMembreForm="ngForm">
+                    <div class="modal-body">
+                        <h4>Informations Personnelles</h4>
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="form-label-group">
+                                    <input ngModel="{{ editMembre?.nom }}" type="text" id="nom-columnE"
+                                        class="form-control" placeholder="Nom" name="nom" required>
+                                    <label for="nom-column">Nom</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-label-group">
+                                    <input ngModel="{{ editMembre?.prenom }}" type="text" id="prenom-columnE"
+                                        class="form-control" placeholder="Prenom" name="prenom">
+                                    <label for="prenom-column">Prenom</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-label-group">
+                                    <input ngModel="{{ editMembre?.username }}" type="text" id="username-columnE"
+                                        class="form-control" placeholder="Username" name="username"
+                                        [ngClass]="addMembreForm.controls['username'].dirty && addMembreForm.hasError('required','username')?'is-invalid':''">
+                                    <small
+                                        *ngIf="addMembreForm.controls['username'].dirty && addMembreForm.hasError('required','username')"
+                                        class="text-danger">username is required</small>
+                                    <label for="username-column">Username</label>
 
-<small
-   class="text-danger"
-   *ngIf="addMembreForm.form.controls['prenom'].hasError('pattern') && addMembreForm.form.controls['prenom'].touched"
->
-   Le prénom ne peut contenir que des lettres et des espaces.
-</small>
-                              <label for="prenom-column">Prenom</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel type="text" id="username-column" class="form-control" placeholder="Username"  name="username" required patter="/^[\w\d]+$/">
-                              <small class="text-danger"
-                              *ngIf="addMembreForm.form.controls['username'].hasError('required') && addMembreForm.form.controls['username'].touched">
-                         Le username est requis.
-                       </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-label-group">
+                                    <input ngModel="{{ editMembre?.email }}" type="email" id="email-columnE"
+                                        class="form-control" name="email" placeholder="Email">
+                                    <label for="email-column">Email</label>
+                                </div>
+                            </div>
 
-                       <small class="text-danger"
-                              *ngIf="addMembreForm.form.controls['username'].hasError('pattern') && addMembreForm.form.controls['username'].touched">
-                         Username invalide.
-                       </small>
-                              <label for="username-column">Username</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel type="password" id="password-floating" class="form-control" required name="password" placeholder="password" pattern="^(?=.*\d)(?=.*[a-zA-Z]).{8,}$">
-                              <small
-   class="text-danger"
-   *ngIf="addMembreForm.form.controls['password'].hasError('required') && addMembreForm.form.controls['password'].touched"
->
-    Le mot de passe est requis.
-</small>
+                        </div>
+                        <h4>Informations Professionels</h4>
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="form-label-group">
+                                    Departement<select ngModel="{{ editMembre?.idDepartement }}" name="idDepartement"
+                                        class="form-control" id="">
+                                        <option *ngFor="let departement of departements" value="{{ departement.id }}">{{
+                                            departement.nomDepartement }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-6 col-12">
+                            <div class="form-label-group">
+                                Roles<select ngModel= {{editMembre?.roles}} name="roles" class="form-control">
 
-<small
-   class="text-danger"
-   *ngIf="addMembreForm.form.controls['password'].hasError('pattern') && addMembreForm.form.controls['password'].touched"
->
-    Le mot de passe doit contenir au moins 8 caractères,chiffres et lettres.
-</small>
-                              <label for="password-floating">Password</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel type="email" id="email-column" class="form-control" required name="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-                              <small
-   class="text-danger"
-   *ngIf="addMembreForm.form.controls['email'].hasError('required') && addMembreForm.form.controls['email'].touched"
->
-   L'email est requis.
-</small>
+                                    <option *ngIf="editMembre?.roles && editMembre?.roles!.length > 0"
+                                        [value]="editMembre!.roles[0].nomRole" selected>{{ editMembre!.roles[0].nomRole }}
+                                    </option>
+                                    <span>{{ editMembre && editMembre.roles && editMembre.roles[0] ?
+                                        editMembre.roles[0].nomRole : '' }}</span>
+                                    <option value="editMembre.roles[0].nomRole" >Enseignant</option>
+                                    <option value="CHEF_DEP">Chef departement</option>
 
-<small
-   class="text-danger"
-   *ngIf="addMembreForm.form.controls['email'].hasError('pattern') && addMembreForm.form.controls['email'].touched"
->
-   Veuillez entrer un email valide.
-</small>
-                              <label for="email-column">Email</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel type="text" id="cin-column" class="form-control" required name="cin" placeholder="CIN" pattern="^[a-zA-Z]{2}\d{6}$">
-                              <small
-   class="text-danger"
-   *ngIf="addMembreForm.form.controls['cin'].hasError('required') && addMembreForm.form.controls['cin'].touched"
->
-    Le CIN est requis.
-</small>
+                                </select>
+                            </div>
+                        </div> -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light"
+                            (click)="handleEditMembre(editMembreForm.value)" data-dismiss="modal">Sauvgarder</button>
+                        <button type="reset" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light"
+                            data-dismiss="modal">Annuler</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-<small
-   class="text-danger"
-   *ngIf="addMembreForm.form.controls['cin'].hasError('pattern') && addMembreForm.form.controls['cin'].touched"
->
-    Le CIN doit commencer par 1 ou 2 lettres suivies de 3 ou 4 chiffres.
-</small>
-                              <label for="cin-column">CIN</label>
-                          </div>
-                      </div>
-                  </div>
-                  <h4>Informations Professionels</h4>
-                  <div class="row">
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel type="text" id="domaine-column" class="form-control" placeholder="Domaine" name="domaineExpertise">
-                              <label for="domaine-column">Domaine</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel type="text" id="laboratoire-column" class="form-control" placeholder="Laboratoire" name="laboratoire">
-                              <label for="laboratoire-column">Laboratoire</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                            <select ngModel="choose" name="idDepartement" required class="form-control" id="">
-                              <option selected value="choose">Choose...</option>
-                              <option *ngFor="let departement of departements" value="{{ departement.id }}">{{ departement.nomDepartement }}</option>
-                            </select>
-                            <small
-   class="text-danger"
-   *ngIf="addMembreForm.form.controls['idDepartement'].value == 'choose' && addMembreForm.form.controls['idDepartement'].touched"
->
-     Le département est requis.
-</small>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                            <select ngModel="choose" name="roles" required class="form-control" id="">
-                              <option selected value="choose">Choose...</option>
-                              <option value="PROF">Enseignant</option>
-                              <option value="CHEF_DEP">Chef departement</option>
-                            </select>
-                            <small
-                            class="text-danger"
-                            *ngIf="addMembreForm.form.controls['roles'].value == 'choose' && addMembreForm.form.controls['roles'].touched"
-                         >
-                            Le rôle est requis.
-                         </small>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" [disabled]="addMembreForm.invalid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" (click)="handleAjouterMembre(addMembreForm)" data-dismiss="modal">Ajouter</button>
-                <button type="reset" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light" data-dismiss="modal">Annuler</button>
-              </div>
-          </form>
-      </div>
-  </div>
-</div>
-
-<!-- edit membre modal  -->
-<div class="modal fade text-left" id="editMembreModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h4 class="modal-title" id="myModalLabel733">Modifier le membre {{ editMembre?.nom }} {{ editMembre?.prenom }}</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-              </button>
-          </div>
-          <form #editMembreForm="ngForm">
-              <div class="modal-body">
-                <h4>Informations Personnelles</h4>
-                  <div class="row">
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.nom }}" type="text" id="nom-columnE" class="form-control" placeholder="Nom" name="nom">
-                              <label for="nom-column">Nom</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.prenom }}" type="text" id="prenom-columnE" class="form-control" placeholder="Prenom" name="prenom">
-                              <label for="prenom-column">Prenom</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.username }}" type="text" id="username-columnE" class="form-control" placeholder="Username" name="username">
-                              <label for="username-column">Username</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.email }}" type="email" id="email-columnE" class="form-control" name="email" placeholder="Email">
-                              <label for="email-column">Email</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.cin }}" type="text" id="cin-columnE" class="form-control" name="cin" placeholder="CIN">
-                              <label for="cin-column">CIN</label>
-                          </div>
-                      </div>
-                  </div>
-                  <h4>Informations Professionels</h4>
-                  <div class="row">
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.domaineExpertise }}" type="text" id="domaine-columnE" class="form-control" placeholder="Domaine" name="domaineExpertise">
-                              <label for="domaine-column">Domaine</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                              <input ngModel="{{ editMembre?.laboratoire }}" type="text" id="laboratoire-columnE" class="form-control" placeholder="Laboratoire" name="laboratoire">
-                              <label for="laboratoire-column">Laboratoire</label>
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-12">
-                          <div class="form-label-group">
-                            Departement<select ngModel="{{ editMembre?.idDepartement }}" name="idDepartement" class="form-control" id="">
-                              <option selected value="choose">Choose...</option>
-                              <option *ngFor="let departement of departements" value="{{ departement.id }}">{{ departement.nomDepartement }}</option>
-                            </select>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" (click)="handleEditMembre(editMembreForm.value)" data-dismiss="modal">Sauvgarder</button>
-                <button type="reset" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light" data-dismiss="modal">Annuler</button>
-              </div>
-          </form>
-      </div>
-  </div>
-</div>
-
-<!-- delete membre modal -->
-<div class="modal fade text-left" id="deleMembreModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" style="display: none;" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-      <div class="modal-content">
-          <div class="modal-header bg-danger white">
-              <h5 class="modal-title" id="myModalLabel120">Confirmation de suppression</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              Etes vous vraimant voulez supprimer le membre {{ deleteMembre?.nom }} {{ deleteMembre?.prenom }}
-          </div>
-          <div class="modal-footer">
-              <button type="button" (click)="handleDeleteMembre()" class="btn btn-danger waves-effect waves-light mr-1" data-dismiss="modal">Confirmer</button>
-              <button type="button" class="btn btn-light waves-effect waves-light mr-1" data-dismiss="modal">Annuler</button>
-          </div>
-      </div>
-  </div>
+    <!-- delete membre modal -->
+    <div class="modal fade text-left" id="deleMembreModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120"
+        style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger white">
+                    <h5 class="modal-title" id="myModalLabel120">Confirmation de suppression</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Etes vous vraimant voulez supprimer le membre {{ deleteMembre?.nom }} {{ deleteMembre?.prenom }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" (click)="handleDeleteMembre(deleteMembre)"
+                        class="btn btn-danger waves-effect waves-light mr-1" data-dismiss="modal">Confirmer</button>
+                    <button type="button" class="btn btn-light waves-effect waves-light mr-1"
+                        data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

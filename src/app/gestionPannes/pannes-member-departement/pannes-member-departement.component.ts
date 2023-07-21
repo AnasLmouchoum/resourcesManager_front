@@ -17,10 +17,10 @@ export class PannesMemberDepartementComponent {
   constructor(private gestionPannesService: GestionPannesService) {}
 
   ngOnInit(): void {
-    this.loadPannes();
-    this.loadRessources();
     this.userId = localStorage.getItem('userId')!;
     this.idDepartement = Number(localStorage.getItem('departementId')!);
+    this.loadPannes();
+    this.loadRessources();
   }
 
   public loadPannes() {
@@ -34,26 +34,31 @@ export class PannesMemberDepartementComponent {
   }
 
   public getmemberDepartementPannes(): void {
-    this.gestionPannesService.getMemberDepartementPannes(this.userId).subscribe({ //to extract from the current user
-      next: (data: Panne[]) => {
-        this.Pannes = data;
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
-      },
-    });
-    this.gestionPannesService.getMemberDepartementRessources;
+    this.gestionPannesService
+      .getMemberDepartementPannes(this.userId)
+      .subscribe({
+        next: (data: any) => {
+          this.Pannes = data;
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error);
+        },
+      });
+    // this.gestionPannesService.getMemberDepartementRessources;
   }
 
   public getmemberDepartementRessources(): void {
-    this.gestionPannesService.getMemberDepartementRessources(this.userId).subscribe({ //to extract from the current user
-      next: (data: Ressource[]) => {
-        this.Ressources = data;
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
-      },
-    });
+    this.gestionPannesService
+      .getMemberDepartementRessources(this.userId)
+      .subscribe({
+        //to extract from the current user
+        next: (data: Ressource[]) => {
+          this.Ressources = data;
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error);
+        },
+      });
   }
 
   public getRessource(idRessource: number | null): Ressource | null {

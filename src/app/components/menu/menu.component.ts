@@ -38,7 +38,7 @@ export class MenuComponent {
 
 
   public hasRole(role: string[]): boolean {
-    return this.userRole.some(item => role.includes(item));
+    return this.userRole?.some(item => role.includes(item));
   }
 
   public updateCounts(): void {
@@ -48,7 +48,6 @@ export class MenuComponent {
           String(panne.demande) === 'CHANGER' &&
           this.getRessource(panne.idRessource).idFournisseur === this.userId //extract from the current user
       );
-      console.log(this.Pannes);
       this.changerCount = changer.length;
 
       const reparer = this.Pannes.filter(

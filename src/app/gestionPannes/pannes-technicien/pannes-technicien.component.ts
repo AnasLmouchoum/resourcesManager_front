@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Panne,
   Ressource,
   OrdrePanne,
   PanneFrequence,
+  RessourceEnPanne,
 } from 'src/app/classes/Classes';
 import { GestionPannesService } from '../../services/gestion-pannes.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -14,7 +15,7 @@ declare var $: any;
   templateUrl: './pannes-technicien.component.html',
   styleUrls: ['./pannes-technicien.component.css'],
 })
-export class PannesTechnicienComponent {
+export class PannesTechnicienComponent implements OnInit {
   public Pannes!: Panne[];
   public Ressources!: Ressource[];
   public editPanne: Panne | undefined;
@@ -26,11 +27,10 @@ export class PannesTechnicienComponent {
   public frequenceInvalid = false;
   public constatInvalid = false;
   userId!: string;
-
+  ressourcesEnPanne!: RessourceEnPanne[];
   constructor(private gestionPannesService: GestionPannesService) {}
 
   ngOnInit(): void {
-
     this.userId = localStorage.getItem('userId')!;
 
     this.loadPannes();
@@ -71,6 +71,16 @@ export class PannesTechnicienComponent {
     });
   }
 
+  // public getAllPanes(): void {
+  //   this.gestionPannesService.getPannesAvecRessources().subscribe({
+  //     next: (response: RessourceEnPanne[]) => {
+  //       this.ressourcesEnPanne = response;
+  //       console.warn('pannes avec ressources', this.ressourcesEnPanne);
+  //     },
+  //     error: (err) => console.log(err),
+  //   });
+  // }
+
   public getAllRessources(): void {
     this.gestionPannesService.getAllRessources().subscribe({
       next: (data: Ressource[]) => {
@@ -86,6 +96,7 @@ export class PannesTechnicienComponent {
     this.gestionPannesService.getPannesNotTreated().subscribe({
       next: (data: Panne[]) => {
         this.Pannes = data;
+        console.warn(this.Pannes);
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);
@@ -94,9 +105,7 @@ export class PannesTechnicienComponent {
   }
 
   public getRessource(idRessource: number | null): Ressource | null {
-    return this.Ressources.filter(
-      (ressource) => ressource.id === idRessource
-    )[0];
+    return this.Ressources.find((ressource) => ressource.id === idRessource)!;
   }
 
   public handlePanneTraiter(): void {

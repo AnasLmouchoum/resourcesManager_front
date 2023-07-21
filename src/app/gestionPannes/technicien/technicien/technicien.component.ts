@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Departement, Technicien } from 'src/app/classes/Classes';
 import { GestionPannesService } from 'src/app/services/gestion-pannes.service';
 declare var $: any;
@@ -12,7 +12,7 @@ export class TechnicienComponent {
   public techniciens!: Technicien[];
   deleteTechnicien!: Technicien | undefined;
   editTechnicien!: Technicien | undefined;
-
+  addTechnicienForm!: FormGroup;
   public nomInvalid = false;
   public prenomInvalid = false;
   public usernameInvalid = false;
@@ -21,10 +21,19 @@ export class TechnicienComponent {
   public cinInvalid = false;
   public specialiteInvalid = false;
 
-  public constructor(private gestionPannesService: GestionPannesService) { }
+  public constructor(private gestionPannesService: GestionPannesService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.loadTechnicien();
+
+    this.addTechnicienForm = this.fb.group({
+      nom: ['', Validators.required],
+      prenom: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      specialite: ['', Validators.required]
+    }
+    )
   }
 
   public loadTechnicien() {
@@ -41,59 +50,45 @@ export class TechnicienComponent {
     });
   }
 
-  public validateForm(form: NgForm) {
-    if (form.value.nom == '') this.nomInvalid = true;
-    else this.nomInvalid = false;
-    if (form.value.prenom == '') this.prenomInvalid = true;
-    else this.prenomInvalid = false;
-    if (form.value.username == '') this.usernameInvalid = true;
-    else this.usernameInvalid = false;
-    if (form.value.password == '') this.passwordInvalid = true;
-    else this.passwordInvalid = false;
-    if (form.value.email == '') this.emailInvalid = true;
-    else this.emailInvalid = false;
-    if (form.value.cin == '') this.cinInvalid = true;
-    else this.cinInvalid = false;
-    if (form.value.specialite == '') this.specialiteInvalid = true;
-    else this.specialiteInvalid = false;
-    form.reset();
-  }
 
-  public handleAjouterTechnicien(addTechnicienForm: NgForm): void {
-    if (addTechnicienForm.valid) {
-      this.gestionPannesService
-        .addTechnicien(addTechnicienForm.value)
-        .subscribe({
-          next: (data) => this.techniciens.push(data),
-          error: (error) => console.log(error),
-        });
-      $('#addTechnicienModal').modal('hide');
-    } else {
-      this.validateForm(addTechnicienForm);
+  public handleAjouterTechnicien(): void {
+    if (!this.addTechnicienForm.valid)
+      this.validateAllFormsFields(this.addTechnicienForm);
+    else {
+      this.gestionPannesService.addTechnicien(this.addTechnicienForm.value).subscribe({
+        next: (data) => {
+          this.techniciens.push(data);
+          this.addTechnicienForm.reset();
+          console.log(data);
+        },
+        error: (error) => console.log(error)
+      });
     }
+
   }
 
   public handleDeleteTechnicien() {
-    console.log(this.deleteTechnicien);
     if (this.deleteTechnicien != undefined) {
-      this.gestionPannesService
-        .deleteTechnicien(this.deleteTechnicien!.id)
-        .subscribe({
-          next: () => {
-            let index = this.techniciens.indexOf(this.deleteTechnicien!);
-            this.techniciens.splice(index, 1);
-          },
-          error: (error) => console.log(error),
-        });
+      this.gestionPannesService.deleteTechnicien(this.deleteTechnicien!.id).subscribe({
+        next: () => {
+          this.getAllTechnicien();
+        },
+        error: (error) => console.log(error),
+      });
       this.deleteTechnicien = undefined;
     }
   }
 
   public handleEditTechnicien(technicien: Technicien) {
-    technicien.id = this.editTechnicien!.id;
-    technicien.password = this.editTechnicien!.password;
+ 
+    const updatedTechicien = { ...this.editTechnicien, ...technicien };
+    console.warn(updatedTechicien);
     this.gestionPannesService.editTechnicien(technicien).subscribe({
-      next: (data) => this.loadTechnicien(),
+      next: () => {
+        this.loadTechnicien();
+        this.addTechnicienForm.reset();
+
+      },
       error: (error) => console.log(error),
     });
   }
@@ -109,5 +104,15 @@ export class TechnicienComponent {
         $('#techniciensTable').DataTable();
       });
     }, 500);
+  }
+  private validateAllFormsFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsDirty({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormsFields(control)
+      }
+    })
   }
 }

@@ -1,21 +1,21 @@
 export interface Departement {
-    id: number | null;
-    nomDepartement: string;
-    membreDepartements: MembreDepartement[] | null;
+  id: number | null;
+  nomDepartement: string;
+  membreDepartements: MembreDepartement[] | null;
 }
 
 export interface MembreDepartement {
-    id: string;
-    username: string;
-    password: string;
-    nom: string;
-    prenom: string;
-    cin: string;
-    email: string;
-    domaineExpertise: string;
-    laboratoire: string;
-    idDepartement: number;
-    roles: Role[]
+  id: string;
+  username: string;
+  password: string;
+  nom: string;
+  prenom: string;
+  cin: string;
+  email: string;
+  domaineExpertise: string;
+  laboratoire: string;
+  idDepartement: number;
+  roles: Role[];
 }
 
 export interface Role {
@@ -24,42 +24,43 @@ export interface Role {
 }
 
 export interface Ressource {
-    id: number | null;
-    codeBarre: string | null;
-    dateLivraison: Date | null;
-    dateFinGarantie: Date | null;
-    marque: string | null;
-    prix: number | null;
-    type: string | null;
-    idFournisseur: string | null;
-    idMembreDepartement: string | null;
-    idDepartement: number | null;
-    isDeleted: boolean | false;
+  id: number | null;
+  codeBarre: string | null;
+  dateLivraison: Date | null;
+  dateFinGarantie: Date | null;
+  marque: string | null;
+  prix: number | null;
+  type: string | null;
+  idFournisseur: string | null;
+  idMembreDepartement: string | null;
+  idDepartement: number | null;
+  isDeleted: boolean | false;
 }
 
 export interface Ordinateur extends Ressource {
-    disquedur: any;
-    cpu: string;
-    ram: number;
-    disqueDur: string;
-    ecran: string;
+  disquedur: any;
+  cpu: string;
+  ram: number;
+  disqueDur: string;
+  ecran: string;
 }
 
 export interface Imprimante extends Ressource {
-    resolution: string;
-    vitesseImpression: string;
+  resolution: string;
+  vitesseImpression: string;
 }
 
 export interface Besoin {
-    id: number | null;
-    dateDemande: string;
-    dateAffectation: string | null;
-    isAffected: boolean;
-    idMembreDepartement?: string ;
-    idDepartement: number ;
-    isBesoinInAppelOffre: boolean;
-    ordinateurs: Ordinateur[];
-    imprimantes: Imprimante[];
+  id: number | null;
+  dateDemande: string;
+  dateAffectation: string | null;
+  isAffected: boolean;
+  idMembreDepartement?: string;
+  idDepartement: number;
+  isBesoinInAppelOffre: boolean;
+  ordinateurs: Ordinateur[];
+  imprimantes: Imprimante[];
+  isSelected?: boolean;
 }
 
 export interface Demande {
@@ -72,32 +73,32 @@ export interface Demande {
 }
 
 export interface AppelOffre {
-  id:number|null;
-  datePub:string|null|Date;
-  isAffected:boolean;
-  besoins:Besoin[];
+  id: number | null;
+  datePub: string | null | Date;
+  isAffected: boolean;
+  besoins: Besoin[];
 }
 
 export interface Offre {
-  id:number|null;
-  dateDebut:string|null;
-  dateFin:string|null;
-  isAffected:boolean;
-  isRejected:boolean;
-  isWaiting:boolean;
-  idFournisseur:string|null;
-  ressources :RessourceFournisseur[];
-  idAppelOffre:number;
+  id: number | null;
+  dateDebut: string | null;
+  dateFin: string | null;
+  isAffected: boolean;
+  isRejected: boolean;
+  isWaiting: boolean;
+  idFournisseur: string | null;
+  ressources: RessourceFournisseur[];
+  idAppelOffre: number;
 }
 
-export interface RessourceFournisseur{
-  id:number|null;
-  marque:string|null;
-  prix:number|null;
-  idRessource:number|null;
+export interface RessourceFournisseur {
+  id: number | null;
+  marque: string | null;
+  prix: number | null;
+  idRessource: number | null;
 }
 
-export interface fournisseur{
+export interface fournisseur {
   id: string;
   username: string;
   password: string;
@@ -105,12 +106,11 @@ export interface fournisseur{
   prenom: string;
   cin: string;
   email: string;
-  addresse:string;
+  addresse: string;
   gerant: string;
   nomSociete: string;
-  isBlackList:string;
-  motifDeBlockage:string ;
-
+  isBlackList: string;
+  motifDeBlockage: string;
 }
 
 export enum PanneFrequence {
@@ -144,6 +144,17 @@ export interface Panne {
   idRessource: number | null;
   demande: PanneAction | null;
 }
+export interface RessourceEnPanne {
+
+  idPanne: number;
+  codeBarre:string;
+  idRessource: number;
+  idMembreDepartement:string;
+  dateApparition: Date;
+  idTechnicien?: string;
+  marque: string;
+  type: string;
+}
 
 export interface Technicien {
   id: string | null;
@@ -156,7 +167,7 @@ export interface Technicien {
   specialite: string | null;
 }
 
-export interface NotifFournisseur{
+export interface NotifFournisseur {
   id: number | null;
   isSeen: boolean | null;
   idFournisseur: string | null;

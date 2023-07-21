@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
-      addresse: ['', Validators.required],
+      email: ['', Validators.required],
       nomSociete: ['', Validators.required],
     });
   }
@@ -39,7 +39,6 @@ export class RegisterComponent implements OnInit {
   }
   onRegister() {
     if (this.registerForm.valid) {
-
       this.saveFournisseur();
     }
     else {
@@ -48,7 +47,6 @@ export class RegisterComponent implements OnInit {
   }
   private saveFournisseur() {
     const fournisseur = this.createFournisseur();
-    console.log(fournisseur);
     this.auth.registerFournisseur(fournisseur).subscribe({
       next: () => {
         this.toastService.showSuccessToast(EventTypes.Success, "Register successfuly");
@@ -63,10 +61,10 @@ export class RegisterComponent implements OnInit {
   private createFournisseur(): Fournisseur {
     const username = this.registerForm.get('userName')?.value;
     const password = this.registerForm.get('password')?.value;
-    const addresse = this.registerForm.get('addresse')?.value;
+    const email = this.registerForm.get('email')?.value;
     const nomSociete = this.registerForm.get('nomSociete')?.value;
 
-    return { username, password, addresse, nomSociete };
+    return { username, password, email, nomSociete };
   }
 
 

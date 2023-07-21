@@ -15,10 +15,9 @@ export class SignalerPanneComponent implements OnInit {
   public ressourcePanne: Ressource | undefined;
   userId!: string;
   idDepartement!: number;
-  constructor(private gestionPannesService: GestionPannesService) { }
+  constructor(private gestionPannesService: GestionPannesService) {}
 
   ngOnInit(): void {
-
     this.userId = localStorage.getItem('userId')!;
 
     this.idDepartement = Number(localStorage.getItem('departementId')!);
@@ -37,35 +36,36 @@ export class SignalerPanneComponent implements OnInit {
   }
 
   public getmemberDepartementRessources(): void {
-    console.log(this.userId)
-    this.gestionPannesService.getMemberDepartementRessources(this.userId).subscribe({// to extract from the current user
-      next: (data: Ressource[]) => {
-        console.log(data)
-        this.Ressources = data;
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
-      },
-    });
+    this.gestionPannesService
+      .getMemberDepartementRessources(this.userId)
+      .subscribe({
+        next: (data: Ressource[]) => {
+          this.Ressources = data;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   public getmemberDepartementPannes(): void {
-    this.gestionPannesService.getMemberDepartementPannes(this.userId).subscribe({// to extract from the current user
-      next: (data: Panne[]) => {
-        this.pannes = data;
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
-      },
-    });
+    this.gestionPannesService
+      .getMemberDepartementPannes(this.userId)
+      .subscribe({
+        next: (data: Panne[]) => {
+          this.pannes = data;
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error);
+        },
+      });
   }
 
   public isRessourceInPanne(ressourceId: number | undefined | null): boolean {
-    let isExist = false
+    let isExist = false;
     this.pannes.forEach((p) => {
-      if(p.idRessource == ressourceId)
-        if(p.isTreated == false || p.constat != null)
-          isExist = true
+      if (p.idRessource == ressourceId)
+        if (p.isTreated == false || p.constat != null) isExist = true;
     });
     return isExist;
   }
@@ -77,7 +77,7 @@ export class SignalerPanneComponent implements OnInit {
     ) {
       let newPanne: Panne = {
         id: null,
-        idMembreDepartement: this.userId, // to extract from the current user
+        idMembreDepartement: this.userId,
         explication: null,
         idRessource: this.ressourcePanne.id,
         dateApparition: new Date(),
@@ -91,7 +91,6 @@ export class SignalerPanneComponent implements OnInit {
       };
       this.gestionPannesService.addPanne(newPanne).subscribe({
         next: (data) => {
-          // this.pannes.unshift(data);
           this.loadRessources();
           this.loadPannes();
         },

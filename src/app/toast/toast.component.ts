@@ -24,23 +24,28 @@ export class ToastComponent implements OnInit {
   message!: string;
 
   toast!: Toast;
+  static currentToast: Toast | undefined ;
 
   ngOnInit() {
     this.show();
   }
 
   show() {
+    if (ToastComponent.currentToast) {  
+      ToastComponent.currentToast.hide();
+    }
+
     this.toast = new Toast(
       this.toastEl.nativeElement,
       this.type === EventTypes.Error
         ? {
           autohide: true,
-          delay: 1500,
+          delay: 2500,
           animation: true
         }
         : {
           autohide: true,
-          delay: 1500,
+          delay: 2500,
           animation: true
         }
     );
@@ -50,10 +55,12 @@ export class ToastComponent implements OnInit {
       .subscribe(() => this.hide());
 
     this.toast.show();
+    ToastComponent.currentToast = this.toast;
   }
 
   hide() {
     this.toast.dispose();
+    ToastComponent.currentToast = undefined;
     this.disposeEvent.emit();
   }
 }

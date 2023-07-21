@@ -29,7 +29,7 @@
                                                 <form [formGroup]="loginForm">
                                                     <fieldset
                                                         class="form-label-group form-group position-relative has-icon-left">
-                                                        <input type="text" name="username" class="form-control"
+                                                        <input type="text" name="username" id="username" class="form-control"
                                                             placeholder="Your Name" required
                                                             data-validation-required-message="This name field is required"
                                                             formControlName="username"
@@ -72,18 +72,23 @@
                                                                 </div>
                                                             </fieldset>
                                                         </div>
-                                                        <div class="text-right"><a class="card-link">Forgot
-                                                                Password?</a></div>
+                                                        <div class="text-right"><a routerLink="/reset-password"
+                                                                class="card-link">Forgot Password?</a></div>
                                                     </div>
                                                     <a routerLink="/register"
                                                         class="btn btn-outline-primary float-left btn-inline">Register</a>
                                                     <button type="submit" class="btn btn-primary float-right btn-inline"
                                                         id="type-success" (click)="onLogin()">Login</button>
                                                 </form>
-
                                             </div>
                                         </div>
-                                        <div class="mb-5">
+                                        <div class="login-footer mt-1">
+                                            <div class="divider">
+                                                <div class="divider-text">OR</div>
+                                            </div>
+                                            <div class="footer-btn d-inline">
+                                                <a href="#" class="btn btn-google"><span class="fa fa-google"></span></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

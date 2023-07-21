@@ -6,7 +6,7 @@ import {
   Panne,
   Ressource,
   Technicien,
-  MembreDepartement,
+  RessourceEnPanne,
 } from '../classes/Classes';
 
 @Injectable({
@@ -25,7 +25,7 @@ export class GestionPannesService {
   }
 
   public getMemberDepartementRessources(
-    idMember: string
+  idMember: string
   ): Observable<Ressource[]> {
     return this.http.get<Ressource[]>(
       `${this.apiServerUrl}/ressources/membreDepartement/${idMember}`
@@ -33,17 +33,21 @@ export class GestionPannesService {
   }
 
   public getMemberDepartementPannes(idMember: string): Observable<Panne[]> {
+    console.warn(`${this.apiServerUrl}/pannes/membreDepartement/${idMember}`);
     return this.http.get<Panne[]>(
       `${this.apiServerUrl}/pannes/membreDepartement/${idMember}`
+      
     );
   }
 
   public getPannesNotTreated(): Observable<Panne[]> {
-    return this.http.get<Panne[]>(
-      `${this.apiServerUrl}/pannes/pannesNotTreated`
-    );
+    return this.http.get<Panne[]>(`${this.apiServerUrl}/pannes/pannesNotTreated`);
   }
 
+  public getPannesAvecRessources():Observable<RessourceEnPanne[]>{
+    return this.http.get<RessourceEnPanne[]>(`${this.apiServerUrl}/pannes/pannesAvecRessources`);
+
+  } 
   public getPanneWithConstatNotNull(): Observable<Panne[]> {
     return this.http.get<Panne[]>(`${this.apiServerUrl}/pannes/constats`);
   }

@@ -15,24 +15,16 @@
           </div>
         </div>
       </div>
-      <div
-        class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none"
-      >
+      <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
         <div class="form-group breadcrum-right">
           <div class="dropdown">
-            <button
-              class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle"
-              type="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
+            <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="feather icon-settings"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#">Chat</a
-              ><a class="dropdown-item" href="#">Email</a
-              ><a class="dropdown-item" href="#">Calendar</a>
+              <a class="dropdown-item" href="#">Chat</a><a class="dropdown-item" href="#">Email</a><a
+                class="dropdown-item" href="#">Calendar</a>
             </div>
           </div>
         </div>
@@ -76,13 +68,8 @@
                           <td>{{ getRessource(Panne.idRessource)?.marque }}</td>
                           <td>{{ Panne?.dateApparition }}</td>
                           <td>
-                            <button
-                              type="button"
-                              class="btn btn-primary btn-rounded"
-                              data-toggle="modal"
-                              data-target="#traiterPanneModal"
-                              (click)="openModal(Panne, 'traiterPanne')"
-                            >
+                            <button type="button" class="btn btn-primary btn-rounded" data-toggle="modal"
+                              data-target="#traiterPanneModal" (click)="openModal(Panne, 'traiterPanne')">
                               <i class="feather icon-check-square"></i> Traiter
                             </button>
                           </td>
@@ -116,28 +103,13 @@
 <div class="drag-target"></div>
 
 <!-- traitrer panne modal -->
-<div
-  class="modal fade text-left"
-  id="traiterPanneModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="myModalLabel33"
-  style="display: none"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
-    role="document"
-  >
+<div class="modal fade text-left" id="traiterPanneModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+  style="display: none" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content" *ngIf="!severe">
       <div class="modal-header bg-primary">
         <h4 class="modal-title" id="myModalLabel33">Traiter un panne</h4>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
@@ -147,27 +119,15 @@
         </div>
       </div>
       <div class="modal-footer" *ngIf="!severe">
-        <button
-          type="reset"
-          class="btn btn-primary mr-1 mb-1 waves-effect waves-light"
-          (click)="handlePanneTraiter()"
-          data-dismiss="modal"
-        >
+        <button type="reset" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" (click)="handlePanneTraiter()"
+          data-dismiss="modal">
           panne traiter
         </button>
-        <button
-          type="submit"
-          class="btn btn-warning mr-1 mb-1 waves-effect waves-light"
-          data-dismiss="modal"
-          (click)="Severe()"
-        >
+        <button type="submit" class="btn btn-warning mr-1 mb-1 waves-effect waves-light" data-dismiss="modal"
+          (click)="Severe()">
           Panne severe
         </button>
-        <button
-          type="button"
-          class="btn btn-light mr-1 mb-1 waves-effect waves-light"
-          data-dismiss="modal"
-        >
+        <button type="button" class="btn btn-light mr-1 mb-1 waves-effect waves-light" data-dismiss="modal">
           Annuler
         </button>
       </div>
@@ -176,37 +136,20 @@
     <div class="modal-content" *ngIf="severe">
       <div class="modal-header bg-primary">
         <h4 class="modal-title" id="myModalLabel33">Traiter un panne</h4>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <form
-        #editPanneForm="ngForm"
-        *ngIf="severe"
-        (ngSubmit)="handleEditPanne(editPanneForm)"
-        novalidate
-      >
+      <form #editPanneForm="ngForm" *ngIf="severe" (ngSubmit)="handleEditPanne(editPanneForm)" novalidate>
         <div class="modal-body" *ngIf="severe">
           <div class="row">
             <div class="col-md-12 col-12">
               <label>Explication : </label>
               <div class="form-group">
                 <div class="controls">
-                  <textarea
-                    ngModel
-                    type="textarea"
-                    id="explication-column"
-                    class="form-control"
-                    placeholder="Explication"
-                    name="explication"
-                    required
-                    data-validation-required-message="Ce champ est obligatoire"
-                  ></textarea>
+                  <textarea ngModel type="textarea" id="explication-column" class="form-control"
+                    placeholder="Explication" name="explication" required
+                    data-validation-required-message="Ce champ est obligatoire"></textarea>
                   <div *ngIf="explicationInvalid">
                     <p class="text-danger">Ce champ est obligatoire</p>
                   </div>
@@ -217,31 +160,19 @@
               <label>Ordre logiciel : </label>
               <div class="form-group">
                 <div class="controls">
-                  <select
-                    ngModel
-                    name="ordre"
-                    class="form-control"
-                    id=""
-                    required
-                    data-validation-required-message="Ce champ est obligatoire"
-                  >
+                  <select ngModel name="ordre" class="form-control" id="" required
+                    data-validation-required-message="Ce champ est obligatoire">
                     <option value="" disabled selected>Select default</option>
-                    <option
-                      value="{{ ordres.DEFAULT_SYSTEME }}"
-                      *ngIf="
+                    <option value="{{ ordres.DEFAULT_SYSTEME }}" *ngIf="
                         getRessource(editPanne?.idRessource!)?.type !==
                         'IMPRIMANTE'
-                      "
-                    >
+                      ">
                       Systeme
                     </option>
-                    <option
-                      value="{{ ordres.DEFAULT_LOGICIEL_UTILITAIRE }}"
-                      *ngIf="
+                    <option value="{{ ordres.DEFAULT_LOGICIEL_UTILITAIRE }}" *ngIf="
                         getRessource(editPanne?.idRessource!)?.type !==
                         'IMPRIMANTE'
-                      "
-                    >
+                      ">
                       Logichiel utilitaire
                     </option>
                     <option value="{{ ordres.DEFAULT_MATERIEL }}">
@@ -258,14 +189,8 @@
               <label>Frequence : </label>
               <div class="form-group">
                 <div class="controls">
-                  <select
-                    ngModel
-                    name="frequence"
-                    class="form-control"
-                    id=""
-                    required
-                    data-validation-required-message="Ce champ est obligatoire"
-                  >
+                  <select ngModel name="frequence" class="form-control" id="" required
+                    data-validation-required-message="Ce champ est obligatoire">
                     <option value="" disabled selected>Select frequence</option>
                     <option value="{{ frequences.RARE }}">Rare</option>
                     <option value="{{ frequences.FREQUENTE }}">
@@ -284,16 +209,8 @@
             <div class="col-md-12 col-12">
               <label>Constat : </label>
               <div class="form-group">
-                <textarea
-                  ngModel
-                  type="textarea"
-                  id="constat"
-                  class="form-control"
-                  placeholder="constat"
-                  name="constat"
-                  required
-                  data-validation-required-message="Ce champ est obligatoire"
-                ></textarea>
+                <textarea ngModel type="textarea" id="constat" class="form-control" placeholder="constat" name="constat"
+                  required data-validation-required-message="Ce champ est obligatoire"></textarea>
                 <div *ngIf="constatInvalid">
                   <p class="text-danger">Ce champ est obligatoire</p>
                 </div>
@@ -302,18 +219,11 @@
           </div>
         </div>
         <div class="modal-footer" *ngIf="severe">
-          <button
-            type="submit"
-            class="btn btn-primary mr-1 mb-1 waves-effect waves-light"
-          >
+          <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">
             save
           </button>
-          <button
-            type="reset"
-            class="btn btn-light mr-1 mb-1 waves-effect waves-light"
-            data-dismiss="modal"
-            (click)="notSevere()"
-          >
+          <button type="reset" class="btn btn-light mr-1 mb-1 waves-effect waves-light" data-dismiss="modal"
+            (click)="notSevere()">
             Annuler
           </button>
         </div>

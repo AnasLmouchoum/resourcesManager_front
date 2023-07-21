@@ -34,8 +34,11 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         else if (err.status === 500)
           this.router.navigate(['/server-error']);
+        else
+          this.toastService.showWarningToast(EventTypes.Warning, err.error?.message);
       }
-      return throwError(() => new Error("new error occured"));
+
+      return throwError(() => new Error(err.error));
     }));
   }
 

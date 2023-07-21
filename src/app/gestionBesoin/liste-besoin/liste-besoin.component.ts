@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Besoin, Departement } from 'src/app/classes/Classes';
+import { EventTypes } from 'src/app/classes/event-type';
 import { GestionBesoinsService } from 'src/app/services/gestion-besoins.service';
 import { GestionDepartementsService } from 'src/app/services/gestion-departements.service';
+import { ToastService } from 'src/app/services/toast.service';
 declare var $: any;
 
 @Component({
@@ -9,28 +11,31 @@ declare var $: any;
   templateUrl: './liste-besoin.component.html',
   styleUrls: ['./liste-besoin.component.css']
 })
-export class ListeBesoinComponent {
+export class ListeBesoinComponent implements OnInit {
 
   public listeBesoinsByDepartement: Besoin[] = [];
   public departements: Departement[] = [];
-  public selectedBesoin!: Besoin;
+  public selectedBesoin!: Besoin | undefined;
   userId!: string;
   idDepartement!: number;
   public constructor(private gestionBesoinsService: GestionBesoinsService,
-                    private gestionDepartementsService: GestionDepartementsService) {}
+    private gestionDepartementsService: GestionDepartementsService,
+    private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.getBesoinsByDepartement();
     this.getDepartements();
     this.userId = localStorage.getItem('userId')!;
-    this.idDepartement = Number(localStorage.getItem('departementId')!);
+    this.idDepartement = Number(localStorage.getItem("departementId"));
+
   }
 
   public getBesoinsByDepartement() {
-    let idDepartement = this.idDepartement // extract idDepartemnt from the current user
+    let idDepartement = Number(localStorage.getItem("departementId"));
     this.gestionBesoinsService.getBesoinsByIdDepartement(idDepartement).subscribe({
       next: (data) => {
-        this.listeBesoinsByDepartement = data;
+        console.log(data);
+        this.listeBesoinsByDepartement = data.reverse();
       },
       error: (error) => console.log(error)
     })
@@ -47,8 +52,9 @@ export class ListeBesoinComponent {
     })
   }
 
-  public getDepartementName(idDepartement: number): string {
-    return this.departements.filter((dep) => dep.id == idDepartement)[0]?.nomDepartement
+  public getDepartementName(idDepartement: number): string | undefined {
+    const departement = this.departements.find(dep => dep.id === idDepartement);
+    return departement?.nomDepartement;
   }
 
   public showRessourcesBesoin(besoin: Besoin) {
@@ -56,16 +62,18 @@ export class ListeBesoinComponent {
   }
 
   public sendBesoinsRequest() {
-    let idDepartement = this.idDepartement // extract from the current chef Departement !!
+    let idDepartement = Number(localStorage.getItem("departementId"));
     this.gestionBesoinsService.sendBesoinsRequest(idDepartement).subscribe({
-      next: () => {console.log("done")},
+      next: () => {
+        this.toastService.showSuccessToast(EventTypes.Success, "Demande Besoins a été envoyé");
+      },
       error: (error) => console.log(error)
     })
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      $(document).ready(function() {
+      $(document).ready(function () {
         $('#listeBesoinTable').DataTable();
       });
     }, 500);

@@ -45,7 +45,7 @@ export class GestionDepartementsService {
     return this.http.delete<void>(`${this.apiServerUrl}/membresDepartement/${idMembre}`)
   }
 
-  public editMembre(membre: MembreDepartement): Observable<MembreDepartement> {
+  public editMembre(membre: any): Observable<MembreDepartement> {
     return this.http.put<MembreDepartement>(`${this.apiServerUrl}/membresDepartement/${membre.id}`, membre)
   }
 }

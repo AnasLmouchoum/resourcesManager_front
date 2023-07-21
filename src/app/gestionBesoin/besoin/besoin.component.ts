@@ -3,7 +3,9 @@ import { NgForm } from '@angular/forms';
 import { Besoin, Imprimante, Ordinateur } from 'src/app/classes/Classes';
 import { AuthService } from 'src/app/services/auth.service';
 import { GestionBesoinsService } from 'src/app/services/gestion-besoins.service';
-import { RAM, CPU, ECRAN, DISQUE, VITESSEIMP, RESOLUTIONIMP} from 'src/app/classes/Consts'
+import { RAM, CPU, ECRAN, DISQUE, VITESSEIMP, RESOLUTIONIMP } from 'src/app/classes/Consts'
+import { ToastService } from 'src/app/services/toast.service';
+import { EventTypes } from 'src/app/classes/event-type';
 
 @Component({
   selector: 'app-besoin',
@@ -11,6 +13,7 @@ import { RAM, CPU, ECRAN, DISQUE, VITESSEIMP, RESOLUTIONIMP} from 'src/app/class
   styleUrls: ['./besoin.component.css']
 })
 export class BesoinComponent {
+  [x: string]: any;
 
   ordinateursBesoin: Ordinateur[] = [];
   imprimantesBesoin: Imprimante[] = [];
@@ -25,7 +28,7 @@ export class BesoinComponent {
   disque = DISQUE;
   vitesseimp = VITESSEIMP;
   resolutionimp = RESOLUTIONIMP;
-  public constructor(private gestionBesoinService: GestionBesoinsService, private auth: AuthService) {
+  public constructor(private gestionBesoinService: GestionBesoinsService, private auth: AuthService, private toastService: ToastService) {
 
   }
 
@@ -37,27 +40,30 @@ export class BesoinComponent {
 
   }
   public hasRole(role: string[]): boolean {
-    return this.auth.getRolesFromToken().some(item => role.includes(item));
+    return this.auth.getUserRoles()!.some(item => role.includes(item));
   }
   public handleSaveBesoins() {
 
-    let formattedDate = this.formateDate(new Date())
+    let formattedDate = this.formateDate(new Date());
     let besoin: Besoin = {
       id: null,
       dateDemande: formattedDate,
       dateAffectation: null,
       isAffected: false,
-      idMembreDepartement: this.userId, // extract idMembreDepartement from current user
-      idDepartement: this.idDepartement, // extract idDepartement from current user
+      idMembreDepartement: this.userId,
+      idDepartement: this.idDepartement,
       isBesoinInAppelOffre: false,
       ordinateurs: this.ordinateursBesoin,
       imprimantes: this.imprimantesBesoin
     };
     if (this.isForDepartement == false) {
-      besoin.idMembreDepartement = this.userId; // extract idMembreDepartement from current user
+      besoin.idMembreDepartement = this.userId;
     }
     this.gestionBesoinService.addBesoins(besoin).subscribe({
-      next: (data) => { this.reset() },
+      next: () => {
+        this.reset();
+        this.toastService.showSuccessToast(EventTypes.Success, "Votre demande besoins a été envoyée");
+      },
       error: (error) => console.log(error)
     })
   }
@@ -89,7 +95,7 @@ export class BesoinComponent {
         ordinateur.ram = ressourceToAdd.value.ram;
         ordinateur.disqueDur = ressourceToAdd.value.disquedur;
         ordinateur.ecran = ressourceToAdd.value.ecran;
-        ordinateur.idDepartement = this.idDepartement; // extract idDepartement from current user
+        ordinateur.idDepartement = this.idDepartement;
         this.ordinateursBesoin.push(ordinateur);
         this.addOrdinateurToLocalStorage();
       } else if (this.typeBesoinToAdd == 'Imprimante') {
@@ -97,7 +103,7 @@ export class BesoinComponent {
         imprimante.type = this.typeBesoinToAdd;
         imprimante.resolution = ressourceToAdd.value.resolution;
         imprimante.vitesseImpression = ressourceToAdd.value.vitesseimpression;
-        imprimante.idDepartement = this.idDepartement; // extract idDepartement from current user
+        imprimante.idDepartement = this.idDepartement; 
         this.imprimantesBesoin.push(imprimante);
         this.addImprimanteToLocalStorage();
       }
@@ -109,8 +115,8 @@ export class BesoinComponent {
         ordinateur.ram = ressourceToAdd.value.ram;
         ordinateur.disqueDur = ressourceToAdd.value.disquedur;
         ordinateur.ecran = ressourceToAdd.value.ecran;
-        ordinateur.idDepartement = this.idDepartement; // extract idDepartement from current user
-        ordinateur.idMembreDepartement = this.userId;// extract idMembreDepartement from current user
+        ordinateur.idDepartement = this.idDepartement;
+        ordinateur.idMembreDepartement = this.userId;
         this.ordinateursBesoin.push(ordinateur);
         this.addOrdinateurToLocalStorage();
       } else if (this.typeBesoinToAdd == 'Imprimante') {

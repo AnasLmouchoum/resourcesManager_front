@@ -8,6 +8,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule, NgForOfContext } from '@angular/common';
 import { FormGroup, NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { ToastService } from '../services/toast.service';
+import { EventTypes } from '../classes/event-type';
 declare var $: any;
 
 @Component({
@@ -17,16 +19,16 @@ declare var $: any;
 })
 export class OffreComponent {
 
-  public appelsOffresPublie:AppelOffre[]=[];
-  public selectedAppelOffre: AppelOffre | null=null;
-  public selectedRessource: Imprimante | Ordinateur |undefined;
-  public ressourcesFournisseur:RessourceFournisseur[] = [];
-  public offresFournisseur:Offre[]=[];
-  public selectedSentAppelOffre:AppelOffre|null=null;
+  public appelsOffresPublie: AppelOffre[] = [];
+  public selectedAppelOffre: AppelOffre | null = null;
+  public selectedRessource: Imprimante | Ordinateur | undefined;
+  public ressourcesFournisseur: RessourceFournisseur[] = [];
+  public offresFournisseur: Offre[] = [];
+  public selectedSentAppelOffre: AppelOffre | null = null;
   public userId!: string;
 
-  constructor(private appelOffreService: GestionAppelOffreService, private besoinService: GestionBesoinsService,
-    private offreService:OffreService,private gestionDepartementsService:GestionDepartementsService, private auth: AuthService) { }
+  constructor(private appelOffreService: GestionAppelOffreService,
+    private offreService: OffreService, private auth: AuthService, private toastService: ToastService) { }
 
   ngOnInit(): void {
 
@@ -45,31 +47,31 @@ export class OffreComponent {
 
   }
 
-  loadOffresFournisseur(){
-  this.offreService.getOffresFournisseur(this.userId).subscribe({
+  loadOffresFournisseur() {
+    this.offreService.getOffresFournisseur(this.userId).subscribe({
 
-    next: (data) => {
-      this.offresFournisseur=data;
-    },
-    error: (error) => console.log(error)
+      next: (data) => {
+        this.offresFournisseur = data;
+      },
+      error: (error) => console.log(error)
 
-  })
+    })
 
   }
   getAppelsOffre(): void {
     this.appelOffreService.getAllAppelOffre().subscribe({
       next: (data: AppelOffre[]) => {
         this.loadOffresFournisseur();
-        const offreIds:number[]=[];
-        this.offresFournisseur.forEach(offre=>{
-          console.log("hello"+offre);
+        const offreIds: number[] = [];
+        this.offresFournisseur.forEach(offre => {
+          console.log("hello" + offre);
 
-         offreIds.push(offre.idAppelOffre)
+          offreIds.push(offre.idAppelOffre)
         })
 
         console.log(data)
 
-        this.appelsOffresPublie = data.filter(appelOffre => appelOffre.datePub != null   || (appelOffre.datePub != null && offreIds.includes(appelOffre.id??-1))).reverse();
+        this.appelsOffresPublie = data.filter(appelOffre => appelOffre.datePub != null || (appelOffre.datePub != null && offreIds.includes(appelOffre.id ?? -1))).reverse();
         console.log(this.appelsOffresPublie)
         this.ngAfterViewInit();
       },
@@ -87,32 +89,32 @@ export class OffreComponent {
     }, 500);
   }
 
-  selectAppelOffre(appelOffre:AppelOffre|null):void{
-    this.selectedAppelOffre=appelOffre;
+  selectAppelOffre(appelOffre: AppelOffre | null): void {
+    this.selectedAppelOffre = appelOffre;
   }
 
-  selectSentAppelOffre(appelOffre:AppelOffre|null):void{
-    this.selectedSentAppelOffre=appelOffre;
+  selectSentAppelOffre(appelOffre: AppelOffre | null): void {
+    this.selectedSentAppelOffre = appelOffre;
   }
 
-  public unSelectAppelOffre():void{
-    this.selectedAppelOffre=null;
+  public unSelectAppelOffre(): void {
+    this.selectedAppelOffre = null;
   }
 
   public addRessourceToLocalStorage() {
-      let ressourcesLocal="";
-      this.ressourcesFournisseur?.forEach(ress => {
-        ressourcesLocal+=JSON.stringify(ress) + ";";
-      })
-      localStorage.setItem('ressources_fournisseur_local',ressourcesLocal);
+    let ressourcesLocal = "";
+    this.ressourcesFournisseur?.forEach(ress => {
+      ressourcesLocal += JSON.stringify(ress) + ";";
+    })
+    localStorage.setItem('ressources_fournisseur_local', ressourcesLocal);
   }
 
-  public handleAddRessourceFournisseur(offreForm:NgForm):void{
+  public handleAddRessourceFournisseur(offreForm: NgForm): void {
 
     var ressourceFournisseur = {} as RessourceFournisseur;
-    ressourceFournisseur.marque=offreForm.value.marque;
-    ressourceFournisseur.prix=offreForm.value.prix;
-    ressourceFournisseur.idRessource=offreForm.value.idRessource;
+    ressourceFournisseur.marque = offreForm.value.marque;
+    ressourceFournisseur.prix = offreForm.value.prix;
+    ressourceFournisseur.idRessource = offreForm.value.idRessource;
     this.ressourcesFournisseur.push(ressourceFournisseur);
     this.addRessourceToLocalStorage();
     offreForm.reset();
@@ -123,7 +125,7 @@ export class OffreComponent {
     let ressourceFournisseurLocal = localStorage.getItem('ressources_fournisseur_local');
     let ressourceFournisseur = ressourceFournisseurLocal?.split(";")
     ressourceFournisseur?.forEach(ress => {
-      if(ress != "")
+      if (ress != "")
         this.ressourcesFournisseur?.push(JSON.parse(ress))
     });
   }
@@ -131,7 +133,7 @@ export class OffreComponent {
   public isRessourceInRessourceFournisseur(ress: Ressource): boolean {
     let isIn = false;
     this.ressourcesFournisseur.forEach(r => {
-      if(r.idRessource == ress.id)
+      if (r.idRessource == ress.id)
         isIn = true
     });
     return isIn;
@@ -142,51 +144,53 @@ export class OffreComponent {
     this.addRessourceToLocalStorage();
   }
 
-  public selectRessource(ressource:Ordinateur|Imprimante):void{
+  public selectRessource(ressource: Ordinateur | Imprimante): void {
 
-      this.selectedRessource=ressource;
+    this.selectedRessource = ressource;
   }
 
-  public handleEnvoyerOffre(dateForm:NgForm){
+  public handleEnvoyerOffre(dateForm: NgForm) {
     var offre = {} as Offre;
-    offre.dateDebut=dateForm.value.dateDebut;
-    offre.dateFin=dateForm.value.dateFin;
-    offre.idAppelOffre=this.selectedAppelOffre?.id??-1  ;
-    offre.isAffected=false;
-    offre.isRejected=false;
-    offre.isWaiting=true;
-    offre.idFournisseur=this.userId;
-    offre.ressources=this.ressourcesFournisseur;
+    offre.dateDebut = dateForm.value.dateDebut;
+    offre.dateFin = dateForm.value.dateFin;
+    offre.idAppelOffre = this.selectedAppelOffre?.id ?? -1;
+    offre.isAffected = false;
+    offre.isRejected = false;
+    offre.isWaiting = true;
+    offre.idFournisseur = this.userId;
+    offre.ressources = this.ressourcesFournisseur;
 
     this.offreService.saveOffre(offre).subscribe({
-      next: (data) => {this.ressourcesFournisseur=[];
+      next: () => {
+        this.ressourcesFournisseur = [];
         localStorage.removeItem("ressources_fournisseur_local")
         this.loadOffresFournisseur();
+        this.toastService.showInfoToast(EventTypes.Info, 'votre offre a été publié');
       },
       error: (error) => console.log(error)
     })
   }
 
-  public getOffreOfFournisseur(appelOffre:AppelOffre|null):Offre|null{
+  public getOffreOfFournisseur(appelOffre: AppelOffre | null): Offre | null {
     var offre = {} as Offre;
 
-    this.appelsOffresPublie.forEach(a=>{
-        if(a.id==appelOffre?.id){
-          this.offresFournisseur.forEach(o=>{
-              if(o.idAppelOffre==appelOffre?.id) offre=o;
-          })
-        }
+    this.appelsOffresPublie.forEach(a => {
+      if (a.id == appelOffre?.id) {
+        this.offresFournisseur.forEach(o => {
+          if (o.idAppelOffre == appelOffre?.id) offre = o;
+        })
+      }
     })
     // console.log(offre)
-      return offre;
+    return offre;
 
   }
 
-  public isFournisseurInAppelOffre(appelOffre:AppelOffre|null):boolean{
+  public isFournisseurInAppelOffre(appelOffre: AppelOffre | null): boolean {
 
-    let isIn:boolean=false;
-    this.offresFournisseur.forEach(offre=>{
-      if(offre.idAppelOffre==appelOffre?.id) isIn==true;
+    let isIn: boolean = false;
+    this.offresFournisseur.forEach(offre => {
+      if (offre.idAppelOffre == appelOffre?.id) isIn == true;
     })
 
     return isIn;

@@ -53,7 +53,7 @@ export class HeadMenuComponent {
     this.loadNotifFournisseur()
   }
   public hasRole(role: string[]): boolean {
-    return this.userRole.some(item => role.includes(item));
+    return this.userRole?.some(item => role.includes(item));
   }
   public loadDemandes() {
     this.idMembreDepartement = this.userId; //extract from the current Enseignant !!!
@@ -61,18 +61,15 @@ export class HeadMenuComponent {
   }
 
   public getDemandesByIdMembre(idMembre: string) {
-    console.log(idMembre)
     this.besoinsService.getDemandesByIdMembre(idMembre).subscribe({
       next: (data) => {
         this.demandesByIdMembre = data.reverse()
-        console.log(data)
       },
       error: (error) => console.log(error)
     })
   }
 
   public notifIsSeen(demande: Demande) {
-    console.log("ssen")
     this.besoinsService.demandeSeen(demande.id).subscribe({
       next: (data) => {
         this.loadDemandes()
@@ -94,12 +91,7 @@ export class HeadMenuComponent {
     );
   }
   isLoginIn(): boolean {
-    if (localStorage.getItem('access-token') != null) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    return localStorage.getItem('access-token') !== null;
   }
   getNumberOfNotifications() {
     let numberOfNotif = 0;

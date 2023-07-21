@@ -8,71 +8,60 @@ declare var $: any;
 @Component({
   selector: 'app-deaprtement',
   templateUrl: './deaprtement.component.html',
-  styleUrls: ['./deaprtement.component.css']
+  styleUrls: ['./deaprtement.component.css'],
 })
 export class DeaprtementComponent {
-
-
-
-
-
-  public departements!: Departement[];
+  public departements: Departement[] = [];
   public editDepartement: Departement | undefined;
   public deleteDepartement: Departement | undefined;
   public addDepartementForm!: NgForm;
   public editDepartementForm!: NgForm;
 
-
   constructor(private gestDepartementService: GestionDepartementsService) {}
 
   ngOnInit(): void {
-   this.addDepartementForm = new NgForm([], []);
-   this.editDepartementForm = new NgForm([], []);
-   this.loadDepartements();
-  }
-
-
-
-  public loadDepartements() {
-    this.departements = [];
+    this.addDepartementForm = new NgForm([], []);
+    this.editDepartementForm = new NgForm([], []);
     this.getDepartements();
   }
 
-
   public getDepartements(): void {
     this.gestDepartementService.getAllDepartements().subscribe({
-      next: (data: Departement[]) => {
-        this.departements = data;
-        this.ngAfterViewInit();
+      next: (departements: Departement[]) => {
+        this.departements = departements;
+        this.getDepartements();
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
-
 
   public handleAjouterDepartement(addDepartementForm: NgForm): void {
-
-    this.addDepartementForm=addDepartementForm;
+    this.addDepartementForm = addDepartementForm;
     this.addDepartementForm.form.controls['nomDepartement'].markAsTouched();
-  if (this.addDepartementForm.invalid) return;
-    this.gestDepartementService.addDepartement(addDepartementForm.value).subscribe({
-      next: (data) => {
-        this.departements.push(data);
-        addDepartementForm.reset();
-        this.ngAfterViewInit();
-      },
-      error: (error) => {
-        console.log(error);
-        addDepartementForm.reset();
-     }
-    });
-
+    
+    if (this.addDepartementForm.invalid) return;
+    this.gestDepartementService
+      .addDepartement(addDepartementForm.value)
+      .subscribe({
+        next: (data) => {
+          this.departements.push(data);
+          addDepartementForm.reset();
+          this.ngAfterViewInit();
+        },
+        error: (error) => {
+          console.log(error);
+          addDepartementForm.reset();
+        },
+      });
   }
 
-  public handleEditDepartement(departement: Departement,editDepartementForm: NgForm): void {
-    this.editDepartementForm=editDepartementForm;
+  public handleEditDepartement(
+    departement: Departement,
+    editDepartementForm: NgForm
+  ): void {
+    this.editDepartementForm = editDepartementForm;
     this.editDepartementForm.form.controls['nomDepartement'].markAsTouched();
     if (this.editDepartementForm.invalid) return;
     departement.id = this.editDepartement!.id;
@@ -80,45 +69,42 @@ export class DeaprtementComponent {
     this.gestDepartementService.editDepartement(departement).subscribe({
       next: (data) => {
         this.getDepartements();
+        editDepartementForm.reset();
         this.ngAfterViewInit();
       },
       error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
     this.editDepartement = undefined;
   }
 
   public handleDeleteDepartement(): void {
-    if(this.deleteDepartement != undefined) {
-      this.gestDepartementService.deleteDepartement(this.deleteDepartement!.id).subscribe({
-        next: () => {
-          let index = this.departements.indexOf(this.deleteDepartement!);
-          this.departements.splice(index, 1);
-          this.ngAfterViewInit();
-        },
-        error: (error) => console.log(error)
-      });
+    if (this.deleteDepartement != undefined) {
+      this.gestDepartementService
+        .deleteDepartement(this.deleteDepartement!.id)
+        .subscribe({
+          next: () => {
+            let index = this.departements.indexOf(this.deleteDepartement!);
+            this.departements.splice(index, 1);
+            this.ngAfterViewInit();
+          },
+          error: (error) => console.log(error),
+        });
       this.deleteDepartement = undefined;
     }
   }
 
   public openModal(departement: Departement, mode: string): void {
-    if(mode == "editDepartement")
-      this.editDepartement = departement
-    else if(mode == "deleteDepartement")
-      this.deleteDepartement = departement;
+    if (mode == 'editDepartement') this.editDepartement = departement;
+    else if (mode == 'deleteDepartement') this.deleteDepartement = departement;
   }
-
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      $(document).ready(function() {
+      $(document).ready(function () {
         $('#departementsTable').DataTable();
       });
     }, 500);
   }
-
-
-
 }

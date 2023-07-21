@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {
+  EmailValidator,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { Departement, MembreDepartement, Role } from 'src/app/classes/Classes';
 import { GestionDepartementsService } from 'src/app/services/gestion-departements.service';
 declare var $: any;
@@ -7,70 +14,66 @@ declare var $: any;
 @Component({
   selector: 'app-membre',
   templateUrl: './membre.component.html',
-  styleUrls: ['./membre.component.css']
+  styleUrls: ['./membre.component.css'],
 })
 export class MembreComponent {
-
-
-  public membresDepartement!: MembreDepartement[];
+  public membresDepartement: MembreDepartement[] = [];
   deleteMembre!: MembreDepartement | undefined;
   editMembre!: MembreDepartement | undefined;
-  public departements!: Departement[];
-  public addMembreForm!: NgForm;
-
-  public constructor(private gestionDepartementsService: GestionDepartementsService) {}
+  public departements: Departement[] = [];
+  addMembreForm!: FormGroup;
+  editFormFoup!: FormGroup;
+  public constructor(
+    private gestionDepartementsService: GestionDepartementsService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
-    this.addMembreForm = new NgForm([], []);
-    this.loadMembresDepartement();
-    this.loadDepartements();
-  }
+    this.addMembreForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      roles: ['', Validators.required],
+      idDepartement: ['', Validators.required],
+      prenom: ['', Validators.required],
+      nom: ['', Validators.required],
+    });
+    this.editFormFoup = new FormGroup({
+      nom: new FormControl(this.editMembre?.nom, Validators.required),
+      
+    });
 
-  public loadMembresDepartement() {
-    this.membresDepartement = []
     this.getAllMembresDepartement();
-  }
-
-  public loadDepartements() {
-    this.departements = [];
     this.getDepartements();
   }
 
   public getAllMembresDepartement() {
     this.gestionDepartementsService.getAllMembers().subscribe({
       next: (data) => {
-        this.membresDepartement = data
+        this.membresDepartement = data;
       },
-      error: (error) => console.log(error)
-    })
+      error: (error) => console.log(error),
+    });
   }
 
-  public handleAjouterMembre(addMembreForm: NgForm): void {
-    const controls = ['nom', 'prenom', 'username','password','email','cin','roles','idDepartement'];
-    this.addMembreForm=addMembreForm;
-    if (this.addMembreForm.invalid) {
-      controls.forEach(control => {
-        this.addMembreForm.form.controls[control].markAsTouched();
-      })
-    }
-    if (this.addMembreForm.invalid) {
-      return;
-    };
-
-    if (this.addMembreForm.valid) {
+  public handleAjouterMembre(): void {
     let role: Role = {
-      nomRole: addMembreForm.value.roles,
+      nomRole: this.addMembreForm.value.roles,
       id: null,
+    };
+    this.addMembreForm.value.roles = [role];
+    if (!this.addMembreForm.valid) {
+      this.validateAllFormsFields(this.addMembreForm);
+    } else {
+      this.gestionDepartementsService
+        .addMembre(this.addMembreForm.value)
+        .subscribe({
+          next: (response: MembreDepartement) => {
+            this.getAllMembresDepartement();
+            this.addMembreForm.reset();
+          },
+          error: (error) => console.log(error),
+        });
     }
-    addMembreForm.value.roles = [role]
-    this.gestionDepartementsService.addMembre(addMembreForm.value).subscribe({
-      next: (data) => {
-        this.membresDepartement.push(data);
-        addMembreForm.resetForm()
-      },
-      error: (error) => console.log(error)
-    })
-  }
   }
 
   public getDepartements(): void {
@@ -80,69 +83,78 @@ export class MembreComponent {
       },
       error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
-  public handleDeleteMembre() {
-    console.log(this.deleteMembre)
-    if(this.deleteMembre != undefined) {
-      this.gestionDepartementsService.deleteMembre(this.deleteMembre!.id).subscribe({
+  public handleDeleteMembre(membre: MembreDepartement | undefined) {
+    if (membre) {
+      this.gestionDepartementsService.deleteMembre(membre.id).subscribe({
         next: () => {
-          let index = this.membresDepartement.indexOf(this.deleteMembre!);
-          this.membresDepartement.splice(index, 1);
+          this.getAllMembresDepartement();
         },
-        error: (error) => console.log(error)
+        error: (error) => console.log(error),
       });
-      this.deleteMembre = undefined;
     }
   }
 
   public handleEditMembre(membre: MembreDepartement) {
-    membre.id = this.editMembre!.id;
-    membre.roles = this.editMembre!.roles;
-    membre.password = this.editMembre!.password;
-    this.gestionDepartementsService.editMembre(membre).subscribe({
-      next: (data) => this.loadMembresDepartement(),
-      error: (error) => console.log(error)
-    })
+    const updatedMembre = { ...this.editMembre, ...membre };
+
+    console.warn(updatedMembre);
+    // this.gestionDepartementsService.editMembre(updatedMembre).subscribe({
+    //   next: () => {
+    //     this.getAllMembresDepartement();
+    //   },
+    //   error: (error) => console.log(error),
+    // });
   }
 
-
-  public getDepartement(idDepartement: number): string {
-    return this.departements.filter((dep) => dep.id == idDepartement)[0]?.nomDepartement
+  public getDepartement(idDepartement: number): string | undefined {
+    return this.departements.find((dep) => dep.id == idDepartement)
+      ?.nomDepartement;
   }
 
   public getRoles(roles: Role[]): string {
-    let rolesString: string = "";
-    roles.forEach(role => {
+    let rolesString: string = '';
+    roles.forEach((role) => {
       switch (role.nomRole) {
-        case "PROF":
-          rolesString += "Enseignant - "
+        case 'PROF':
+          rolesString += 'Enseignant - ';
           break;
-        case "CHEF_DEP":
-          rolesString += "Chef Departement - "
+        case 'CHEF_DEP':
+          rolesString += 'Chef Departement - ';
           break;
         default:
           break;
       }
     });
-    return rolesString.slice(0, -2)
+    return rolesString.slice(0, -2);
   }
 
-  public openModal(membre: MembreDepartement, mode: string): void {
-    if(mode == "editMembre")
+  public openModal(membre: MembreDepartement | undefined, mode: string): void {
+    if (mode == 'editMembre') {
       this.editMembre = membre;
-    else if(mode == "deleteMembre")
-      this.deleteMembre = membre;
+      console.warn(this.editMembre);
+    } else if (mode == 'deleteMembre') this.deleteMembre = membre;
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      $(document).ready(function() {
+      $(document).ready(function () {
         $('#membresTable').DataTable();
       });
     }, 500);
   }
 
+  private validateAllFormsFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((field) => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsDirty({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormsFields(control);
+      }
+    });
+  }
 }

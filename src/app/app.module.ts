@@ -16,8 +16,6 @@ import { AppelOffreComponent } from './appel-offre/appel-offre.component';
 import { OffreComponent } from './offre/offre.component';
 import { OrdinateurComponent } from './gestionRessource/ordinateur/ordinateur.component';
 import { ImprimanteComponent } from './gestionRessource/imprimante/imprimante.component';
-import { OrdinateurDisponibleComponent } from './gestionRessource/ordinateur-disponible/ordinateur-disponible.component';
-import { ImprimanteDisponibleComponent } from './gestionRessource/imprimante-disponible/imprimante-disponible.component';
 import { SignalerPanneComponent } from './gestionPannes/signaler-panne/signaler-panne.component';
 import { PannesMemberDepartementComponent } from './gestionPannes/pannes-member-departement/pannes-member-departement.component';
 import { PannesTechnicienComponent } from './gestionPannes/pannes-technicien/pannes-technicien.component';
@@ -33,6 +31,9 @@ import { ToastComponent } from './toast/toast.component';
 import { ToasterComponent } from './toaster/toaster.component';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { HomeComponent } from './Home/home/home.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { UpdatePasswordComponent } from './auth/update-password/update-password.component';
+import { ConfirmRegistrationComponent } from './auth/confirm-registration/confirm-registration.component';
 
 @NgModule({
   declarations: [
@@ -48,8 +49,6 @@ import { HomeComponent } from './Home/home/home.component';
     OffreComponent,
     OrdinateurComponent,
     ImprimanteComponent,
-    OrdinateurDisponibleComponent,
-    ImprimanteDisponibleComponent,
     SignalerPanneComponent,
     PannesMemberDepartementComponent,
     PannesTechnicienComponent,
@@ -63,7 +62,10 @@ import { HomeComponent } from './Home/home/home.component';
     ServerErrorComponent,
     PageNotFoundComponent,
     ForbiddenComponent,
-    HomeComponent
+    HomeComponent,
+    ResetPasswordComponent,
+    UpdatePasswordComponent,
+    ConfirmRegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,7 @@ import { HomeComponent } from './Home/home/home.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule
-    
+
   ],
   providers: [
     {

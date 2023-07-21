@@ -37,7 +37,6 @@ export class LoginComponent implements OnInit {
   onLogin() {
 
     if (this.loginForm.valid) {
-      console.log(this.loginForm);
       this.authService.authenticateUser(this.loginForm.value).subscribe({
         next: (res) => {
           this.authService.setTokens(res.accessToken, res.refreshToken);
@@ -53,7 +52,7 @@ export class LoginComponent implements OnInit {
           this.toastService.showSuccessToast(EventTypes.Success, "login successfuly");
           this.authService.getDepartementIdByUserId(this.userId).subscribe({
             next: (res) => {
-              this.authService.setDepartementId(res)
+              this.authService.setDepartementId(res);
             }
 
           });
